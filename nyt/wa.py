@@ -24,9 +24,10 @@ print ('\n\nNow...')
 dates = []
 cases = []
 deaths = []
+statename  = 'Washington'
 
 for i, j in df.iterrows(): 
-    if(j['state'] == 'Washington'):
+    if(j['state'] == statename):
         print(j['date'],j['cases'], j['deaths'])
         cases.append(j['cases'])
         dates.append(j['date'])
@@ -35,10 +36,10 @@ for i, j in df.iterrows():
         
 fig =plt.figure(figsize=(12.0,8.0))
 ax = fig.add_subplot(111)
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b')
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'b')
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'g', label = 'Covid deaths in ' + statename)
 plt.xticks(rotation = 45)
 
-
+plt.legend()
 plt.show()
         
