@@ -24,6 +24,8 @@ print ('\n\nNow...')
 dates = []
 cases = []
 deaths = []
+
+#### Change statename for another state: 
 statename  = 'Washington'
 
 for i, j in df.iterrows(): 
@@ -37,7 +39,7 @@ for i, j in df.iterrows():
 fig =plt.figure(figsize=(12.0,8.0))
 ax = fig.add_subplot(111)
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'g', label = 'Covid deaths in ' + statename)
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
 plt.xticks(rotation = 45)
 
 plt.legend()
