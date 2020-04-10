@@ -34,30 +34,38 @@ class storlast:
     def storedeaths(self, deaths):
         self.deaths += deaths
 
+    def storedate(self, date):
+        self.date = date
+
     def getcases(self):
         return self.cases
 
     def getdeaths(self):
-        return self.deaths 
-                    
+        return self.deaths
 
+    def getdate(self):
+        return self.date
+                    
+storage = storlast()
 
         
-def gettotal(olddate, totdeaths, totcases, item):
-    totdeaths += item['deaths']
-    totcases += item['cases']
-    if(item['date'] != olddate):        
-        olddate = item['date']
-    return olddate, totdeaths, totcases
-    
-
-
+def gettotal(item):
+    storage.storecases(item['cases'])
+    storage.storedeaths(item['deaths'])
+    if(item['date'] != storage.getdate()):
+        storage.storedate(item['date'])
+        return {'date': storage.getdate(),
+                'cases': storage.getcases(),
+                'deaths': storage.getdeaths()}
 
 #print(df['state'][3])
 dates = []
 cases = []
 deaths = []
-
+totals = []
+totdates = []
+totcases = []
+totdeaths = []
 #### Change statename for another state: 
 statename  = 'Washington'
 
@@ -67,14 +75,31 @@ for i, j in df.iterrows():
         cases.append(j['cases'])
         dates.append(j['date'])
         deaths.append(j['deaths'])
+        ## now do totals for new image:
+        line = gettotal(j)
+        if (line):
+            totals.append(line)
 
+
+for line in totals:
+    totdates.append(line['date'])
+    totcases.append(line['cases'])
+    totdeaths.append(line['deaths'])
+    print(line['date'],line['cases'], line['deaths'])
         
 fig =plt.figure(figsize=(12.0,8.0))
 ax = fig.add_subplot(111)
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
 plt.xticks(rotation = 45)
+plt.legend()
 
+
+fig2 =plt.figure(figsize=(12.0,8.0))
+ax2 = fig2.add_subplot(111)
+ax2.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(totdates)),totcases,'b', label = 'Covid cases in US')
+ax2.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(totdates)),totdeaths,'r', label = 'Covid deaths in US')
+plt.xticks(rotation = 45)
 plt.legend()
 plt.show()
         
