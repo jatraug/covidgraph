@@ -8,7 +8,13 @@ import numpy as np
 import sklearn
 from sklearn.cluster import KMeans
 
+import sys
+sys.path.append('/Users/jimt/work/python/tools')
+import avg as avg
+
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
+
+matplotlib.style.use('fivethirtyeight')
 
 df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv' )
 #df = pd.read_csv('datasets/us-states.csv' )
@@ -37,10 +43,26 @@ for i, j in df.iterrows():
         deaths.append(j['deaths'])
 
         
-fig =plt.figure(figsize=(12.0,8.0))
+fig =plt.figure(figsize=(12.0,9.0))
 ax = fig.add_subplot(111)
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
+## now do 5 day average:
+Avg = avg.avg(5)
+def domap(arr):
+    average = []
+    for i in range(0, len(arr)):
+#        print("elem: ", arr[i])
+        average.append(Avg.addelemandGetaverage(arr[i]))
+
+    return average
+
+
+average = np.array(domap(cases))
+#print (len(average))
+
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
+
 plt.xticks(rotation = 45)
 
 plt.legend()
