@@ -7,7 +7,7 @@ import matplotlib
 import numpy as np
 import sklearn
 from sklearn.cluster import KMeans
-
+matplotlib.style.use('fivethirtyeight')
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
 
 df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv' )
@@ -94,7 +94,7 @@ ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r
 plt.xticks(rotation = 45)
 plt.legend()
 
-
+## Graph totals:
 fig2 =plt.figure(figsize=(12.0,8.0))
 ax2 = fig2.add_subplot(111)
 ax2.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(totdates)),totcases,'b', label = 'Covid cases in US')
