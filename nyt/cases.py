@@ -43,10 +43,9 @@ for i, j in df.iterrows():
         deaths.append(j['deaths'])
 
         
-fig =plt.figure(figsize=(12.0,9.0))
-ax = fig.add_subplot(111)
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
+
+
+
 ## now do 5 day average:
 Avg = avg.avg(5)
 def domap(arr):
@@ -61,14 +60,34 @@ def domap(arr):
 average = np.array(domap(cases))
 #print (len(average))
 
+fig =plt.figure(figsize=(12.0,9.0))
+ax = fig.add_subplot(111)
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
+
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
+plt.legend()
+plt.xticks(rotation = 45)
+plt.show()
+
+## plot deaths separately:
+fig =plt.figure(figsize=(12.0,8.0))
+ax = fig.add_subplot(111)
+plt.xticks(rotation = 45)
+
+ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
+
+plt.xticks(rotation = 45)
+plt.legend()
+plt.xticks(rotation = 45)
+plt.show()
+
 
 
 ## make a bar chart of diffs of deaths by day;
-def deathsdiff(deaths):
+def deathsdiff(arrdeaths):
     diffs = []
     yesterdeaths = 0
-    for todeath in deaths:
+    for todeath in arrdeaths:
         diffs.append(int(todeath - yesterdeaths))
         yesterdeaths = todeath
         print(list(diffs))
@@ -77,14 +96,11 @@ def deathsdiff(deaths):
 
 
 nowdiffs = deathsdiff(deaths)
-fig2 =plt.figure(figsize=(12.0,8.0))
-ax2 = fig2.add_subplot(111)
-ax2.bar(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),nowdiffs, label = 'deaths differences ' + statename)
-
-
-
-plt.xticks(rotation = 45)
-
+fig =plt.figure(figsize=(12.0,8.0))
+ax = fig.add_subplot(111)
+ax .bar(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),nowdiffs, label = 'deaths differences ' + statename)
 plt.legend()
 plt.show()
+
+
         
