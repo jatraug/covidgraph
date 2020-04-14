@@ -63,6 +63,26 @@ average = np.array(domap(cases))
 
 ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
 
+
+## make a bar chart of diffs of deaths by day;
+def deathsdiff(deaths):
+    diffs = []
+    yesterdeaths = 0
+    for todeath in deaths:
+        diffs.append(int(todeath - yesterdeaths))
+        yesterdeaths = todeath
+        print(list(diffs))
+    return diffs
+
+
+
+nowdiffs = deathsdiff(deaths)
+fig2 =plt.figure(figsize=(12.0,8.0))
+ax2 = fig2.add_subplot(111)
+ax2.bar(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),nowdiffs, label = 'deaths differences ' + statename)
+
+
+
 plt.xticks(rotation = 45)
 
 plt.legend()
