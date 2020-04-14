@@ -47,8 +47,9 @@ for i, j in df.iterrows():
 
 
 ## now do 5 day average:
-Avg = avg.avg(5)
+
 def domap(arr):
+    Avg = avg.avg(5)
     average = []
     for i in range(0, len(arr)):
 #        print("elem: ", arr[i])
@@ -56,30 +57,36 @@ def domap(arr):
 
     return average
 
+def getxdates(rawdates):
+    xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates))
+    return xdates
 
-average = np.array(domap(cases))
-#print (len(average))
+def plotcases(dates, cases):
+    average = np.array(domap(cases))
+    #print (len(average))
 
-fig =plt.figure(figsize=(12.0,9.0))
-ax = fig.add_subplot(111)
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),cases,'b', label = 'Covid cases in ' + statename)
+    fig =plt.figure(figsize=(12.0,9.0))
+    ax = fig.add_subplot(111)
+    ax.plot(getxdates(dates),cases,'b', label = 'Covid cases in ' + statename)
 
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
-plt.legend()
-plt.xticks(rotation = 45)
-plt.show()
+    ax.plot(getxdates(dates),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
+    plt.legend()
+    plt.xticks(rotation = 45)
+    plt.show()
 
-## plot deaths separately:
-fig =plt.figure(figsize=(12.0,8.0))
-ax = fig.add_subplot(111)
-plt.xticks(rotation = 45)
+def plotdeaths(dates, deaths):
+    average = np.array(domap(deaths))
+    ## plot deaths separately:
+    fig =plt.figure(figsize=(12.0,9.0))
+    ax = fig.add_subplot(111)
+    plt.xticks(rotation = 45)
 
-ax.plot(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),deaths,'r', label = 'Covid deaths in ' + statename)
-
-plt.xticks(rotation = 45)
-plt.legend()
-plt.xticks(rotation = 45)
-plt.show()
+    ax.plot(getxdates(dates),deaths,'r', label = 'Covid deaths in ' + statename)
+    ax.plot(getxdates(dates),average,'g', label = 'Covid deaths in ' + statename + ' - five day running average')
+    plt.xticks(rotation = 45)
+    plt.legend()
+    plt.xticks(rotation = 45)
+    plt.show()
 
 
 
@@ -94,13 +101,17 @@ def deathsdiff(arrdeaths):
     return diffs
 
 
+def plotdeathdiffs(dates, deaths):
+    nowdiffs = deathsdiff(deaths)
+    fig =plt.figure(figsize=(12.0,9.0))
+    ax = fig.add_subplot(111)
+    ax .bar(getxdates(dates),nowdiffs, label = 'deaths differences ' + statename)
+    plt.legend()
+    plt.xticks(rotation = 45)
+    plt.show()
 
-nowdiffs = deathsdiff(deaths)
-fig =plt.figure(figsize=(12.0,8.0))
-ax = fig.add_subplot(111)
-ax .bar(matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates)),nowdiffs, label = 'deaths differences ' + statename)
-plt.legend()
-plt.show()
 
+plotcases(dates, cases)
+plotdeaths(dates, deaths)        
+plotdeathdiffs(dates, deaths)
 
-        
