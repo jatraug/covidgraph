@@ -14,36 +14,12 @@ import avg as avg
 
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
 
-matplotlib.style.use('fivethirtyeight')
-
-df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv' )
-#df = pd.read_csv('datasets/us-states.csv' )
-print (df.head())
-print (df.describe())
-print (df.dtypes)
-
-wash = df['state']
-print (wash)
-
-print ('\n\nNow...')
-
-#print(df['state'][3])
-dates = []
-cases = []
-deaths = []
-
-#### Change statename for another state: 
-statename  = 'Washington'
-
-for i, j in df.iterrows(): 
-    if(j['state'] == statename):
-        print(j['date'],j['cases'], j['deaths'])
-        cases.append(j['cases'])
-        dates.append(j['date'])
-        deaths.append(j['deaths'])
-
         
-
+def getState(argv):
+    if(len(argv)!=0) :
+        print(argv[0])
+        return argv[0]
+    return 'Washington' ## defaut
 
 
 ## now do 5 day average:
@@ -58,10 +34,10 @@ def domap(arr):
     return average
 
 def getxdates(rawdates):
-    xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(dates))
+    xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(rawdates))
     return xdates
 
-def plotcases(dates, cases):
+def plotcases(statename, dates, cases):
     average = np.array(domap(cases))
     #print (len(average))
 
@@ -74,7 +50,7 @@ def plotcases(dates, cases):
     plt.xticks(rotation = 45)
     plt.show()
 
-def plotdeaths(dates, deaths):
+def plotdeaths(statename, dates, deaths):
     average = np.array(domap(deaths))
     ## plot deaths separately:
     fig =plt.figure(figsize=(12.0,9.0))
@@ -101,7 +77,7 @@ def deathsdiff(arrdeaths):
     return diffs
 
 
-def plotdeathdiffs(dates, deaths):
+def plotdeathdiffs(statename, dates, deaths):
     nowdiffs = deathsdiff(deaths)
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
@@ -111,7 +87,35 @@ def plotdeathdiffs(dates, deaths):
     plt.show()
 
 
-plotcases(dates, cases)
-plotdeaths(dates, deaths)        
-plotdeathdiffs(dates, deaths)
+def main(argv):
+    
+    matplotlib.style.use('fivethirtyeight')
 
+    df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv' )
+    #df = pd.read_csv('datasets/us-states.csv' )
+    print (df.head())
+    print (df.describe())
+    print (df.dtypes)
+
+    #print(df['state'][3])
+    dates = []
+    cases = []
+    deaths = []
+
+    #### Change statename for another state: 
+    statename  = getState(argv) ##'Washington'
+
+    for i, j in df.iterrows(): 
+        if(j['state'] == statename):
+            print(j['date'],j['cases'], j['deaths'])
+            cases.append(j['cases'])
+            dates.append(j['date'])
+            deaths.append(j['deaths'])
+
+        
+    plotcases(statename, dates, cases)
+    plotdeaths(statename,dates, deaths)        
+    plotdeathdiffs(statename, dates, deaths)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
