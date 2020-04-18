@@ -37,16 +37,36 @@ def getxdates(rawdates):
     xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(rawdates))
     return xdates
 
+def getxaxislabels(datearr):
+    tickcount = 0
+    ticks = []
+    labels = []
+    dtarr = getxdates(datearr)
+    
+    for i in range (0, len(dtarr)):
+        tickstr = str(dtarr[i].date().__str__() + '\n' + dtarr[i].time().__str__())
+        
+        print(tickstr)
+        ticks.append(tickcount)
+        tickcount +=1
+        labels.append (tickstr)
+    return({'ticks': ticks, 'labels': labels})
+
 def plotcases(statename, dates, cases):
     average = np.array(domap(cases))
     #print (len(average))
 
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
-    ax.plot(getxdates(dates),cases,'b', label = 'Covid cases in ' + statename)
 
-    ax.plot(getxdates(dates),average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
+    xlabels = getxaxislabels(dates)
+    
+    ax.plot(xlabels['ticks'],cases,'b', label = 'Covid cases in ' + statename)
+    ax.plot(xlabels['ticks'], average,'g', label = 'Covid cases in ' + statename + ' - five day running average')
+    plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 30)
+    plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
     plt.legend()
+    plt.tight_layout()
     plt.xticks(rotation = 45)
     plt.show()
 
@@ -56,11 +76,15 @@ def plotdeaths(statename, dates, deaths):
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
     plt.xticks(rotation = 45)
-
-    ax.plot(getxdates(dates),deaths,'r', label = 'Covid deaths in ' + statename)
-    ax.plot(getxdates(dates),average,'g', label = 'Covid deaths in ' + statename + ' - five day running average')
+    xlabels = getxaxislabels(dates)
+    
+    ax.plot(xlabels['ticks'],deaths,'r', label = 'Covid deaths in ' + statename)
+    ax.plot(xlabels['ticks'],average,'g', label = 'Covid deaths in ' + statename + ' - five day running average')
+    plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
+    plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
     plt.xticks(rotation = 45)
     plt.legend()
+    plt.tight_layout()
     plt.xticks(rotation = 45)
     plt.show()
 
@@ -81,8 +105,12 @@ def plotdeathdiffs(statename, dates, deaths):
     nowdiffs = deathsdiff(deaths)
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
-    ax .bar(getxdates(dates),nowdiffs, label = 'deaths differences ' + statename)
+    xlabels = getxaxislabels(dates)
+    ax .bar(xlabels['ticks'],nowdiffs, label = 'deaths differences ' + statename)
+    plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
+    plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
     plt.legend()
+    plt.tight_layout()
     plt.xticks(rotation = 45)
     plt.show()
 
