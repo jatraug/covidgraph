@@ -14,10 +14,14 @@ import avg as avg
 
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
 
-        
+def getimagename(state, dates, type):
+    final = state + '_' + type + '_' + dates[-1] +'.png'
+    print(final)
+    return final
+
 def getState(argv):
     if(len(argv)!=0) :
-        print(argv[0])
+#        print(argv[0])
         return argv[0]
     return 'Washington' ## defaut
 
@@ -46,7 +50,7 @@ def getxaxislabels(datearr):
     for i in range (0, len(dtarr)):
         tickstr = str(dtarr[i].date().__str__() + '\n' + dtarr[i].time().__str__())
         
-        print(tickstr)
+#        print(tickstr)
         ticks.append(tickcount)
         tickcount +=1
         labels.append (tickstr)
@@ -68,6 +72,9 @@ def plotcases(statename, dates, cases):
     plt.legend()
     plt.tight_layout()
     plt.xticks(rotation = 45)
+    #before showing, save image
+    imgname = getimagename(statename, dates, 'cases')
+    fig.savefig('images/' + imgname)
     plt.show()
 
 def plotdeaths(statename, dates, deaths):
@@ -86,6 +93,9 @@ def plotdeaths(statename, dates, deaths):
     plt.legend()
     plt.tight_layout()
     plt.xticks(rotation = 45)
+    #before showing, save image
+    imgname = getimagename(statename, dates, 'death')
+    fig.savefig('images/' + imgname)
     plt.show()
 
 
@@ -97,7 +107,7 @@ def deathsdiff(arrdeaths):
     for todeath in arrdeaths:
         diffs.append(int(todeath - yesterdeaths))
         yesterdeaths = todeath
-        print(list(diffs))
+#        print(list(diffs))
     return diffs
 
 
@@ -112,6 +122,9 @@ def plotdeathdiffs(statename, dates, deaths):
     plt.legend()
     plt.tight_layout()
     plt.xticks(rotation = 45)
+    #before showing, save image
+    imgname = getimagename(statename, dates, 'deathdiffs')
+    fig.savefig('images/' + imgname)
     plt.show()
 
 
