@@ -98,7 +98,34 @@ def plotdeaths(statename, dates, deaths):
     fig.savefig('images/' + imgname)
     plt.show()
 
+## make a bar chart of diffs of cases by day;
+def casesdiff(arrcases):
+    diffs = []
+    yestercases = 0
+    for tocase in arrcases:
+        diffs.append(int(tocase - yestercases))
+        yestercases = tocase
+#        print(list(diffs))
+    return diffs
 
+
+def plotcasediffs(statename, dates, cases):
+    nowdiffs = casesdiff(cases)
+    fig =plt.figure(figsize=(12.0,9.0))
+    ax = fig.add_subplot(111)
+    xlabels = getxaxislabels(dates)
+    ax .plot(xlabels['ticks'],nowdiffs, label = 'cases differences ' + statename)
+    plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
+    plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
+    plt.legend()
+    plt.tight_layout()
+    plt.xticks(rotation = 45)
+    #before showing, save image
+    imgname = getimagename(statename, dates, 'casediffs')
+    fig.savefig('images/' + imgname)
+    plt.show()
+
+##STOPHERE
 
 ## make a bar chart of diffs of deaths by day;
 def deathsdiff(arrdeaths):
@@ -157,6 +184,7 @@ def main(argv):
     plotcases(statename, dates, cases)
     plotdeaths(statename,dates, deaths)        
     plotdeathdiffs(statename, dates, deaths)
+    plotcasediffs(statename, dates, cases)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
