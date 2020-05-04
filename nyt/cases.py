@@ -26,10 +26,10 @@ def getState(argv):
     return 'Washington' ## defaut
 
 
-## now do 5 day average:
+## now do n day average:
 
-def domap(arr):
-    Avg = avg.avg(5)
+def domap(arr, ndays):
+    Avg = avg.avg(ndays)
     average = []
     for i in range(0, len(arr)):
 #        print("elem: ", arr[i])
@@ -57,7 +57,7 @@ def getxaxislabels(datearr):
     return({'ticks': ticks, 'labels': labels})
 
 def plotcases(statename, dates, cases):
-    average = np.array(domap(cases))
+    average = np.array(domap(cases, 5))
     #print (len(average))
 
     fig =plt.figure(figsize=(12.0,9.0))
@@ -78,7 +78,7 @@ def plotcases(statename, dates, cases):
     plt.show()
 
 def plotdeaths(statename, dates, deaths):
-    average = np.array(domap(deaths))
+    average = np.array(domap(deaths, 5))
     ## plot deaths separately:
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
@@ -111,10 +111,12 @@ def casesdiff(arrcases):
 
 def plotcasediffs(statename, dates, cases):
     nowdiffs = casesdiff(cases)
+    average = np.array(domap(nowdiffs, 7))
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
     xlabels = getxaxislabels(dates)
-    ax .plot(xlabels['ticks'],nowdiffs, label = 'cases differences ' + statename)
+    ax .plot(xlabels['ticks'],nowdiffs, label = 'cases by day ' + statename)
+    ax.plot(xlabels['ticks'], average,'g', label = 'Covid cases in ' + statename + ' - seven day running average')
     plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
     plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
     plt.legend()
@@ -140,10 +142,12 @@ def deathsdiff(arrdeaths):
 
 def plotdeathdiffs(statename, dates, deaths):
     nowdiffs = deathsdiff(deaths)
+    average = np.array(domap(nowdiffs, 7))
     fig =plt.figure(figsize=(12.0,9.0))
     ax = fig.add_subplot(111)
     xlabels = getxaxislabels(dates)
-    ax .bar(xlabels['ticks'],nowdiffs, label = 'deaths differences ' + statename)
+    ax .plot(xlabels['ticks'],nowdiffs, label = 'deaths per day ' + statename)
+    ax.plot(xlabels['ticks'], average,'g', label = 'Covid deaths in ' + statename + ' - seven day running average')
     plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
     plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
     plt.legend()
