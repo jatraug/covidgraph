@@ -28,6 +28,10 @@ class covGraph:
     def getState(self):
         return self.opts.getState()
 
+    def doShow(self):
+        if(True == self.opts.getDoplot()):
+            plt.show()
+
 
     ## now do n day average:
 
@@ -56,8 +60,9 @@ class covGraph:
             #        print(tickstr)
             ticks.append(tickcount)
             tickcount +=1
+            print('tickstr: ', tickstr)
             labels.append (tickstr)
-            return({'ticks': ticks, 'labels': labels})
+        return({'ticks': ticks, 'labels': labels})
 
     def plotcases(self, statename, dates, cases):
         average = np.array(self.domap(cases, 5))
@@ -76,9 +81,9 @@ class covGraph:
 ####        plt.tight_layout()
         plt.xticks(rotation = 45)
         #before showing, save image
-        imgname = getimagename(statename, dates, 'cases')
+        imgname = self.getimagename(statename, dates, 'cases')
         fig.savefig('images/' + imgname)
-        plt.show()
+        self.doShow()
 
     def plotdeaths(self, statename, dates, deaths):
         average = np.array(self.domap(deaths, 5))
@@ -97,9 +102,9 @@ class covGraph:
         plt.tight_layout()
         plt.xticks(rotation = 45)
         #before showing, save image
-        imgname = getimagename(statename, dates, 'death')
+        imgname = self.getimagename(statename, dates, 'death')
         fig.savefig('images/' + imgname)
-        plt.show()
+        self.doShow()
 
         ## make a bar chart of diffs of cases by day;
     def casesdiff(self, arrcases):
@@ -111,9 +116,9 @@ class covGraph:
             #        print(list(diffs))
         return diffs
 
-
+        
     def plotcasediffs(self, statename, dates, cases):
-        nowdiffs = casesdiff(cases)
+        nowdiffs = self.casesdiff(cases)
         average = np.array(self.domap(nowdiffs, 7))
         fig =plt.figure(figsize=(12.0,9.0))
         ax = fig.add_subplot(111)
@@ -126,11 +131,9 @@ class covGraph:
         plt.tight_layout()
         plt.xticks(rotation = 45)
         #before showing, save image
-        imgname = getimagename(statename, dates, 'casediffs')
+        imgname = self.getimagename(statename, dates, 'casediffs')
         fig.savefig('images/' + imgname)
-        plt.show()
-
-
+        self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
     def deathsdiff(self, arrdeaths):
@@ -144,7 +147,7 @@ class covGraph:
 
 
     def plotdeathdiffs(self, statename, dates, deaths):
-        nowdiffs = deathsdiff(deaths)
+        nowdiffs = self.deathsdiff(deaths)
         average = np.array(self.domap(nowdiffs, 7))
         fig =plt.figure(figsize=(12.0,9.0))
         ax = fig.add_subplot(111)
@@ -157,10 +160,10 @@ class covGraph:
         plt.tight_layout()
         plt.xticks(rotation = 45)
         #before showing, save image
-        imgname = getimagename(statename, dates, 'deathdiffs')
+        imgname = self.getimagename(statename, dates, 'deathdiffs')
         fig.savefig('images/' + imgname)
-        plt.show()
-
+        self.doShow()
+    
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
 
@@ -182,14 +185,15 @@ class covGraph:
             if(j['state'] == statename):
                 print(j['date'],j['cases'], j['deaths'])
                 cases.append(j['cases'])
+                print('Date: ', 'date')
                 dates.append(j['date'])
                 deaths.append(j['deaths'])
 
         
-                self.plotcases(statename, dates, cases)
-                self.plotdeaths(statename,dates, deaths)        
-                self.plotdeathdiffs(statename, dates, deaths)
-                self.plotcasediffs(statename, dates, cases)
+        self.plotcases(statename, dates, cases)
+        self.plotdeaths(statename,dates, deaths)        
+        self.plotdeathdiffs(statename, dates, deaths)
+        self.plotcasediffs(statename, dates, cases)
             
 
 
