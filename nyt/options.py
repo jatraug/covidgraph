@@ -8,12 +8,12 @@ class Options:
         try:
             opts, args = getopt.getopt(argv,"hs:n")
         except getopt.GetoptError:
-            print ('cases.py -n -s state')
+            #print ('cases.py -n -s state')
             sys.exit("exiting")
         count = 0
         for opt, arg in opts:
             count +=1
-            $$print(count, opt, arg)
+            print(count, opt, arg)
             if opt == '-h':
                 print ('cases.py [-n  (noplot)] [-s State]')
                 sys.exit()
