@@ -1,0 +1,7 @@
+Covif-19 case graphing 
+
+* TODO
+** Branch name 'noprint'
+X Add getopt -n (no print) and -s state
+X Make into a class; build an instance that doesn't do plt.show()
+
