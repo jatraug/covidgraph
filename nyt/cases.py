@@ -60,7 +60,7 @@ class covGraph:
             #        print(tickstr)
             ticks.append(tickcount)
             tickcount +=1
-            print('tickstr: ', tickstr)
+#            print('tickstr: ', tickstr)
             labels.append (tickstr)
         return({'ticks': ticks, 'labels': labels})
 
@@ -185,7 +185,7 @@ class covGraph:
             if(j['state'] == statename):
                 print(j['date'],j['cases'], j['deaths'])
                 cases.append(j['cases'])
-                print('Date: ', 'date')
+#                print('Date: ', 'date')
                 dates.append(j['date'])
                 deaths.append(j['deaths'])
 
