@@ -3,10 +3,11 @@ import sys, getopt
 class Options:
     def __init__(self, argv):
         self.state = 'Washington'
+        self.county = 'Snohomish'
         self.doplot = True # Plot the graph
 
         try:
-            opts, args = getopt.getopt(argv,"hs:n")
+            opts, args = getopt.getopt(argv,"hs:c:n")
         except getopt.GetoptError:
             #print ('cases.py -n -s state')
             sys.exit("exiting")
@@ -21,9 +22,13 @@ class Options:
                 self.doplot = False
             elif opt in ("-s"):
                 self.state = arg
-                    
+            elif opt in ('-c'):
+                self.county = arg   
     def getState(self):
         return self.state
+
+    def getCounty(self):
+        return self.county
 
     def getDoplot(self):
         return self.doplot
