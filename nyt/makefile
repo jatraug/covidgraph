@@ -11,6 +11,8 @@ doall:
 	$(RM) -f $(IMG)/*png
 	$(PY) cases.py -n -s Washington
 	$(PY) cases.py -n -s Oregon
+	$(PY) counties.py -n -s Washington -c Snohomish
+	$(PY) counties.py -n -s Oregon -c Douglas
 	$(CP) $(COV)/images/Washington*.png $(DB)
 	$(CP) $(COV)/images/Oregon*png $(DB)
 
