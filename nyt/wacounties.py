@@ -42,7 +42,8 @@ class countyInfo:
         clist = countyList()
         matplotlib.style.use('fivethirtyeight')
         
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' )
+       ## df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' )
+        df = pd.read_csv('datasets/us-counties.csv' )
         #df = pd.read_csv('datasets/us-states.csv' )
         print (df.head())
         print (df.describe())
@@ -69,8 +70,32 @@ class countyInfo:
         
         theList = clist.getlist()
         print(theList)
-        ##print(theList.head())
 
+        df = DataFrame(data=theList,columns = ['date', 'county', 'cases', 'deaths'])
+        print(df.head())
+        #df2 = df[0]
+        #df3 = df2.append(df[1])
+        #print('df2: ', d2)
+        self.getcountybydate(df)
+        #print(df3.head())
+
+        #Get the two top dates from sorted(by date) df:
+    def getcountybydate(self,df):
+        for i, j in df.iterrows():
+            if(i == 0):
+                date0 = j['date']
+            if(j['date'] != date0):
+                #extract these
+                dftmp0 = df.iloc[0:i-1]
+                ind = i
+                date1 = j['date']
+        print('dftmp0: ')
+        print(dftmp0)
+
+
+
+
+        
     def getState(self):
         return 'Washington'
 
