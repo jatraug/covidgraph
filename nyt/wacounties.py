@@ -12,6 +12,8 @@ import sys
 sys.path.append('/Users/jimt/work/python/pytools')
 import avg as avg
 from options import Options
+sys.path.append('/Users/jimt/work/covid/nyt')
+import dfparse
 
 
 class countyList:
@@ -28,11 +30,13 @@ class countyList:
         return k['date']
         
     def getlist(self):
-        print('sorting')
+        #print('sorting')
         ##        df = self.list.sort_values(by=['county'], inplace=False)
         self.list.sort(reverse=True, key=self.sortkey)
         return self.list
-    
+
+    def getLatestDate(self):
+        pass
     
 class countyInfo:
     def __init__(self):
@@ -42,12 +46,12 @@ class countyInfo:
         clist = countyList()
         matplotlib.style.use('fivethirtyeight')
         
-       ## df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' )
-        df = pd.read_csv('datasets/us-counties.csv' )
+        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' )
+        ##df = pd.read_csv('datasets/us-counties.csv' )
         #df = pd.read_csv('datasets/us-states.csv' )
-        print (df.head())
-        print (df.describe())
-        print (df.dtypes)
+        #print (df.head())
+        #print (df.describe())
+        #print (df.dtypes)
         
         #print(df['state'][3])
         dates = []
@@ -69,10 +73,10 @@ class countyInfo:
 
         
         theList = clist.getlist()
-        print(theList)
+        #print(theList)
 
         df = DataFrame(data=theList,columns = ['date', 'county', 'cases', 'deaths'])
-        print(df.head())
+        #print(df.head())
         #df2 = df[0]
         #df3 = df2.append(df[1])
         #print('df2: ', d2)
@@ -81,21 +85,31 @@ class countyInfo:
 
         #Get the two top dates from sorted(by date) df:
     def getcountybydate(self,df):
+        dparse = dfparse.DfParse()
+        df.to_csv('datasets/partcounty.csv')
         for i, j in df.iterrows():
-            if(i == 0):
-                date0 = j['date']
-            if(j['date'] != date0):
-                #extract these
-                dftmp0 = df.iloc[0:i-1]
-                ind = i
-                date1 = j['date']
-        print('dftmp0: ')
-        print(dftmp0)
+             if(False == dparse.state(j)):
+                 break
+        db = dparse.getDB()
+        #for i in db:'
+        #    print(i)
+        self.printCountyInfo(db)
+
+    def makespace(self, name):
+        totalsp = 12
+        spaces = '             '
+        #print('1:', len(name))
+        return(spaces[0: totalsp - len(name)])
 
 
 
-
-        
+    def printCountyInfo( self,db):
+        #print('123456789012345678901234567890123456789012345678901234567890')
+        print('County        cases         deaths        new cases     new deaths')
+        for i in db:
+            sp = self.makespace(i['county'])
+            print(i['county'], sp, i['cases'], self.makespace(str(i['cases'])), i['deaths'], self.makespace(str(i['deaths'])), i['casediffs'], self.makespace(str(i['casediffs'])), i['deathdiffs'])
+            
     def getState(self):
         return 'Washington'
 
