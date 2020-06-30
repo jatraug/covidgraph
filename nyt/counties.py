@@ -1,16 +1,15 @@
 ## Process nyt data for Washington
 
+import sys
 import pandas as pd
 
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-import sklearn
-from sklearn.cluster import KMeans
 
-import sys
+
 sys.path.append('/Users/jimt/work/python/pytools')
-import avg as avg
+import avg
 from options import Options
 
 
@@ -19,8 +18,8 @@ class countyGraph:
         self.opts = Options(argv)
 
 
-    def getimagename(self, state, dates, type):
-        final = state + '_' + self.getCounty() + '_' + type + '_' + dates[-1] +'.png'
+    def getimagename(self, state, dates, mtype):
+        final = state + '_' + self.getCounty() + '_' + mtype + '_' + dates[-1] +'.png'
         print(final)
         return final
 
@@ -31,19 +30,18 @@ class countyGraph:
         return self.opts.getCounty()
 
     def doShow(self):
-        if(True == self.opts.getDoplot()):
+        if self.opts.getDoplot():
             plt.show()
 
 
     ## now do n day average:
 
-    def domap(self,arr, ndays):
+    def domap(self, arr, ndays):
         Avg = avg.avg(ndays)
         average = []
         for i in range(0, len(arr)):
             #        print("elem: ", arr[i])
             average.append(Avg.addelemandGetaverage(arr[i]))
-            
         return average
 
     def getxdates(self, rawdates):
@@ -56,25 +54,25 @@ class countyGraph:
         labels = []
         dtarr = self.getxdates(datearr)
     
-        for i in range (0, len(dtarr)):
+        for i in range(0, len(dtarr)):
             tickstr = str(dtarr[i].date().__str__() + '\n' + dtarr[i].time().__str__())
         
             #        print(tickstr)
             ticks.append(tickcount)
-            tickcount +=1
+            tickcount += 1
 #            print('tickstr: ', tickstr)
-            labels.append (tickstr)
+            labels.append(tickstr)
         return({'ticks': ticks, 'labels': labels})
 
             
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
         
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' )
+        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
         #df = pd.read_csv('datasets/us-states.csv' )
-        print (df.head())
-        print (df.describe())
-        print (df.dtypes)
+        print(df.head())
+        print(df.describe())
+        print(df.dtypes)
         
         #print(df['state'][3])
         dates = []
@@ -82,12 +80,12 @@ class countyGraph:
         deaths = []
 
                 #### Change statename for another state: 
-        statename  = self.getState() ##'Washington'
+        statename = self.getState() ##'Washington'
         county = self.getCounty()
             
         for i, j in df.iterrows(): 
             if(j['state'] == statename and j['county'] == county):
-                print(j['date'],j['cases'], j['deaths'])
+                print(j['date'], j['cases'], j['deaths'])
                 cases.append(j['cases'])
 #                print('Date: ', 'date')
                 dates.append(j['date'])
@@ -104,7 +102,7 @@ class countyGraph:
             Ddiffs = (int(tocase - yestercases))
             if(Ddiffs < 0): #Makes up for errors in reporting
                 Ddiffs = 0
-            diffs.append (Ddiffs)
+            diffs.append(Ddiffs)
             yestercases = tocase
             #        print(list(diffs))
         return diffs
@@ -113,16 +111,16 @@ class countyGraph:
     def plotcasediffs(self, statename, dates, cases):
         nowdiffs = self.casesdiff(cases)
         average = np.array(self.domap(nowdiffs, 7))
-        fig =plt.figure(figsize=(12.0,9.0))
+        fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'],nowdiffs, label = 'cases by day ' + statename)
-        ax.plot(xlabels['ticks'], average,'g', label = 'Covid cases in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
-        plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
-        plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
+        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + statename)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
+        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
         plt.tight_layout()
-        plt.xticks(rotation = 45)
+        plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'casediffs')
         fig.savefig('images/' + imgname)
@@ -135,7 +133,7 @@ class countyGraph:
 
         for todeath in arrdeaths:
             ##print('yesterdeaths: ', yesterdeaths , 'todeath: ', todeath)
-            diff =  (todeath - yesterdeaths)
+            diff = (todeath - yesterdeaths)
             if(diff < 0): #Makes up for errors in reporting
                 diff = 0
             ##print('diff: ', diff)
@@ -149,16 +147,16 @@ class countyGraph:
         nowdiffs = self.deathsdiff(deaths)
         ##print(nowdiffs)
         average = np.array(self.domap(nowdiffs, 7))
-        fig =plt.figure(figsize=(12.0,9.0))
+        fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'],nowdiffs, label = 'deaths per day ' + statename)
-        ax.plot(xlabels['ticks'], average,'g', label = 'Covid deaths in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
-        plt.xticks(xlabels['ticks'],xlabels['labels'][::8], rotation = 45)
-        plt.locator_params(axis = 'x', nbins = len(xlabels['labels'])/8)
+        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + statename)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
+        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
         plt.tight_layout()
-        plt.xticks(rotation = 45)
+        plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deathdiffs')
         fig.savefig('images/' + imgname)
