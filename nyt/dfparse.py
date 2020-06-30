@@ -2,7 +2,7 @@
 
 class DfParse:
     def __init__(self):
-        self.dbase =[]
+        self.dbase = []
         self.date = '00-00-00'
         self.date2 = '00-00-00'
         self.state = self.state1
@@ -33,7 +33,7 @@ class DfParse:
         db = self.dbase
         for i in db:
             if(i['county'] == line['county']):
-                i['casediffs'] =  i['cases'] - line['cases']
+                i['casediffs'] = i['cases'] - line['cases']
                 i['deathdiffs'] = i['deaths'] - line['deaths']
                 if(i['casediffs'] < 0):
                     i['casediffs'] = 0
