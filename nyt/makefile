@@ -16,6 +16,7 @@ doall: clean
 
 	$(CP) $(COV)/images/Washington*.png $(DB)
 	$(CP) $(COV)/images/Oregon*png $(DB)
+	$(CP) $(COV)/images/Texas*png $(DB)
 
 clean:
 	-$(RM) -f $(IMG)/*png
