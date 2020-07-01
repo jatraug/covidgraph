@@ -2,7 +2,7 @@ import sys
 sys.path.append('/Users/jimt/work/covid/nyt')
 import dfparse
 import pandas as pd
-from pandas import DataFrame
+# from pandas import DataFrame
 
 dparse = dfparse.DfParse()
 
@@ -15,7 +15,7 @@ def makespace(name):
 
 
 
-def printCountyInfo( db):
+def printCountyInfo(db):
     print('123456789012345678901234567890123456789012345678901234567890')
     print('County        cases         deaths        new cases     new deaths')
     for i in db:
@@ -24,18 +24,18 @@ def printCountyInfo( db):
     
 
 
-df = pd.read_csv('datasets/partcounty.csv' )
+df = pd.read_csv('datasets/partcounty.csv')
 
-for i, j in df.iterrows():
+for blank, j in df.iterrows():
     if(False == dparse.state(j)):
         break
-db = dparse.getDB()
-#for i in db:
-#    print(i)
+dbb = dparse.getDB()
 
-printCountyInfo(db)
+printCountyInfo(dbb)
 
-sp = makespace('qwerty')
-print('->', sp, '<--')
-
-
+spc = makespace('qwerty')
+print('->', spc, '<--')
+print(len(spc))
+assert(6 == len(spc))
+print(dbb[15]['county'])
+assert(dbb[15]['county'] == 'King')
