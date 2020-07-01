@@ -20,13 +20,14 @@ class DfParse:
             self.date2 = line['date']
             self.getdiffs(line)
             self.state = self.state3
-            return True
+        return True
 
     def state3(self, line):
         if(self.date2 == line['date']):
             self.getdiffs(line)
-        else:
-            return False
+            return True
+
+        return False
             
 
     def getdiffs(self, line):
