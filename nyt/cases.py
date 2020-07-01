@@ -111,7 +111,10 @@ class covGraph:
         diffs = []
         yestercases = 0
         for tocase in arrcases:
-            diffs.append(int(tocase - yestercases))
+            tdiffs = int(tocase - yestercases)
+            if tdiffs < 0:
+                tdiffs = 0
+            diffs.append(tdiffs)
             yestercases = tocase
             #        print(list(diffs))
         return diffs
@@ -140,7 +143,10 @@ class covGraph:
         diffs = []
         yesterdeaths = 0
         for todeath in arrdeaths:
-            diffs.append(int(todeath - yesterdeaths))
+            tdiffs = int(todeath - yesterdeaths)
+            if tdiffs < 0:
+                tdiffs = 0
+            diffs.append(tdiffs)
             yesterdeaths = todeath
             #        print(list(diffs))
         return diffs
