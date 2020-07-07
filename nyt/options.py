@@ -1,11 +1,13 @@
 import sys
+import os
 import getopt
 
 class Options:
-    def __init__(self, argv):
+    def __init__(self, argv, exename):
         self.state = 'Washington'
         self.county = 'Snohomish'
         self.doplot = True # Plot the graph
+        self.exename = exename
 
         try:
             opts, args = getopt.getopt(argv, "hs:c:n")
@@ -15,9 +17,9 @@ class Options:
         count = 0
         for opt, arg in opts:
             count += 1
-            print(count, opt, arg)
+            #print(count, opt, arg)
             if opt == '-h':
-                print('cases.py [-n  (noplot)] [-s State]')
+                print(self.exename, ' [-n  (noplot)] [-s State]')
                 sys.exit()
             elif opt in ("-n"):
                 self.doplot = False

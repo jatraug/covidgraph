@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
+import os
 
 
 sys.path.append('/Users/jimt/work/python/pytools')
@@ -15,7 +16,7 @@ from options import Options
 
 class countyGraph:
     def __init__(self, argv):
-        self.opts = Options(argv)
+        self.opts = Options(argv, os.path.basename(__file__))
 
 
     def getimagename(self, state, dates, mtype):

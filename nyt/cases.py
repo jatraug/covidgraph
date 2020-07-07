@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-
+import os
 import sys
 sys.path.append('/Users/jimt/work/python/pytools')
 import avg
@@ -16,7 +16,7 @@ from options import Options
 
 class covGraph:
     def __init__(self, argv):
-        self.opts = Options(argv)
+        self.opts = Options(argv, os.path.basename(__file__))
         
     def getimagename(self, state, dates, ttype):
         final = state + '_' + ttype + '_' + dates[-1] +'.png'
