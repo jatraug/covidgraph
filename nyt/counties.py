@@ -56,7 +56,7 @@ class countyGraph:
         dtarr = self.getxdates(datearr)
     
         for i in range(0, len(dtarr)):
-            tickstr = str(dtarr[i].date().__str__() + '\n' + dtarr[i].time().__str__())
+            tickstr = str(dtarr[i].date().__str__()) ## + '\n' + dtarr[i].time().__str__())
         
             #        print(tickstr)
             ticks.append(tickcount)
