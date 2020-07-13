@@ -52,7 +52,7 @@ class covGraph:
         dtarr = self.getxdates(datearr)
     
         for ii in dtarr: ##range(0, len(dtarr)):
-            tickstr = str(ii.date().__str__() + '\n' + ii.time().__str__())
+            tickstr = str(ii.date().__str__()) ## + '\n' + ii.time().__str__())
         
             #        print(tickstr)
             ticks.append(tickcount)
