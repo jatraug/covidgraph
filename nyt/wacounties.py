@@ -1,10 +1,11 @@
 ## List latest for each county in Washington
-
+import numpy as np
 import pandas as pd
 from pandas import DataFrame
 import os
 import sys
 sys.path.append('/Users/jimt/work/python/pytools')
+import matplotlib.pyplot as plt
 from options import Options
 sys.path.append('/Users/jimt/work/covid/nyt')
 import dfparse
@@ -40,21 +41,14 @@ class countyInfo:
         clist = countyList()
 
         df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
-        ##df = pd.read_csv('datasets/us-counties.csv' )
-        #df = pd.read_csv('datasets/us-states.csv' )
-        #print (df.head())
-        #print (df.describe())
-        #print (df.dtypes)
-        
-        #print(df['state'][3])
+
         dates = []
         cases = []
         deaths = []
 
                 #### Change statename for another state: 
         statename = self.getState() ##'Washington'
-        #county = self.getCounty()
-            
+
         for i, j in df.iterrows(): 
             if(j['state'] == statename):
                 clist.insert(j)
@@ -69,12 +63,9 @@ class countyInfo:
         #print(theList)
 
         df = DataFrame(data=theList, columns=['date', 'county', 'cases', 'deaths'])
-        #print(df.head())
-        #df2 = df[0]
-        #df3 = df2.append(df[1])
-        #print('df2: ', d2)
+
         self.getcountybydate(df)
-        #print(df3.head())
+
 
         #Get the two top dates from sorted(by date) df:
     def getcountybydate(self, df):
@@ -87,6 +78,7 @@ class countyInfo:
         #for i in db:'
         #    print(i)
         self.printCountyInfo(db)
+        self.plotcounties(db)
 
     def makespace(self, name):
         totalsp = 12
@@ -102,7 +94,34 @@ class countyInfo:
         for i in db:
             sp = self.makespace(i['county'])
             print(i['county'], sp, i['cases'], self.makespace(str(i['cases'])), i['deaths'], self.makespace(str(i['deaths'])), i['casediffs'], self.makespace(str(i['casediffs'])), i['deathdiffs'])
+
+    def plotcounties(self, db):
+        counties = []
+        cases = []
+        deaths = []
+        newcases = []
+        newdeaths = []
+        width = .20
+        
+        for i in db:
+            counties.append(i['county'])
+            cases.append(float(i['cases']))
+            deaths.append(i['deaths'])
+            newcases.append(i['casediffs'])
+            newdeaths.append(i['deathdiffs'])
             
+        x = np.arange(len(counties))  # the label locations
+        fig = plt.figure(figsize=(12.0, 9.0))
+        ax = fig.add_subplot(111)
+        ax.bar(x-width/4, cases, width, label='cases', color='green')
+        ax.bar(x-width/4, deaths, width, label='deaths', color='red')
+        ax.bar(x-width/4, newcases, width, label='new cases', color='orange')
+        ax.bar(x-width/4, newdeaths, width, label='new deaths', color='black')
+        ax.set_xticks(x)
+        ax.set_xticklabels(counties)
+        plt.xticks(rotation=90)
+        plt.show()
+        
     def getState(self):
         return 'Washington'
 
