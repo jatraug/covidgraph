@@ -95,13 +95,24 @@ class countyInfo:
             sp = self.makespace(i['county'])
             print(i['county'], sp, i['cases'], self.makespace(str(i['cases'])), i['deaths'], self.makespace(str(i['deaths'])), i['casediffs'], self.makespace(str(i['casediffs'])), i['deathdiffs'])
 
+    def autolabel(self, rects, ax):
+        """Attach a text label above each bar in *rects*, displaying its height."""
+        for rect in rects:
+            height = rect.get_height()
+            ax.annotate('{}'.format(height),
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),  # 3 points vertical offset
+                        textcoords="offset points",
+                        ha='center', va='bottom')
+
+            
     def plotcounties(self, db):
         counties = []
         cases = []
         deaths = []
         newcases = []
         newdeaths = []
-        width = .20
+        width = .40
         
         for i in db:
             counties.append(i['county'])
@@ -113,13 +124,19 @@ class countyInfo:
         x = np.arange(len(counties))  # the label locations
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
-        ax.bar(x-width/4, cases, width, label='cases', color='green')
-        ax.bar(x-width/4, deaths, width, label='deaths', color='red')
-        ax.bar(x-width/4, newcases, width, label='new cases', color='orange')
-        ax.bar(x-width/4, newdeaths, width, label='new deaths', color='black')
-        ax.set_xticks(x)
+        rects1 = ax.bar(x-width/4, cases, width, label='cases', color='green')
+        # rects2 = ax.bar(x-width/4, deaths, width, label='deaths', color='red')
+        # rects3 = ax.bar(x-width/4, newcases, width, label='new cases', color='orange')
+        #rects4 = ax.bar(x-width/4, newdeaths, width, label='new deaths', color='black')
+##        ax.set_xticks(x)
         ax.set_xticklabels(counties)
-        plt.xticks(rotation=90)
+        plt.xticks(x, rotation=90)
+
+        self.autolabel(rects1, ax)
+ #       self.autolabel(rects2, ax)
+##        self.autolabel(rects3, ax)
+##        self.autolabel(rects4, ax)
+        fig.tight_layout()
         plt.show()
         
     def getState(self):
