@@ -13,10 +13,12 @@ doall: clean
 	$(PY) counties.py -n -s Oregon -c Douglas
 	$(PY) counties.py -n -s Washington -c Spokane
 	$(PY) counties.py -n -s Texas -c Harris
+	$(PY) us.py -n
 
 	$(CP) $(COV)/images/Washington*.png $(DB)
 	$(CP) $(COV)/images/Oregon*png $(DB)
 	$(CP) $(COV)/images/Texas*png $(DB)
+	$(CP) $(COV)/images/US*png $(DB)
 
 clean:
 	-$(RM) -f $(IMG)/*png
