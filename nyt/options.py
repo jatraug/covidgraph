@@ -13,6 +13,7 @@ class Options:
             opts, args = getopt.getopt(argv, "hs:c:n")
         except getopt.GetoptError:
             #print ('cases.py -n -s state')
+            print(self.exename, ' [-n  (noplot)] [-s State]')
             sys.exit("exiting")
         count = 0
         for opt, arg in opts:
