@@ -17,6 +17,7 @@ doall: clean
 	$(PY) us.py -n
 
 	$(CP) $(COV)/images/Washington*.png $(DB)
+	$(CP) $(COV)/images/California*.png $(DB)
 	$(CP) $(COV)/images/Oregon*png $(DB)
 	$(CP) $(COV)/images/Texas*png $(DB)
 	$(CP) $(COV)/images/US*png $(DB)
