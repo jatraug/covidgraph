@@ -16,14 +16,14 @@ doall: clean
 	$(PY) counties.py -n -s California -c "Los Angeles"
 	$(PY) us.py -n
 
-	$(CP) $(COV)/images/Washington*.png $(DB)
-	$(CP) $(COV)/images/California*.png $(DB)
-	$(CP) $(COV)/images/Oregon*png $(DB)
-	$(CP) $(COV)/images/Texas*png $(DB)
-	$(CP) $(COV)/images/US*png $(DB)
+	$(CP) $(COV)/images/Washington*.jpg $(DB)
+	$(CP) $(COV)/images/California*.jpg $(DB)
+	$(CP) $(COV)/images/Oregon*jpg $(DB)
+	$(CP) $(COV)/images/Texas*jpg $(DB)
+	$(CP) $(COV)/images/US*jpg $(DB)
 
 clean:
-	-$(RM) -f $(IMG)/*png
-	-$(RM) -f $(DB)/*png		
+	-$(RM) -f $(IMG)/*jpg
+	-$(RM) -f $(DB)/*jpg		
 
 .PHONY: clean doall 

@@ -20,7 +20,7 @@ class countyGraph:
 
 
     def getimagename(self, state, dates, mtype):
-        final = state + '_' + self.getCounty() + '_' + mtype + '_' + dates[-1] +'.png'
+        final = state + '_' + self.getCounty() + '_' + mtype + '_' + dates[-1] +'.jpg'
         print(final)
         return final
 
@@ -72,7 +72,7 @@ class countyGraph:
 
         for i, j in df.iterrows(): 
             if(j['state'] == statename and j['county'] == county):
-                print(j['date'], j['cases'], j['deaths'])
+##                print(j['date'], j['cases'], j['deaths'])
                 cases.append(j['cases'])
                 #                print('Date: ', 'date')
                 dates.append(j['date'])

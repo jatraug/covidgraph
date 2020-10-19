@@ -19,7 +19,7 @@ class covGraph:
         self.opts = Options(argv, os.path.basename(__file__))
         
     def getimagename(self, state, dates, ttype):
-        final = state + '_' + ttype + '_' + dates[-1] +'.png'
+        final = state + '_' + ttype + '_' + dates[-1] +'.jpg'
         print(final)
         return final
 
@@ -186,7 +186,7 @@ class covGraph:
             
         for i, j in df.iterrows(): 
             if(j['state'] == statename):
-                print(j['date'], j['cases'], j['deaths'])
+##                print(j['date'], j['cases'], j['deaths'])
                 cases.append(j['cases'])
 #                print('Date: ', 'date')
                 dates.append(j['date'])
