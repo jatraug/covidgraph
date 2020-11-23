@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 import os
-
+import re
 
 sys.path.append('/Users/jimt/work/python/pytools')
 import avg
@@ -118,7 +118,7 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + statename)
+        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCounty() + ' county, ' + statename)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
@@ -154,7 +154,7 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + statename)
+        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCounty() + ' county, '+ statename)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
