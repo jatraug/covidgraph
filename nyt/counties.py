@@ -20,8 +20,8 @@ class countyGraph:
 
 
     def getimagename(self, state, dates, mtype):
-        final = state + '_' + self.getCounty() + '_' + mtype + '_' + dates[-1] +'.jpg'
-        print(final)
+        final = state + '_' + self.getCountyFixed() + '_' + mtype + '_' + dates[-1] +'.jpg'
+        #print(final)
         return final
 
     def getState(self):
@@ -29,6 +29,13 @@ class countyGraph:
 
     def getCounty(self):
         return self.opts.getCounty()
+
+    # return county with spaces changed to '_':
+    def getCountyFixed(self):
+        cty = self.opts.getCounty()
+        if(re.search(' ', cty)):
+            cty = re.sub(' ', '_', cty)
+        return cty
 
     def doShow(self):
         if self.opts.getDoplot():
@@ -86,9 +93,9 @@ class countyGraph:
         
         df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
         #df = pd.read_csv('datasets/us-states.csv' )
-        print(df.head())
-        print(df.describe())
-        print(df.dtypes)
+        #print(df.head())
+        #print(df.describe())
+        #print(df.dtypes)
         
 
                 #### Change statename for another state: 
@@ -118,8 +125,8 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCounty() + ' county, ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
+        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
@@ -154,8 +161,8 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCounty() + ' county, '+ statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCounty() + ' county, ' + statename + ' - seven day running average')
+        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
