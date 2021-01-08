@@ -72,22 +72,26 @@ class countyGraph:
             labels.append(tickstr)
         return({'ticks': ticks, 'labels': labels})
 
-    def iterateCounty(self,df, statename, county):
+    def iterateCounty(self,df, statename, County):
         dates = []
         cases = []
         deaths = []
 
-        for i, j in df.iterrows(): 
-            if(j['state'] == statename and j['county'] == county):
-##                print(j['date'], j['cases'], j['deaths'])
-                cases.append(j['cases'])
-                #                print('Date: ', 'date')
-                dates.append(j['date'])
-                deaths.append(j['deaths'])
-                
+        theState = df.loc[df['state'] == statename] ## and 'county' == County]
+        theCounty = theState.loc[theState['county']==County]
+
+       ## print(theState.head())
+        for i, c in theCounty.iterrows():
+            cases.append(c['cases'])
+            dates.append(c['date'])
+            deaths.append(c['deaths'])
+
+           
         self.plotdeathdiffs(statename, dates, deaths)
         self.plotcasediffs(statename, dates, cases)
-        
+
+
+
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
         
@@ -183,3 +187,13 @@ def main(argv):
     
 if __name__ == "__main__":
     main(sys.argv[1:])
+
+
+#    real	0m6.774s
+#user	0m2.789s
+#sys	0m0.374s
+
+#Original file:
+#real	1m17.102s
+#user	1m12.862s
+#sys	0m0.450s
