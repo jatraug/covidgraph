@@ -53,8 +53,6 @@ class countyGraph:
         return average
 
     def getxdates(self, rawdates):
-#        locator = matplotlib.dates.AutoDateLocator()
-#        locator.intervald[3] = [7] 
         xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(rawdates))
         return xdates
 
@@ -123,21 +121,18 @@ class countyGraph:
             yestercases = tocase
             #        print(list(diffs))
         return diffs
-    def prXlabels(self,labels):
-        for i in labels['labels']:
-            print(i)
-            
+
+        
     def plotcasediffs(self, statename, dates, cases):
         nowdiffs = self.casesdiff(cases)
         average = np.array(self.domap(nowdiffs, 7))
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-       ## self.prXlabels(xlabels)
-        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename)#        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
+        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
-#        plt.xticks(rotation=45)
-#        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
@@ -170,11 +165,13 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        #####ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1, 5, 10]))
+        ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1,15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
-#        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
-        #plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
+
+
+        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
