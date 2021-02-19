@@ -72,6 +72,16 @@ class countyGraph:
             labels.append(tickstr)
         return({'ticks': ticks, 'labels': labels})
 
+    def getTodaysInfo(self, df):
+        small = df.tail(2)
+        cases = small.iloc[1].cases - small.iloc[0].cases
+        cases=0 if cases < 0 else cases
+        deaths =  small.iloc[1].deaths - small.iloc[0].deaths
+        deaths=0 if deaths < 0 else deaths
+        date = small.iloc[0].date
+        return '\nCases for   ' + str(date) + ': ' + str(cases) +'\nDeaths for '  +  str(date) + ': ' + str(deaths)
+        
+    
     def iterateCounty(self,df, statename, County):
         dates = []
         cases = []
@@ -86,9 +96,9 @@ class countyGraph:
             dates.append(c['date'])
             deaths.append(c['deaths'])
 
-           
-        self.plotdeathdiffs(statename, dates, deaths)
-        self.plotcasediffs(statename, dates, cases)
+        text = self.getTodaysInfo(theCounty)   
+        self.plotdeathdiffs(statename, dates, deaths, text)
+        self.plotcasediffs(statename, dates, cases, text)
 
 
 
@@ -123,13 +133,13 @@ class countyGraph:
         return diffs
 
         
-    def plotcasediffs(self, statename, dates, cases):
+    def plotcasediffs(self, statename, dates, cases, textstr):
         nowdiffs = self.casesdiff(cases)
         average = np.array(self.domap(nowdiffs, 7))
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename)
+        ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
@@ -158,7 +168,7 @@ class countyGraph:
         return diffs
 
 
-    def plotdeathdiffs(self, statename, dates, deaths):
+    def plotdeathdiffs(self, statename, dates, deaths, textstr):
         nowdiffs = self.deathsdiff(deaths)
         ##print(nowdiffs)
         average = np.array(self.domap(nowdiffs, 7))
@@ -166,15 +176,19 @@ class countyGraph:
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1,15]))
-        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename)
+        ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
 
-
+        
+        
         plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
+#        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+#        ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
+#                verticalalignment='top', bbox=props)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deathdiffs')
         fig.savefig('images/' + imgname)
