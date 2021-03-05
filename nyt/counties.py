@@ -81,7 +81,22 @@ class countyGraph:
         date = small.iloc[0].date
         return '\nCases for   ' + str(date) + ': ' + str(cases) +'\nDeaths for '  +  str(date) + ': ' + str(deaths)
         
-    
+    def iterateState(self, df, statename):
+        dates = []
+        cases = []
+        deaths = []
+
+        theState = df.loc[df['state'] == statename]
+        for i, c in theCounty.iterrows():
+            cases.append(c['cases'])
+            dates.append(c['date'])
+            deaths.append(c['deaths'])
+
+
+
+        
+
+        
     def iterateCounty(self,df, statename, County):
         dates = []
         cases = []
@@ -96,9 +111,12 @@ class countyGraph:
             dates.append(c['date'])
             deaths.append(c['deaths'])
 
-        text = self.getTodaysInfo(theCounty)   
-        self.plotdeathdiffs(statename, dates, deaths, text)
-        self.plotcasediffs(statename, dates, cases, text)
+        text = self.getTodaysInfo(theCounty)
+
+        
+        else:
+            self.plotdeathdiffs(statename, dates, deaths, text)
+            self.plotcasediffs(statename, dates, cases, text)
 
 
 
@@ -116,7 +134,11 @@ class countyGraph:
         statename = self.getState() ##'Washington'
         county = self.getCounty()
 
-        self.iterateCounty(df,statename, county)
+        if(county  == 'NoCounty'):
+            self.iterateState(df, statename)
+            
+        else:
+            self.iterateCounty(df,statename, county)
 
             
 
@@ -167,7 +189,9 @@ class countyGraph:
             #        print(list(diffs))
         return diffs
 
-
+    def plotStateAlone(self, dates):
+        pass
+    
     def plotdeathdiffs(self, statename, dates, deaths, textstr):
         nowdiffs = self.deathsdiff(deaths)
         ##print(nowdiffs)
