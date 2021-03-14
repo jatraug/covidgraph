@@ -141,8 +141,8 @@ class countyGraph:
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
+        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
@@ -181,8 +181,8 @@ class countyGraph:
 
         
         
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::8], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/8)
+        plt.xticks(xlabels['ticks'], xlabels['labels'][:20], rotation=45)
+        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
