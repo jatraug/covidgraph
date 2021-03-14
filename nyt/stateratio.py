@@ -9,13 +9,16 @@
 
 # In[36]:
 
-
+import sys
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+from options import Options
 
+import os
 
-# In[37]:
-
+opts = Options(sys.argv[1:], os.path.basename(__file__))
 
 ##df = pd.read_csv('~/work/covid/nyt/datasets/us-counties.csv')
 df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
@@ -23,8 +26,8 @@ df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master
 
 # In[38]:
 
-
-theState = df.loc[df['state'] == 'Washington'] ## and 'county' == County]
+ourState = opts.getState()
+theState = df.loc[df['state'] == ourState] ## and 'county' == County]
 
 
 # In[39]:
