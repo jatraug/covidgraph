@@ -79,7 +79,7 @@ class countyGraph:
         deaths =  small.iloc[1].deaths - small.iloc[0].deaths
         deaths=0 if deaths < 0 else deaths
         date = small.iloc[0].date
-        return '\nCases for   ' + str(date) + ': ' + str(cases) +'\nDeaths for '  +  str(date) + ': ' + str(deaths)
+        return 'Cases for   ' + str(date) + ': ' + str(cases) +'\nDeaths for '  +  str(date) + ': ' + str(deaths)
         
     
     def iterateCounty(self,df, statename, County):
@@ -96,9 +96,9 @@ class countyGraph:
             dates.append(c['date'])
             deaths.append(c['deaths'])
 
-        text = self.getTodaysInfo(theCounty)   
-        self.plotdeathdiffs(statename, dates, deaths, text)
-        self.plotcasediffs(statename, dates, cases, text)
+##        text = self.getTodaysInfo(theCounty)   
+        self.plotdeathdiffs(statename, dates, deaths, 'wabba') ##text)
+        self.plotcasediffs(statename, dates, cases, 'hooba') ##text)
 
 
 
@@ -178,7 +178,8 @@ class countyGraph:
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1,15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
-
+        
+        plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
         
         
         plt.xticks(xlabels['ticks'], xlabels['labels'][:20], rotation=45)
