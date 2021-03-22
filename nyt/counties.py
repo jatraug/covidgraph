@@ -17,7 +17,8 @@ from options import Options
 class countyGraph:
     def __init__(self, argv):
         self.opts = Options(argv, os.path.basename(__file__))
-
+        self.firstDate = '2020-01-01'
+        self.lastDate = '2020-01-01'
 
     def getimagename(self, state, dates, mtype):
         final = state + '_' + self.getCountyFixed() + '_' + mtype + '_' + dates[-1] +'.jpg'
@@ -90,17 +91,32 @@ class countyGraph:
         theState = df.loc[df['state'] == statename] ## and 'county' == County]
         theCounty = theState.loc[theState['county']==County]
 
+         ## Get first and last dates for graph:
+        first = theCounty.iloc[0].date
+        last  = theCounty.iloc[-1].date
+        #print(first, last)
+        self.setFirstAndLastDates(first, last)
+
+
+        
        ## print(theState.head())
         for i, c in theCounty.iterrows():
             cases.append(c['cases'])
             dates.append(c['date'])
             deaths.append(c['deaths'])
 
-##        text = self.getTodaysInfo(theCounty)   
-        self.plotdeathdiffs(statename, dates, deaths, 'wabba') ##text)
-        self.plotcasediffs(statename, dates, cases, 'hooba') ##text)
+        first, last = self.getFirstAndLastDates()
+        textstr = f'Graph from {first} to {last}'
 
+        self.plotdeathdiffs(statename, dates, deaths, textstr)
+        self.plotcasediffs(statename, dates, cases, textstr)
 
+    def setFirstAndLastDates(self, first, last):
+        self.firstDate = first
+        self.lastDate = last
+
+    def getFirstAndLastDates(self):
+        return self.firstDate, self.lastDate
 
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
@@ -178,8 +194,9 @@ class countyGraph:
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1,15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
-        
-        plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
+
+        # Placement is either high, low or not at all...
+       ## plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
         
         
         plt.xticks(xlabels['ticks'], xlabels['labels'][:20], rotation=45)
