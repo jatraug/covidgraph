@@ -199,7 +199,7 @@ class countyGraph:
        ## plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
         
         
-        plt.xticks(xlabels['ticks'], xlabels['labels'][:20], rotation=45)
+        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
         plt.tight_layout()
