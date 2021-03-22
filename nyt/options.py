@@ -1,6 +1,7 @@
 import sys
 import os
 import getopt
+from version import Version
 
 class Options:
     def __init__(self, argv, exename):
@@ -10,7 +11,7 @@ class Options:
         self.exename = exename
 
         try:
-            opts, args = getopt.getopt(argv, "hs:c:n")
+            opts, args = getopt.getopt(argv, "hs:c:nv")
         except getopt.GetoptError:
             #print ('cases.py -n -s state')
             print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')
@@ -20,7 +21,10 @@ class Options:
             count += 1
             #print(count, opt, arg)
             if opt == '-h':
-                print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')
+                print(self.exename, ' [-n  (noplot)] [-s State] [-c County] -v')
+                sys.exit()
+            elif opt == '-v':
+                print(f'Version {self.getVersion()}')
                 sys.exit()
             elif opt in ("-n"):
                 self.doplot = False
@@ -36,3 +40,9 @@ class Options:
 
     def getDoplot(self):
         return self.doplot
+
+    def getVersion(self):
+        vers = Version()
+        return vers.get()
+    
+        
