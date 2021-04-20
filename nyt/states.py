@@ -79,7 +79,7 @@ class covGraph:
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname)
+        fig.savefig('images/' + imgname, quality=60)
         self.doShow()
 
     def plotdeaths(self, statename, dates, deaths):
@@ -100,7 +100,7 @@ class covGraph:
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'death')
-        fig.savefig('images/' + imgname)
+        fig.savefig('images/' + imgname, quality=60)
         self.doShow()
 
         ## make a bar chart of diffs of cases by day;
@@ -132,7 +132,7 @@ class covGraph:
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname)
+        fig.savefig('images/' + imgname, quality=60)
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -164,7 +164,7 @@ class covGraph:
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
-        fig.savefig('images/' + imgname)
+        fig.savefig('images/' + imgname, quality=60)
         self.doShow()
     
     def SetupAndRun(self):
