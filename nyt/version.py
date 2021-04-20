@@ -14,7 +14,7 @@ class Version:
     def __init__(self):
         self.Major   = 0
         self.Submajor = 0
-        self.Minor    = 0
+        self.Minor    = 1
         
     def set(self, major, sub, minor):
         self.Major   = major
