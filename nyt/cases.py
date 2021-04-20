@@ -131,7 +131,7 @@ class covGraph:
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
-        imgname = self.getimagename(statename, dates, 'casediffs')
+        imgname = self.getimagename(statename, dates, 'cases')
         fig.savefig('images/' + imgname)
         self.doShow()
 
@@ -163,7 +163,7 @@ class covGraph:
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
-        imgname = self.getimagename(statename, dates, 'deathdiffs')
+        imgname = self.getimagename(statename, dates, 'deaths')
         fig.savefig('images/' + imgname)
         self.doShow()
     
