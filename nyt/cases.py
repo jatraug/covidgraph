@@ -152,7 +152,7 @@ class covGraph:
     def plotdeathdiffs(self, statename, dates, deaths):
         nowdiffs = self.deathsdiff(deaths)
         average = np.array(self.domap(nowdiffs, 7))
-        fig = plt.figure(figsize=(12.0, 9.0))
+        fig = plt.figure(figsize=(14.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + statename)
@@ -172,9 +172,9 @@ class covGraph:
 
         df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
         #df = pd.read_csv('datasets/us-states.csv' )
-        print(df.head())
-        print(df.describe())
-        print(df.dtypes)
+        #print(df.head())
+        #print(df.describe())
+        #print(df.dtypes)
         
         #print(df['state'][3])
         dates = []
@@ -193,8 +193,8 @@ class covGraph:
                 deaths.append(j['deaths'])
 
         
-        self.plotcases(statename, dates, cases)
-        self.plotdeaths(statename, dates, deaths)        
+        #self.plotcases(statename, dates, cases)
+        #self.plotdeaths(statename, dates, deaths)        
         self.plotdeathdiffs(statename, dates, deaths)
         self.plotcasediffs(statename, dates, cases)
             
