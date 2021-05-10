@@ -33,8 +33,8 @@ class lastDayGraph:
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
         
-        #df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
-        df = pd.read_csv('datasets/us-counties.csv' )
+        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        #df = pd.read_csv('datasets/us-counties.csv' )
         print(df.head())
         state = self.getState()
         self.iterateState(df, state)
@@ -78,17 +78,28 @@ class lastDayGraph:
 #       self.plotdeathdiffs(statename, dates, deaths, textstr)
 #        self.plotcasediffs(statename, dates, cases, textstr)
     def iterateCounties(self, theState):
+        cases = []
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
             currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
             print(f'{cn} - {currentCases}')
                             
-        
+            print(ours.tail())
+            cases.append(currentCases)
 
+        self.plotCurrentCases(cases)
+        self.doShow()
 
+    def plotCurrentCases(self, cases):
+        fig = plt.figure(figsize=(12.0, 9.0))
+        ax = fig.add_subplot(111)
 
-
+        ax.bar(self.counties, cases)
+        plt.xticks(rotation=90)
+        plt.subplots_adjust(bottom=0.40)
+        plt.tight_layout()
+            
 def main(argv):
     dograph = lastDayGraph(argv)
     dograph.SetupAndRun()
