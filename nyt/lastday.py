@@ -17,13 +17,15 @@ class lastDayGraph:
     def __init__(self, argv):
         self.opts = Options(argv, os.path.basename(__file__))
         self.counties = []
+        self.date = '2020-01-01'
 
 
     def getState(self):
         return self.opts.getState()
 
     def getCounty(self):
-        return self.opts.getCounty()
+        return self.opts.getCount
+
     
     def doShow(self):
         if self.opts.getDoplot():
@@ -83,6 +85,7 @@ class lastDayGraph:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
             currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
+            self.date = ours.iloc[-1]['date']
             print(f'{cn} - {currentCases}')
                             
             print(ours.tail())
@@ -95,11 +98,19 @@ class lastDayGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
 
-        ax.bar(self.counties, cases)
+        ax.bar(self.counties, cases, label=self.makeLabel())
+        ax.plot(label=self.makeLabel())
         plt.xticks(rotation=90)
         plt.subplots_adjust(bottom=0.40)
         plt.tight_layout()
-            
+        plt.legend(loc='best')
+
+
+    def makeLabel(self):
+        text = f'{self.getState()} cases by county for {self.date}'
+        print(text)
+        return text
+        
 def main(argv):
     dograph = lastDayGraph(argv)
     dograph.SetupAndRun()
