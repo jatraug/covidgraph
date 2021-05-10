@@ -3,7 +3,8 @@ PY = /Users/jimt/anaconda/envs/py38/bin/python
 index.html: head.html body.html
 	cat head.html body.html > $@
 
-body.html: ./mkbody.py
+body.html: ./mkbody.py 	DOIT
+
 	$(PY) $< > $@
 
 

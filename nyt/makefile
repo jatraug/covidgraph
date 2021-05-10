@@ -25,9 +25,14 @@ doall: clean
 	$(CP) $(COV)/images/Oregon*jpg $(DB)
 	$(CP) $(COV)/images/Texas*jpg $(DB)
 #	#$(CP) $(COV)/images/US*jpg $(DB)
+	$(MAKE) html`
 
 clean:
 	-$(RM) -f $(IMG)/*jpg
 	-$(RM) -f $(DB)/*jpg		
 
-.PHONY: clean doall 
+html:
+	cd html && $(MAKE)
+
+
+.PHONY: clean doall html
