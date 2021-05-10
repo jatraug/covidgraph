@@ -16,8 +16,8 @@ from options import Options
 class lastDayGraph:
     def __init__(self, argv):
         self.opts = Options(argv, os.path.basename(__file__))
-        self.counties = ()
-        self.tempCounties = []
+        self.counties = []
+
 
     def getState(self):
         return self.opts.getState()
@@ -33,7 +33,8 @@ class lastDayGraph:
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
         
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        #df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        df = pd.read_csv('datasets/us-counties.csv' )
         print(df.head())
         state = self.getState()
         self.iterateState(df, state)
@@ -41,13 +42,20 @@ class lastDayGraph:
     def getAllCounties(self, theState):
         ''' iterate the state to get all counties
         '''
-        counties = []
+        counties = {}
+        counarr = []
         for i, c in theState.iterrows():
-            self.tempCounties.append(c['county'])
-        self.counties = tuple(self.tempCounties)
-        print([c  for c in self.counties])
-        
-
+            try:
+                counties[c['county']] += 1
+            except KeyError:
+                counties[c['county']] = 1
+        for co in counties.keys():
+            counarr.append(co)
+        #print([co for co in counties.keys())
+        counarr.sort()
+        #for cn in list(counarr):
+        #    print(cn,' ', end='')
+        self.counties = counarr
 
 
         
@@ -63,14 +71,20 @@ class lastDayGraph:
         ##theCounty = theState.loc[theState['county']==County]
 
         self.getAllCounties(theState)
-
+        self.iterateCounties(theState)
 
 #        first, last = self.getFirstAndLastDates()
 #        textstr = f'Graph from {first} to {last}'
 #       self.plotdeathdiffs(statename, dates, deaths, textstr)
 #        self.plotcasediffs(statename, dates, cases, textstr)
-
-
+    def iterateCounties(self, theState):
+        for cn in self.counties:
+            ours = theState.loc[theState['county'] == cn]
+            # current cases at the end
+            currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
+            print(f'{cn} - {currentCases}')
+                            
+        
 
 
 
