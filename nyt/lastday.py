@@ -34,7 +34,12 @@ class lastDayGraph:
 
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
-        
+        try:
+            assert self.getState() != 'NoState'
+        except AssertionError:
+            print('No state entered!')
+            sys.exit()
+            
         df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
         #df = pd.read_csv('datasets/us-counties.csv' )
         print(df.head())
