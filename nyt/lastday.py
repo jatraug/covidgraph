@@ -154,7 +154,7 @@ class lastDayGraph:
         return text
 
     def getimagename(self, CorD):
-        final = f'{self.getState()}{CorD}ByCountiy-{self.date}.jpg'
+        final = f'{self.getState()}{CorD}ByCounty-{self.date}.jpg'
         #print(final)
         return final
         
