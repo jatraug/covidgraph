@@ -97,6 +97,7 @@ class lastDayGraph:
             cases.append(currentCases)
 
         self.plotCurrentCases(cases)
+        
         self.doShow()
 
     def plotCurrentCases(self, cases):
@@ -109,12 +110,19 @@ class lastDayGraph:
         plt.subplots_adjust(bottom=0.40)
         plt.tight_layout()
         plt.legend(loc='best')
+        imgname = self.getimagename()
+        fig.savefig('images/' + imgname, pil_kwargs={'quality': 60}) 
 
 
     def makeLabel(self):
-        text = f'{self.getState()} cases by county for {self.date}'
+        text = f'{self.getState()} COVID-19 cases by county for {self.date}'
         print(text)
         return text
+
+    def getimagename(self):
+        final = f'{self.getState()}ByCountiy-{self.date}.jpg'
+        #print(final)
+        return final
         
 def main(argv):
     dograph = lastDayGraph(argv)
