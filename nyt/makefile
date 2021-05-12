@@ -17,6 +17,8 @@ doall: clean
 	$(PY) states.py -n -s California
 	$(PY) states.py -n -s Washington
 	$(PY) states.py -n -s Oregon
+	$(PY) lastday.py -n -s Washington
+	$(PY) lastday.py -n -s Oregon
 
 #	#$(PY) us.py -n
 
@@ -25,7 +27,7 @@ doall: clean
 	$(CP) $(COV)/images/Oregon*jpg $(DB)
 	$(CP) $(COV)/images/Texas*jpg $(DB)
 #	#$(CP) $(COV)/images/US*jpg $(DB)
-	$(MAKE) html`
+	$(MAKE) html
 
 clean:
 	-$(RM) -f $(IMG)/*jpg
