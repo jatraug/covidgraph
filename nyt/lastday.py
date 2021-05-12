@@ -1,4 +1,9 @@
 ## Process nyt data for Washington
+'''
+Graph cases and deaths for all counties of state
+
+
+'''
 
 import sys
 import pandas as pd
@@ -42,7 +47,7 @@ class lastDayGraph:
             
         df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
         #df = pd.read_csv('datasets/us-counties.csv' )
-        print(df.head())
+        #print(df.head())
         state = self.getState()
         self.iterateState(df, state)
         
@@ -86,41 +91,65 @@ class lastDayGraph:
 #        self.plotcasediffs(statename, dates, cases, textstr)
     def iterateCounties(self, theState):
         cases = []
+        deaths =[]
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
             currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
+            currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
+            if currentCases < 0:
+                currentCases = 0 
+            if currentDeaths < 0:
+                currentDeaths = 0
+
             self.date = ours.iloc[-1]['date']
-            print(f'{cn} - {currentCases}')
+            #print(f'{cn} - {currentCases}')
                             
-            print(ours.tail())
+            #print(ours.tail())
             cases.append(currentCases)
+            deaths.append(currentDeaths)
 
         self.plotCurrentCases(cases)
-        
         self.doShow()
+        self.plotCurrentDeaths(deaths)
+        self.doShow()        
+
 
     def plotCurrentCases(self, cases):
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
 
-        ax.bar(self.counties, cases, label=self.makeLabel())
-        ax.plot(label=self.makeLabel())
+        ax.bar(self.counties, cases, label=self.makeLabel('cases'))
+        ax.plot(label=self.makeLabel('cases'))
         plt.xticks(rotation=90)
         plt.subplots_adjust(bottom=0.40)
         plt.tight_layout()
         plt.legend(loc='best')
-        imgname = self.getimagename()
+        imgname = self.getimagename('Cases')
+        fig.savefig('images/' + imgname, pil_kwargs={'quality': 60}) 
+
+    def plotCurrentDeaths(self, deaths):
+        fig = plt.figure(figsize=(12.0, 9.0))
+        ax = fig.add_subplot(111)
+
+        ax.bar(self.counties, deaths, label=self.makeLabel('deaths'))
+
+        ax.plot(label=self.makeLabel('deaths'))
+        plt.xticks(rotation=90)
+        plt.subplots_adjust(bottom=0.40)
+        plt.tight_layout()
+        plt.legend(loc='best')
+        imgname = self.getimagename('Deaths')
         fig.savefig('images/' + imgname, pil_kwargs={'quality': 60}) 
 
 
-    def makeLabel(self):
-        text = f'{self.getState()} COVID-19 cases by county for {self.date}'
-        print(text)
+    def makeLabel(self, CorD): ## cases ofr deaths
+        text = f'{self.getState()} COVID-19 {CorD} by county for {self.date}'
+        #print(text)
         return text
 
-    def getimagename(self):
-        final = f'{self.getState()}ByCountiy-{self.date}.jpg'
+    def getimagename(self, CorD):
+        final = f'{self.getState()}{CorD}ByCountiy-{self.date}.jpg'
         #print(final)
         return final
         
