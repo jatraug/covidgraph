@@ -44,5 +44,3 @@ class Options:
     def getVersion(self):
         vers = Version()
         return vers.get()
-    
-        
