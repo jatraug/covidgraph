@@ -19,6 +19,7 @@ doall: clean
 	$(PY) states.py -n -s Oregon
 	$(PY) lastday.py -n -s Washington
 	$(PY) lastday.py -n -s Oregon
+	$(PY) lastday.py -n -s California
 
 #	#$(PY) us.py -n
 
