@@ -94,14 +94,22 @@ class lastDayGraph:
 #        textstr = f'Graph from {first} to {last}'
 #       self.plotdeathdiffs(statename, dates, deaths, textstr)
 #        self.plotcasediffs(statename, dates, cases, textstr)
+
+    def getCurrentCases(self, ours):
+        currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
+        currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
+        print(f'cases: {currentCases}')
+        return currentCases, currentDeaths
+
     def iterateCounties(self, theState):
         cases = []
         deaths =[]
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
-            currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
-            currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
+            ###currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
+            ###currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
+            currentCases, currentDeaths = self.getCurrentCases(ours)
             if currentCases < 0:
                 currentCases = 0 
             if currentDeaths < 0:
