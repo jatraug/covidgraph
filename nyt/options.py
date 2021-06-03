@@ -16,7 +16,7 @@ class Options:
         self.exename = exename
         self.date = False
         try:
-            opts, args = getopt.getopt(argv, "hs:c:nvd:")
+            opts, args = getopt.getopt(argv, "hs:c:nd:v")
         except getopt.GetoptError:
             self.printHelp()
 #            print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')

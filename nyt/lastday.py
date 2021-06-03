@@ -13,6 +13,8 @@ import matplotlib
 import numpy as np
 import os
 import re
+from datetime import datetime, timedelta, date
+
 
 sys.path.append('/Users/jimt/work/python/pytools')
 import avg
@@ -35,7 +37,9 @@ class lastDayGraph:
 
     def getCounty(self):
         return self.opts.getCount
-
+    
+    def getLastDate(self):
+        return self.opts.getDate()
     
     def doShow(self):
         if self.opts.getDoplot():
@@ -98,7 +102,51 @@ class lastDayGraph:
     def getCurrentCases(self, ours):
         currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
         currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
-        print(f'cases: {currentCases}')
+        ##print(f'cases: {currentCases}')
+        return currentCases, currentDeaths
+
+    def dateSubtractOneDay(self, aDate):
+        dtm = date.fromisoformat(aDate)
+        dtm += timedelta(-1)
+        somedate = dtm.isoformat()
+        somedate = re.sub('T.*', '', somedate)
+        return somedate
+    
+    def getCasesByDate(self, ours, thedate):
+        otherdate = self.dateSubtractOneDay(thedate)
+
+        print(otherdate)
+        therow = ours.loc[ours['date'] == thedate]
+        datecases = therow['cases'].squeeze()
+        dateminuscases = ours.loc[ours['date'] == otherdate]['cases'].squeeze()
+        try:
+            datedeaths = therow.deaths.values[0]
+        except IndexError:
+            datedeaths = 0
+        try:
+            dateminusdeaths = ours.loc[ours['date'] == otherdate].deaths.values[0]
+        except IndexError:
+            dateminusdeaths = 0
+            
+        print(f'datedeaths: {datedeaths}')
+        print(f'dateminusdeaths: {dateminusdeaths}')
+        
+        print(ours.loc[ours['date'] == thedate])
+        print(ours.loc[ours['date'] == otherdate])
+
+        
+        print(datecases, ' <-> ', dateminuscases)
+        currentCases = datecases - dateminuscases
+        currentDeaths = datedeaths - dateminusdeaths
+#        currentDeaths = int(currentDeaths)
+        
+        #currentCases = ours.loc[ours['date'] == thedate]['cases'] - \
+              #         ours.loc[ours['date'] == otherdate]['cases']
+        #currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
+
+        print(f'currentCases = {currentCases}')
+        print(f'currentDeaths = {currentDeaths}')
+        
         return currentCases, currentDeaths
 
     def iterateCounties(self, theState):
@@ -109,7 +157,16 @@ class lastDayGraph:
             # current cases at the end
             ###currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
             ###currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
-            currentCases, currentDeaths = self.getCurrentCases(ours)
+
+            print(f'getlastdate: {self.getLastDate()}')
+            
+            if not self.getLastDate():
+                currentCases, currentDeaths = self.getCurrentCases(ours)
+
+            else:
+                currentCases, currentDeaths = self.getCasesByDate(ours,
+                                                        self.getLastDate())
+                
             if currentCases < 0:
                 currentCases = 0 
             if currentDeaths < 0:
