@@ -45,6 +45,12 @@ class lastDayGraph:
         if self.opts.getDoplot():
             plt.show() 
 
+    def getCsv(self):
+        if 'LOCALCSV' in os.environ:
+            df = pd.read_csv('datasets/us-counties.csv')
+        else:
+            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        return df
 
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
@@ -53,9 +59,10 @@ class lastDayGraph:
         except AssertionError:
             print('No state entered!')
             sys.exit()
+        df = self.getCsv()
             
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
-        #df = pd.read_csv('datasets/us-counties.csv' )
+        ##df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+
         #print(df.head())
         state = self.getState()
         self.iterateState(df, state)
@@ -172,9 +179,11 @@ class lastDayGraph:
             print(f'getlastdate: {self.getLastDate()}')
             
             if not self.getLastDate():
+                self.date = ours.iloc[-1]['date']
                 currentCases, currentDeaths = self.getCurrentCases(ours)
 
             else:
+                self.date = self.getLastDate()
                 currentCases, currentDeaths = self.getCasesByDate(ours,
                                                                   self.getLastDate(), cn)
  
@@ -187,7 +196,7 @@ class lastDayGraph:
             if currentDeaths < 0:
                 currentDeaths = 0
 
-            self.date = ours.iloc[-1]['date']
+            #self.date = ours.iloc[-1]['date']
             #print(f'{cn} - {currentCases}')
                             
             #print(ours.tail())

@@ -45,7 +45,7 @@ class Options:
                 if not matchobj:
                     self.printHelp()
                     sys.exit()
-                
+
 
     def getDate(self):
         return self.date
