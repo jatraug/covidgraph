@@ -1,6 +1,6 @@
 Covif-19 case graphing 
 
-* TODO
+* INPROCESS 
 ** DONE Branch name 'noprint'
 X Add getopt -n (no print) and -s state
 X Make into a class; build an instance that doesn't do plt.show()
@@ -8,5 +8,6 @@ X Make into a class; build an instance that doesn't do plt.show()
 ** Maze:
 *** TODO add GUI
 ** covid
-*** TODO git checkout -b adddate for adding a date to lastday.
+*** INPROCESS git checkout -b adddate for adding a date to lastday.
     Changes to options, lastday
+** DONE git checkout -b production; git mege master
