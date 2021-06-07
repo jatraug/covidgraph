@@ -122,10 +122,10 @@ class lastDayGraph:
     def getCasesByDate(self, ours, thedate, cn):
         otherdate = self.dateSubtractOneDay(thedate)
 
-        print(f'otherdate: {otherdate}')
+        #print(f'otherdate: {otherdate}')
         if cn == 'Alpine':
             ours.to_csv('alpine.csv')
-        print(ours.tail())
+        #print(ours.tail())
 
         
         therow = ours.loc[ours['date'] == thedate]
@@ -138,8 +138,8 @@ class lastDayGraph:
         dateminusdeaths = theOtherRow['deaths'].squeeze()
             
             
-        print(f'datedeaths: {datedeaths}')
-        print(f'dateminusdeaths: {dateminusdeaths}')
+        #print(f'datedeaths: {datedeaths}')
+        #print(f'dateminusdeaths: {dateminusdeaths}')
 
         try:
             if datecases - dateminuscases < 0:
@@ -155,7 +155,7 @@ class lastDayGraph:
         #print(ours.loc[ours['date'] == otherdate])
 
         
-        print(datecases, ' <-> ', dateminuscases)
+        #print(datecases, ' <-> ', dateminuscases)
         currentCases = datecases - dateminuscases
         currentDeaths = datedeaths - dateminusdeaths
 #        currentDeaths = int(currentDeaths)
@@ -164,8 +164,8 @@ class lastDayGraph:
               #         ours.loc[ours['date'] == otherdate]['cases']
         #currentDeaths = ours.iloc[-1]['deaths'] - ours.iloc[-2]['deaths']
 
-        print(f'currentCases = {currentCases}')
-        print(f'currentDeaths = {currentDeaths}')
+        #print(f'currentCases = {currentCases}')
+        #print(f'currentDeaths = {currentDeaths}')
         
         return currentCases, currentDeaths
 
@@ -176,7 +176,7 @@ class lastDayGraph:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
 
-            print(f'getlastdate: {self.getLastDate()}')
+            #print(f'getlastdate: {self.getLastDate()}')
             
             if not self.getLastDate():
                 self.date = ours.iloc[-1]['date']
