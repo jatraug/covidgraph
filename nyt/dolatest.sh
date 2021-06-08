@@ -29,4 +29,5 @@ echo  python lastday.py -n -s Oregon
 python lastday.py -n -s Oregon
 echo python lastday.py -n -s 'New Jersey'
 python lastday.py -n -s 'New Jersey'
-
+echo  python lastday.py -n -s California
+python lastday.py -n -s California
