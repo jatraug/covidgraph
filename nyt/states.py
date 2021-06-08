@@ -30,7 +30,13 @@ class covGraph:
         if(True == self.opts.getDoplot()):
             plt.show()
 
-
+    def getCsv(self):
+        if 'LOCALCSV' in os.environ:
+            df = pd.read_csv('datasets/us-states.csv')
+        else:
+            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
+        return df
+                
     ## now do n day average:
 
     def domap(self, arr, ndays):
@@ -169,8 +175,8 @@ class covGraph:
     
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
-
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
+        df = self.getCsv()
+        #df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
         #df = pd.read_csv('datasets/us-states.csv' )
         #print(df.head())
         #print(df.describe())

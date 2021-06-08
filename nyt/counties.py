@@ -111,6 +111,14 @@ class countyGraph:
         self.plotdeathdiffs(statename, dates, deaths, textstr)
         self.plotcasediffs(statename, dates, cases, textstr)
 
+    def getCsv(self):
+        if 'LOCALCSV' in os.environ:
+            df = pd.read_csv('datasets/us-counties.csv')
+        else:
+            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        return df
+
+        
     def setFirstAndLastDates(self, first, last):
         self.firstDate = first
         self.lastDate = last
@@ -120,9 +128,9 @@ class countyGraph:
 
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
-        
-        df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
-        #df = pd.read_csv('datasets/us-states.csv' )
+        df = self.getCsv()
+        ##df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+        #df = pd.read_csv('datasets/us-counties.csv' )
         #print(df.head())
         #print(df.describe())
         #print(df.dtypes)

@@ -7,22 +7,8 @@ PY=/Users/jimt/anaconda/envs/py38/bin/python
 
 
 doall: clean
-#	#$(PY) cases.py -n -s Washington
-#	#$(PY) cases.py -n -s Oregon
-	$(PY) counties.py -n -s Washington -c Snohomish
-	$(PY) counties.py -n -s Oregon -c Douglas
-	$(PY) counties.py -n -s Washington -c Spokane
-	$(PY) counties.py -n -s Texas -c Harris
-	$(PY) counties.py -n -s California -c "Los Angeles"
-	$(PY) states.py -n -s California
-	$(PY) states.py -n -s Washington
-	$(PY) states.py -n -s Oregon
-	$(PY) lastday.py -n -s Washington
-	$(PY) lastday.py -n -s Oregon
-	$(PY) lastday.py -n -s California
-	$(PY) lastday.py -n -s 'New Jersey'
 
-#	#$(PY) us.py -n
+	$(MAKE) exprt
 
 	$(CP) $(COV)/images/Washington*.jpg $(DB)
 	$(CP) $(COV)/images/California*.jpg $(DB)
@@ -38,5 +24,7 @@ clean:
 html:
 	cd html && $(MAKE)
 
+exprt:
+	export LOCALCSV=True && ./dolatest.sh
 
 .PHONY: clean doall html
