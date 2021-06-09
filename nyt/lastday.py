@@ -123,8 +123,8 @@ class lastDayGraph:
         otherdate = self.dateSubtractOneDay(thedate)
 
         #print(f'otherdate: {otherdate}')
-        if cn == 'Alpine':
-            ours.to_csv('alpine.csv')
+        #if cn == 'Alpine':
+        #    ours.to_csv('alpine.csv')
         #print(ours.tail())
 
         
