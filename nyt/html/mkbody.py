@@ -4,7 +4,7 @@ import os, sys
 from stat import *
 import re
 
-pathname = '/Users/jimt/work/covid/nyt/images'
+pathname = '/Users/jimt/work/covid/gittest/covidgraph/nyt/images'
 
 def makeCaption(jname):
     ''' make a captin from the jpeg name

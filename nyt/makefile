@@ -1,6 +1,6 @@
 RM=/bin/rm
 DB=/Users/jimt/Dropbox/work/covid/
-COV=/Users/jimt/work/covid/nyt
+COV=/Users/jimt/work/covid/gittest/covidgraph/nyt
 IMG=$(COV)/images
 CP=/bin/cp
 PY=/python
@@ -27,6 +27,8 @@ html:
 dolatest:
 #	conda init bash
 #	conda activate py38
+	mkdir -p images
+	mkdir -p datasets
 	export LOCALCSV=True && ./dolatest.sh
 
 .PHONY: clean doall html
