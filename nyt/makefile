@@ -3,12 +3,12 @@ DB=/Users/jimt/Dropbox/work/covid/
 COV=/Users/jimt/work/covid/nyt
 IMG=$(COV)/images
 CP=/bin/cp
-PY=/Users/jimt/anaconda/envs/py38/bin/python
+PY=/python
 
 
 doall: clean
 
-	$(MAKE) exprt
+	$(MAKE) dolatest
 
 	$(CP) $(COV)/images/Washington*.jpg $(DB)
 	$(CP) $(COV)/images/California*.jpg $(DB)
@@ -24,7 +24,9 @@ clean:
 html:
 	cd html && $(MAKE)
 
-exprt:
+dolatest:
+#	conda init bash
+#	conda activate py38
 	export LOCALCSV=True && ./dolatest.sh
 
 .PHONY: clean doall html
