@@ -30,17 +30,17 @@ class ourOpts(Options):
         self.exename = exename
         self.date = False
         try:
-            opts, args = getopt.getopt(argv, "hs:c:nd:v")
+            opts, args = getopt.getopt(argv, "hs:nd:v")
         except getopt.GetoptError:
             self.printHelpAndExit()
-#            print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')
+
         count = 0
         for opt, arg in opts:
             count += 1
             #print(count, opt, arg)
             if opt == '-h':
                 self.printHelpAndExit()
-#                print(self.exename, ' [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
+
             elif opt == '-v':
                 print(f'Version {self.getVersion()}')
                 sys.exit()
@@ -48,8 +48,6 @@ class ourOpts(Options):
                 self.doplot = False
             elif opt in ("-s"):
                 self.state = arg
-            elif opt in ('-c'):
-                self.county = arg
             elif opt in ('-d'):
                 self.date = arg
                 dtfmt = re.compile('\d{4}-\d{2}-\d{2}')
@@ -58,6 +56,10 @@ class ourOpts(Options):
                     self.printHelpAndExit()
                     sys.exit()
 
+    def printHelpAndExit(self):
+        print(f'usage: {self.exename} [-n  (noplot)] [-s State] -v -d date (2021-03-30)')
+        sys.exit('Exiting')
+                    
         
 class lastDayGraph:
     def __init__(self, argv):
@@ -69,9 +71,6 @@ class lastDayGraph:
     def getState(self):
         return self.opts.getState()
 
-    def getCounty(self):
-        return self.opts.getCount
-    
     def getLastDate(self):
         return self.opts.getDate()
     
@@ -130,15 +129,10 @@ class lastDayGraph:
         deaths = []
 
         theState = df.loc[df['state'] == statename] ## and 'county' == County]
-        ##theCounty = theState.loc[theState['county']==County]
 
         self.getAllCounties(theState)
         self.iterateCounties(theState)
 
-#        first, last = self.getFirstAndLastDates()
-#        textstr = f'Graph from {first} to {last}'
-#       self.plotdeathdiffs(statename, dates, deaths, textstr)
-#        self.plotcasediffs(statename, dates, cases, textstr)
 
     def getCurrentCases(self, ours):
         currentCases = ours.iloc[-1]['cases'] - ours.iloc[-2]['cases']
