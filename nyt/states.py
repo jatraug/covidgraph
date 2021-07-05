@@ -41,7 +41,7 @@ class ourOpts(Options):
             elif opt in ("-s"):
                 self.state = arg
 
-                def printHelpAndExit(self):
+    def printHelpAndExit(self):
         print(f'usage: {self.exename} [-n  (noplot)] [-s State] -v)')
         sys.exit('Exiting')
 
