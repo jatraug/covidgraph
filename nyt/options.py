@@ -18,17 +18,15 @@ class Options:
         try:
             opts, args = getopt.getopt(argv, "hs:c:nd:v")
         except getopt.GetoptError:
-            self.printHelp()
+            self.printHelpAndExit()
 #            print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')
-            sys.exit("exiting")
         count = 0
         for opt, arg in opts:
             count += 1
             #print(count, opt, arg)
             if opt == '-h':
-                self.printHelp()
+                self.printHelpAndExit()
 #                print(self.exename, ' [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
-                sys.exit()
             elif opt == '-v':
                 print(f'Version {self.getVersion()}')
                 sys.exit()
@@ -43,7 +41,7 @@ class Options:
                 dtfmt = re.compile('\d{4}-\d{2}-\d{2}')
                 matchobj = re.search(dtfmt, self.date)
                 if not matchobj:
-                    self.printHelp()
+                    self.printHelpAndExit()
                     sys.exit()
 
 
@@ -63,5 +61,6 @@ class Options:
         vers = Version()
         return vers.get()
 
-    def printHelp(self):
+    def printHelpAndExit(self):
         print(f'usage: {self.exename} [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
+        sys.exit('Exiting')
