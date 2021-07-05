@@ -21,19 +21,18 @@ class ourOpts(Options):
         self.county = 'NoCounty'
         self.doplot = True # Plot the graph
         self.exename = exename
-        self.date = False
+
         try:
             opts, args = getopt.getopt(argv, "hs:c:nd:v")
         except getopt.GetoptError:
             self.printHelpAndExit()
-#            print(self.exename, ' [-n  (noplot)] [-s State] [-c County]')
+
         count = 0
         for opt, arg in opts:
             count += 1
-            #print(count, opt, arg)
+
             if opt == '-h':
                 self.printHelpAndExit()
-#                print(self.exename, ' [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
             elif opt == '-v':
                 print(f'Version {self.getVersion()}')
                 sys.exit()
@@ -43,14 +42,12 @@ class ourOpts(Options):
                 self.state = arg
             elif opt in ('-c'):
                 self.county = arg
-            elif opt in ('-d'):
-                self.date = arg
-                dtfmt = re.compile('\d{4}-\d{2}-\d{2}')
-                matchobj = re.search(dtfmt, self.date)
-                if not matchobj:
-                    self.printHelpAndExit()
-                    sys.exit()
 
+
+
+    def printHelpAndExit(self):
+        print(f'usage: {self.exename} [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
+        sys.exit('Exiting')
 
         
         
