@@ -20,14 +20,15 @@ sys.path.append('/Users/jimt/work/python/pytools')
 import avg
 from options import Options
 
-class fileOpts(Options):
-    pass
-   # def __init__(self, argv, exename):
+
+class ourOpts(Options):
+    def __init__(self, argv, exename):
+        super().__init__(argv, exename)
 
         
 class lastDayGraph:
     def __init__(self, argv):
-        self.opts = fileOpts(argv, os.path.basename(__file__))
+        self.opts = ourOpts(argv, os.path.basename(__file__))
         self.counties = []
         self.date = '2020-01-01'
 

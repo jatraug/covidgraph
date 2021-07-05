@@ -14,13 +14,19 @@ from options import Options
 
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
 
+class ourOpts(Options):
+    def __init__(self, argv, exename):
+        super().__init__(argv, exename)
+        
+
+
 class covGraph:
     def __init__(self, argv):
-        self.opts = Options(argv, os.path.basename(__file__))
+        self.opts = ourOpts(argv, os.path.basename(__file__))
         
     def getimagename(self, state, dates, ttype):
         final = state + '_' + ttype + '_' + dates[-1] +'.jpg'
-        print(final)
+        #print(final)
         return final
 
     def getState(self):
