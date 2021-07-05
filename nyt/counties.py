@@ -13,10 +13,13 @@ sys.path.append('/Users/jimt/work/python/pytools')
 import avg
 from options import Options
 
-
+class ourOpts(Options):
+    def __init__(self, argv, exename):
+        super().__init__(argv, exename)
+        
 class countyGraph:
     def __init__(self, argv):
-        self.opts = Options(argv, os.path.basename(__file__))
+        self.opts = ourOpts(argv, os.path.basename(__file__))
         self.firstDate = '2020-01-01'
         self.lastDate = '2020-01-01'
 
