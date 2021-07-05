@@ -1,6 +1,6 @@
 RM=/bin/rm
 DB=/Users/jimt/Dropbox/work/covid/
-COV=/Users/jimt/work/covid/gittest/covidgraph/nyt
+COV=/Users/jimt/work/covid/nyt/
 IMG=$(COV)/images
 CP=/bin/cp
 PY=/python
