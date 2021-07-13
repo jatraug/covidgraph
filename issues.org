@@ -1,0 +1,10 @@
+
+* CovidGraph Issues
+
+| Issue                            | Git branch | State |
+|----------------------------------+------------+-------|
+| Hard-coded pathnames to env vars | NONE       | NONE  |
+| Versioning that woks             | NONE       | NONE  |
+| Unit testing of code             | NONE       | NONE  |
+| Include paths for modules        | NONE       | NONE  |
+
