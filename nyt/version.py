@@ -26,18 +26,25 @@ class Version:
 
 
 
-'''
+def main():
+    '''
 
-# test:
-vers = Version()
-print(f'Version is {vers.get()}')
-vers.set(3,6,5)
-print(f'Version is {vers.get()}')
+    # test:
+    '''
 
-'''
-
-
-
-
+    vers = Version()
+        
+    print(f'Version is {vers.get()}')
+    vers.set(3,6,5)
+    print(f'Version is {vers.get()}')
 
 
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
