@@ -3,8 +3,12 @@
 import os, sys
 from stat import *
 import re
+from dotenv import load_dotenv
+load_dotenv()
 
-pathname = '/Users/jimt/work/covid/nyt/images'
+
+##pathname = '/Users/jimt/work/covid/nyt/images'
+pathname = f'{os.environ.get("COVWORK")}/images'
 
 def makeCaption(jname):
     ''' make a captin from the jpeg name

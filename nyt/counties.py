@@ -9,8 +9,12 @@ import numpy as np
 import os
 import re
 import getopt
+from dotenv import load_dotenv
+load_dotenv()
 
-sys.path.append('/Users/jimt/work/python/pytools')
+##sys.path.append('/Users/jimt/work/python/pytools')
+sys.path.append(os.environ.get("PYTOOLS"))
+                
 import avg
 from options import Options
 
