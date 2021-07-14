@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-##pathname = '/Users/jimt/work/covid/nyt/images'
-pathname = f'{os.environ.get("COVWORK")}/images'
+##pathname = '/Users/jimt/work/covid/nyt/images
+covwork = os.environ.get('COVWORK')
+imgpathname = os.environ.get('IMGPATH')
 
 def makeCaption(jname):
     ''' make a captin from the jpeg name
@@ -21,6 +22,7 @@ def makeCaption(jname):
     return caption
     
 def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
+    #print('pathname = ', pathname)
     lcount = 0
     filearr = []
     for file in os.listdir(pathname):
@@ -44,4 +46,4 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
 
     print('</html>')                   
 
-mkHtmlWithFiles(pathname, 'crop-img', 'large-img')
+mkHtmlWithFiles(imgpathname, 'crop-img', 'large-img')
