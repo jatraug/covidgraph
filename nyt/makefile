@@ -1,20 +1,28 @@
+
+#ifneq (,$(wildcard ./.env))
+#    include .env
+#    export
+#endif
+
+
+
 RM=/bin/rm
 DB=/Users/jimt/Dropbox/work/covid/
-COV=/Users/jimt/work/covid/nyt/
-IMG=$(COV)/images
+COV=$(COVWORK)
+IMG=$(IMGPATH)
 CP=/bin/cp
-PY=/python
+PY=python
 
 
 doall: clean
 
 	$(MAKE) dolatest
 
-	$(CP) $(COV)/images/Washington*.jpg $(DB)
-	$(CP) $(COV)/images/California*.jpg $(DB)
-	$(CP) $(COV)/images/Oregon*jpg $(DB)
-	$(CP) $(COV)/images/Texas*jpg $(DB)
-#	#$(CP) $(COV)/images/US*jpg $(DB)
+	$(CP) $(COVWORK)/images/Washington*.jpg $(DB)
+	$(CP) $(COVWORK)/images/California*.jpg $(DB)
+	$(CP) $(COVWORK)/images/Oregon*jpg $(DB)
+	$(CP) $(COVWORK)/images/Texas*jpg $(DB)
+#	#$(CP) $(COVWORK)/images/US*jpg $(DB)
 	$(MAKE) html
 
 clean:
@@ -22,7 +30,7 @@ clean:
 	-$(RM) -f $(DB)/*jpg		
 
 html:
-	cd html && $(MAKE)
+	cd html;  $(PY) mkbody.py
 
 dolatest:
 #	conda init bash
