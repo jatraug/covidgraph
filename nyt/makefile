@@ -1,17 +1,21 @@
 
-ifneq (,$(wildcard ./.env))
-    include .env
-    export
-endif
+
+#ifneq (,$(wildcard ./.env))
+#    include .env
+#    export
+#endif
+
 
 
 
 RM=/bin/rm
 DB=/Users/jimt/Dropbox/work/covid/
 COV=$(COVWORK)
-IMG=$(COVWORK)/images
+
+IMG=$(IMGPATH)
+
 CP=/bin/cp
-PY=/python
+PY=python
 
 
 doall: clean
@@ -30,7 +34,7 @@ clean:
 	-$(RM) -f $(DB)/*jpg		
 
 html:
-	cd html && $(MAKE)
+	cd html;  $(PY) mkbody.py
 
 dolatest:
 #	conda init bash
