@@ -13,6 +13,14 @@ covwork = os.environ.get('COVWORK')
 imgpathname = os.environ.get('IMGPATH') ##.encode('utf-8') ##.decode('utf-8')
 imgpathname = unicodedata.normalize('NFC', imgpathname)
 
+def rid(mstr):
+    ''' 
+    Get rid of nastyugly extra " around strings
+    '''
+    rstr = re.compile('\"')
+    ms = re.sub(rstr, '', mstr)
+    return ms
+
 
 def makeCaption(jname):
     ''' make a captin from the jpeg name
