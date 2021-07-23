@@ -1,9 +1,9 @@
 
 
-#ifneq (,$(wildcard ./.env))
-#    include .env
-#    export
-#endif
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
+endif
 
 
 
