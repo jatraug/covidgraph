@@ -1,4 +1,7 @@
 PY = /Users/jimt/anaconda/envs/py38/bin/python
+CP = /bin/cp
+
+default: index.html indexDB.html
 
 index.html: head.html body.html
 	cat head.html body.html > $@
@@ -7,8 +10,18 @@ body.html: ./mkbody.py 	DOIT
 
 	$(PY) $< > $@
 
+## And now Dropbox:
+indexDB.html: head.html bodyDB.html
+	cat head.html bodyDB.html > $@
+	$(CP) indexDB.html ~/Dropbox/Work/covid/html/index.html
+
+bodyDB.html: ./mkbodyDB.py 	DOIT
+	./mkDB.sh
+	$(PY) $< > $@
+
 
 mkbody.py: DOIT
+mkbodyDB.py: DOIT
 
 
 DOIT:
