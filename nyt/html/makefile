@@ -1,7 +1,7 @@
 PY = /Users/jimt/anaconda/envs/py38/bin/python
 CP = /bin/cp
 
-default: index.html indexDB.html
+all: index.html indexDB.html
 
 index.html: head.html body.html
 	cat head.html body.html > $@
