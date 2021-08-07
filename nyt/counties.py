@@ -3,6 +3,7 @@
 import sys
 import pandas as pd
 
+from options import Options
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -11,12 +12,10 @@ import re
 import getopt
 from dotenv import load_dotenv
 load_dotenv()
-
+import avg
 ##sys.path.append('/Users/jimt/work/python/pytools')
 sys.path.append(os.environ.get("PYTOOLS"))
                 
-import avg
-from options import Options
 
 class ourOpts(Options):
     def __init__(self, argv, exename):
@@ -117,24 +116,24 @@ class countyGraph:
     def getTodaysInfo(self, df):
         small = df.tail(2)
         cases = small.iloc[1].cases - small.iloc[0].cases
-        cases=0 if cases < 0 else cases
-        deaths =  small.iloc[1].deaths - small.iloc[0].deaths
-        deaths=0 if deaths < 0 else deaths
+        cases = 0 if cases < 0 else cases
+        deaths = small.iloc[1].deaths - small.iloc[0].deaths
+        deaths = 0 if deaths < 0 else deaths
         date = small.iloc[0].date
         return 'Cases for   ' + str(date) + ': ' + str(cases) +'\nDeaths for '  +  str(date) + ': ' + str(deaths)
         
     
-    def iterateCounty(self,df, statename, County):
+    def iterateCounty(self, df, statename, County):
         dates = []
         cases = []
         deaths = []
 
         theState = df.loc[df['state'] == statename] ## and 'county' == County]
-        theCounty = theState.loc[theState['county']==County]
+        theCounty = theState.loc[theState['county'] == County]
 
          ## Get first and last dates for graph:
         first = theCounty.iloc[0].date
-        last  = theCounty.iloc[-1].date
+        last = theCounty.iloc[-1].date
         #print(first, last)
         self.setFirstAndLastDates(first, last)
 
@@ -181,7 +180,7 @@ class countyGraph:
         statename = self.getState() ##'Washington'
         county = self.getCounty()
 
-        self.iterateCounty(df,statename, county)
+        self.iterateCounty(df, statename, county)
 
             
 
@@ -240,7 +239,7 @@ class countyGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
-        ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1,15]))
+        ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1, 15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
 
