@@ -28,6 +28,12 @@ doall: clean
 	#$(CP) $(COVWORK)/images/Texas*jpg $(DB)
 #	#$(CP) $(COVWORK)/images/US*jpg $(DB)
 	$(MAKE) html
+	$(MAKE) web
+
+
+
+web:
+	cd web && $(MAKE)
 
 clean:
 	-$(RM) -f $(IMG)/*jpg
@@ -43,4 +49,4 @@ dolatest:
 	mkdir -p datasets
 	export LOCALCSV=True && ./dolatest.sh
 
-.PHONY: clean doall html
+.PHONY: clean doall html web
