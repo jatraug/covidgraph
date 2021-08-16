@@ -14,9 +14,9 @@ starting with the end date(endtime), calculate and retun the start date daysbefo
     matchobj = re.search(rx, str(new_final_time))
 
     if (matchobj):
-        print(matchobj[0])
-    return matchobj[0]
-
+        ##print(matchobj[0])
+        return matchobj[0]
+    return None
 
 
 
@@ -24,6 +24,7 @@ starting with the end date(endtime), calculate and retun the start date daysbefo
 
 def testit():
     edate = early_date(datetime.fromisoformat('2021-09-24'), int(-84))
+    print(edate)
     assert edate == '2021-07-02'
     
 
