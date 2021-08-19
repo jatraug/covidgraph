@@ -14,6 +14,7 @@ echo python counties.py -n -s Texas -c Harris
 python counties.py -n -s Texas -c Harris
 echo python counties.py -n -s California -c 'Los Angeles'
 python counties.py -n -s California -c 'Los Angeles'
+echo python counties.py -n -s 'South Carolina' -c Charleston
 python counties.py -n -s 'South Carolina' -c Charleston
 
 echo python states.py -n -s California
@@ -33,4 +34,5 @@ echo python lastday.py -n -s 'New Jersey'
 python lastday.py -n -s 'New Jersey'
 echo  python lastday.py -n -s California
 python lastday.py -n -s California
+echo python lastday.py -n -s 'South Carolina'
 python lastday.py -n -s 'South Carolina' 
