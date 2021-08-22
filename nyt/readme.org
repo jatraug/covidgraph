@@ -1,0 +1,12 @@
+* Working on
+** branch addtitle
+   counties.py - best so far is removing tight layout
+   Tried to add. Bigges change is No tight-layout
+** branch  firstofmonth
+
+* TODOs
+** TODO 3-d projection of counties
+   made bar3d.py in  mpl dir
+** TODO Fix date problem in lastday.py
+** TODO make x -axis have first-of-month dates only. First and last
+   dates should be included.
