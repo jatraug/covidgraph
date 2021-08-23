@@ -8,6 +8,10 @@ echo python counties.py -n -s Washington -c Snohomish
 python counties.py -n -s Washington -c Snohomish
 echo python counties.py -n -s Oregon -c Douglas
 python counties.py -n -s Oregon -c Douglas
+echo python counties.py -n -s Oregon -c Curry
+python counties.py -n -s Oregon -c Curry
+echo python counties.py -n -s Oregon -c Josephine
+python counties.py -n -s Oregon -c Josephine
 echo python counties.py -n -s Washington -c Spokane
 python counties.py -n -s Washington -c Spokane
 echo python counties.py -n -s Texas -c Harris
