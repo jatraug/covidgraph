@@ -46,22 +46,31 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
     filearr.sort()
     Dpath = 'images' ##Dropbox file location and name
     with  open('bodyDB.html', 'w') as fs:
+        fs.write('<body>\n')
+        fs.write('<div class="container">\n')
+        fs.write('<div class="row">\n')
         for f in filearr:
             fname = os.path.join(pathname, f)
             Dname =  os.path.join(Dpath, f)
             ourstat = os.stat(fname)
             mode = ourstat.st_mode
             if S_ISREG(mode) and f != '.DS_Store':
+               # fs.write(' <div class="row">\n')
+                fs.write('<div class="col-md-6">\n')
                 fs.write( f'<a img class=\"{lgclass}\" href=\"{Dname}\">\n<img class=\"{smclass}\"src=\"{Dname}\">\n')
-            
-                fs.write( makeCaption(f)) 
-                fs.write('</a>')
+
+                fs.write( makeCaption(f))
+
+                fs.write('</a>\n')
+                fs.write('</div>\n')
                 lcount +=1
                 if lcount %2 == 0:
-                    fs.write('<p>')
-            ##print(f'<img class=\"{xclass}\" src=\"{fname}\">')
+                    #fs.write('</div>\n<div class="row>"\n')
+                    fs.write('<p>\n')
 
-
+        fs.write('\div\n')
+        fs.write('\div\n')
+        fs.write('\body\n')
         fs.write( '</html>')
         
 
