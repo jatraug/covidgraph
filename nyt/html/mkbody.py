@@ -40,7 +40,7 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
         filearr.append(file)
     filearr.sort()
     with  open('body.html', 'w') as fs:
-        fs.write('<body>\n')
+        #fs.write('<body>\n')
         fs.write('<div class="container">\n')
         fs.write('<div class="row">\n')
 
@@ -62,9 +62,9 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
                     
             ##print(f'<img class=\"{xclass}\" src=\"{fname}\">')
 
-        fs.write('\div\n')
-        fs.write('\div\n')
-        fs.write('\body\n')
+        fs.write('</div\n')
+        fs.write('</div\n')
+        fs.write('</body\n')
 
         fs.write( '</html>')
         
