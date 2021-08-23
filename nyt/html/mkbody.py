@@ -36,28 +36,35 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
     #print('pathname = ', pathname)
     lcount = 0
     filearr = []
-    #if not isinstance(pathname, str):
-        #pathname = bytes(pathname, 'utf-8')
-        #pathname = pathname.encode('utf-8').decode('utf-8')
-        #pass
     for file in os.listdir(pathname):
         filearr.append(file)
     filearr.sort()
     with  open('body.html', 'w') as fs:
+        fs.write('<body>\n')
+        fs.write('<div class="container">\n')
+        fs.write('<div class="row">\n')
+
+
         for f in filearr:
             fname = os.path.join(pathname, f)
             ourstat = os.stat(fname)
             mode = ourstat.st_mode
             if S_ISREG(mode) and f != '.DS_Store':
+                fs.write('<div class="col-md-6">\n')
                 fs.write( f'<a img class=\"{lgclass}\" href=\"{fname}\">\n<img class=\"{smclass}\"src=\"{fname}\">\n')
             
                 fs.write( makeCaption(f)) 
-                fs.write('</a>')
+                fs.write('</a>\n')
+                fs.write('</div>\n')
                 lcount +=1
                 if lcount %2 == 0:
                     fs.write('<p>')
+                    
             ##print(f'<img class=\"{xclass}\" src=\"{fname}\">')
 
+        fs.write('\div\n')
+        fs.write('\div\n')
+        fs.write('\body\n')
 
         fs.write( '</html>')
         
