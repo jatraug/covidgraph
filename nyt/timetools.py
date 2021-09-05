@@ -1,5 +1,17 @@
 from datetime import datetime, timedelta
 import re
+import time
+
+
+def day_of_week():
+    t = time.localtime().tm_wday
+    return t
+
+def is_weekend():
+    dow = day_of_week()
+    if dow == 5 or dow == 6: ## Sat. or Sun.
+        return True
+    return False
 
 def early_date(endtime, daysbefore):
     """
@@ -26,6 +38,10 @@ def testit():
     edate = early_date(datetime.fromisoformat('2021-09-24'), int(-84))
     print(edate)
     assert edate == '2021-07-02'
+
+    ## Thelast test. If this is a weekend, expoec the test to pass.
+    ###  Othersise it'll fail!
+    assert is_weekend() == True
     
 
 
