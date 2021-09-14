@@ -199,12 +199,12 @@ class countyGraph:
         
     def plotcasediffs(self, statename, dates, cases, textstr):
         nowdiffs = self.casesdiff(cases)
-        average = np.array(self.domap(nowdiffs, 7))
+        average = np.array(self.domap(nowdiffs, 14))
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::28], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
@@ -235,13 +235,13 @@ class countyGraph:
     def plotdeathdiffs(self, statename, dates, deaths, textstr):
         nowdiffs = self.deathsdiff(deaths)
         ##print(nowdiffs)
-        average = np.array(self.domap(nowdiffs, 7))
+        average = np.array(self.domap(nowdiffs, 14))
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1, 15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - seven day running average')
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
 
         # Placement is either high, low or not at all...
        ## plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
