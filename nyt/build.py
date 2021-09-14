@@ -27,6 +27,8 @@ print("python states.py -n -s California")
 os.system("python states.py -n -s California")
 print("python states.py -n -s Oregon")
 os.system("python states.py -n -s Oregon")
+print("python states.py -n -s Idaho")
+os.system("python states.py -n -s Idaho")
 
 print("python lastday.py -n -s Oregon")
 os.system("python lastday.py -n -s Oregon")
@@ -36,7 +38,12 @@ print("python lastday.py -n -s California")
 os.system("python lastday.py -n -s California")
 print("python lastday.py -n -s 'South Carolina'")
 os.system("python lastday.py -n -s 'South Carolina'")
+print("python lastday.py -n -s Idaho")
+os.system("python lastday.py -n -s Idaho")
+
 ##os.system("")
+
+## Washington, Oregon, So Carolina all don't report on weekends
 
 if  not tt.is_weekend():
     print("python states.py -n -s Washington")
