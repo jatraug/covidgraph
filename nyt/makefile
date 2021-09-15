@@ -23,9 +23,9 @@ doall: clean
 	$(MAKE) dolatest
 
 	$(CP) $(COVWORK)/images/*.jpg $(DB)
-	#$(CP) $(COVWORK)/images/California*.jpg $(DB)
-	#$(CP) $(COVWORK)/images/Oregon*jpg $(DB)
-	#$(CP) $(COVWORK)/images/Texas*jpg $(DB)
+    #$(CP) $(COVWORK)/images/California*.jpg $(DB)
+    #$(CP) $(COVWORK)/images/Oregon*jpg $(DB)
+    #$(CP) $(COVWORK)/images/Texas*jpg $(DB)
 #	#$(CP) $(COVWORK)/images/US*jpg $(DB)
 	$(MAKE) html
 	$(MAKE) web
