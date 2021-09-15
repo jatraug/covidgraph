@@ -101,7 +101,7 @@ class covGraph:
         return({'ticks': ticks, 'labels': labels})
 
     def plotcases(self, statename, dates, cases):
-        average = np.array(self.domap(cases, 5))
+        average = np.array(self.domap(cases, 14))
         #print (len(average))
         
         fig = plt.figure(figsize=(12.0, 9.0))
@@ -109,8 +109,7 @@ class covGraph:
         
         xlabels = self.getxaxislabels(dates)
     
-        ax.plot(xlabels['ticks'], cases, 'b', label='Covid cases in ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + statename + ' - five day running average')
+        ax.plot(xlabels['ticks'], cases, 'b', label='Covid cases in ' + statename, linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=30)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
@@ -122,15 +121,15 @@ class covGraph:
         self.doShow()
 
     def plotdeaths(self, statename, dates, deaths):
-        average = np.array(self.domap(deaths, 5))
+        average = np.array(self.domap(deaths, 14))
         ## plot deaths separately:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         plt.xticks(rotation=45)
         xlabels = self.getxaxislabels(dates)
         
-        ax.plot(xlabels['ticks'], deaths, 'r', label='Covid deaths in ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - five day running average')
+        ax.plot(xlabels['ticks'], deaths, 'r', label='Covid deaths in ' + statename, linewidth=2.0)
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.xticks(rotation=45)
@@ -158,12 +157,12 @@ class covGraph:
         
     def plotcasediffs(self, statename, dates, cases):
         nowdiffs = self.casesdiff(cases)
-        average = np.array(self.domap(nowdiffs, 7))
+        average = np.array(self.domap(nowdiffs, 14))
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + statename + ' - seven day running average')
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + statename + ' - fourteen day running average',  linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
@@ -190,12 +189,12 @@ class covGraph:
 
     def plotdeathdiffs(self, statename, dates, deaths):
         nowdiffs = self.deathsdiff(deaths)
-        average = np.array(self.domap(nowdiffs, 7))
+        average = np.array(self.domap(nowdiffs, 14))
         fig = plt.figure(figsize=(14.0, 9.0))
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - seven day running average')
+        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
