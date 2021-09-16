@@ -7,8 +7,8 @@ import timetools as tt #Uncover weekends
 import os
 import sys
 import facts
-lazyStates = ["Washington", "Oregon", "South Carolina"]
-empty = []
+
+
 
 
 
@@ -39,7 +39,7 @@ class RemoveFiles:
 
 
 def main():
-    rf = RemoveFiles(lazyStates)
+    rf = RemoveFiles(facts.lazyStates)
     rf.doOrDontRemove(facts.DBIMG)
     
 if __name__ == "__main__":
