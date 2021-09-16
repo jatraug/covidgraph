@@ -10,17 +10,6 @@ import facts
 lazyStates = ["Washington", "Oregon", "South Carolina"]
 ##  os.remove("file.jpg")
 
-def WHATTTT():
-    dontRemove = False
-    fl = "South Carolina_Charleston_cases.jpg"
-    for s in lazyStates:
-        if s not in fl:
-            dontRemove = True
-            break
-        if dontRemove == True:
-            print("nope")
-        else:
-            print(f"remove {fl}")
 
 
 
@@ -31,17 +20,17 @@ def doOrDontRemove(pathname):
         fname = os.path.join(pathname, f)
 
         for s in lazyStates:
-            if s not in f:
+            if s in f:
                 dontRemove = True
                 break        
         if dontRemove == True:
-            print(f"{fname}: keep")
+            print(f"keep {f}")
         else:
-            print(f"remove {fname}")
+            print(f"remove {f}")
 
 
 
 def main():
-    doOrDontRemove(facts.IMAGES)
+    doOrDontRemove(facts.DBIMG)
 if __name__ == "__main__":
     main()
