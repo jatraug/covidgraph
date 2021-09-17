@@ -31,11 +31,30 @@ class RemoveFiles:
                     keepfile = True
                     break        
             if keepfile == True:
-                print(f"keep {f}")
+                pass
+                #print(f"keep {f}")
             else:
-                print(f"remove {f}")
+                # print(f"remove {f}")
                 self.removeFiles.append(f)
+        self.prepareAllFileRemoval()
 
+    def writeNativeRemoveFiles(self):
+        with  open("NativeRemove.txt", "w") as fs:
+            for file in self.removeFiles:
+                pfile = os.path.join(facts.IMAGES, file)
+                fs.write(f"os.remove({pfile})\n")
+        fs.close()
+
+    def  writeDropboxRemoveFiles(self):
+        pass
+
+    def writeBitnamiRemoveFiles(self):
+        pass
+    
+    def prepareAllFileRemoval(self):
+        self.writeDropboxRemoveFiles()
+        self.writeNativeRemoveFiles()
+        self.writeBitnamiRemoveFiles()
 
 
 def main():
