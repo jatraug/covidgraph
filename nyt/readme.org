@@ -3,6 +3,7 @@
    counties.py - best so far is removing tight layout
    Tried to add. Bigges change is No tight-layout
 ** branch  firstofmonth
+** branch BuildChange
 
 * TODOs
 ** TODO 3-d projection of counties
@@ -10,3 +11,12 @@
 ** TODO Fix date problem in lastday.py
 ** TODO make x -axis have first-of-month dates only. First and last
    dates should be included.
+** Build change
+*** TODO Move all build stuff to nyt/build
+*** TODO Use weekend.py to NOT remove some files on weekends. (Oregon, Washington, South Carolina)
+*** TODO Use weekend.py to NOT build some files on weekends
+*** Move rm files out of makefile and into mkRmAndBuild.py
+** How build works now:
+nyt: makefile
+      dolatest.sh - build.py
+

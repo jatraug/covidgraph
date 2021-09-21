@@ -33,6 +33,9 @@ class RemoveFiles:
         self.prepareAllFileRemoval()
 
     def doOrDontRemove(self,  pathname):
+        ''' filled in later (init) to be one of the weekend funcs
+        '''
+        ## assert False
         pass
     
     def remove_is_weekend(self,  pathname):
@@ -85,7 +88,8 @@ class RemoveFiles:
         self.writeDropboxRemoveFiles()
         self.writeNativeRemoveFiles()
         self.writeBitnamiRemoveFiles()
-    def runner(self):
+
+        def runner(self):
         self.doOrDontRemove(facts.IMAGES)
 
 def main():
