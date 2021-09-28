@@ -55,3 +55,7 @@ if  not tt.is_weekend():
     os.system("python counties.py -n -s Washington -c Spokane")
     print("python lastday.py -n -s  Washington")
     os.system("python lastday.py -n -s  Washington")
+
+print("os.system(python us.py -n)")
+os.system("python us.py -n")
+

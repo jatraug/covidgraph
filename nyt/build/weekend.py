@@ -59,6 +59,7 @@ class RemoveFiles:
 
     def writeNativeRemoveFiles(self):
         with  open("nativeRemove.txt", "w") as fs:
+            fs.write("#### This file created my weekend.py. Do not edit!! ###\n")            
             fs.write("import os\n")
             for file in self.weekendFiles:
                 pfile = os.path.join(facts.IMAGES, file)
@@ -67,6 +68,7 @@ class RemoveFiles:
 
     def  writeDropboxRemoveFiles(self):
         with  open("dboxRemove.txt", "w") as fs:
+            fs.write("#### This file created my weekend.py. Do not edit!! ###\n")            
             fs.write("import os\n")
             for file in self.weekendFiles:
                 pfile = os.path.join(facts.DBIMG, file)
@@ -78,7 +80,8 @@ class RemoveFiles:
 
     def writeBitnamiRemoveFiles(self):
         with  open("../web/bitnamiRemove.txt", "w") as fs:
-            fs.write("import os\n")            
+            fs.write("#### This file created my weekend.py. Do not edit!! ###\n")
+            fs.write("import os\n")
             for file in self.weekendFiles:
                 #qpfile = os.path.join(facts.AWSIMG, file)
                 fs.write(f"os.remove({file})\n")
