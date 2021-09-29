@@ -17,7 +17,7 @@ import activity
 
 class RemoveFiles:
     def __init__(self, lazyStates):
-        self.weekendFiles = []
+        self.removeTheseFiles = []
         self.empty = []
         self.lazyStates = lazyStates
         if self.is_weekend():
@@ -30,7 +30,7 @@ class RemoveFiles:
 
     def remove_not_weekend(self, pathname):
         for f in os.listdir(pathname):
-            self.weekendFiles.append(f)
+            self.removeTheseFiles.append(f)
         self.prepareAllFileRemoval()
 
     def doOrDontRemove(self,  pathname):
@@ -54,25 +54,47 @@ class RemoveFiles:
                 #print(f"keep {f}")
             else:
                 # print(f"remove {f}")
-                self.weekendFiles.append(f)
+                self.removeTheseFiles.append(f)
         self.prepareAllFileRemoval()
 
     def writeNativeRemoveFiles(self):
         with  open("nativeRemove.txt", "w") as fs:
             fs.write("#### This file created my weekend.py. Do not edit!! ###\n")            
             fs.write("import os\n")
-            for file in self.weekendFiles:
+            fs.write("flist = [ ")
+            for file in self.removeTheseFiles:
                 pfile = os.path.join(facts.IMAGES, file)
-                fs.write(f"os.remove({pfile})\n")
+                fs.write(f'"{pfile}",\n ')
+                #fs.write(f"os.remove({pfile})\n")
+            fs.write("]\n")
+            fs.write("for f in flist:\n")
+            fs.write(f"    try:\n")
+
+            fs.write("        os.remove(f)\n" ) ## + "\}')\n")
+            
+            fs.write(f"    except FileNotFoundError as e:\n")
+            fs.write("        print(e)\n")
+                     
         fs.close()
 
     def  writeDropboxRemoveFiles(self):
         with  open("dboxRemove.txt", "w") as fs:
             fs.write("#### This file created my weekend.py. Do not edit!! ###\n")            
             fs.write("import os\n")
-            for file in self.weekendFiles:
+            fs.write("flist = [ ")
+            for file in self.removeTheseFiles:
                 pfile = os.path.join(facts.DBIMG, file)
-                fs.write(f"os.remove({pfile})\n")
+                fs.write(f'"{pfile}",\n ')
+                #fs.write(f"os.remove({pfile})\n")
+            fs.write("]\n")
+            fs.write("for f in flist:\n")
+            fs.write(f"    try:\n")
+
+            fs.write("        os.remove(f)\n" ) ## + "\}')\n")
+            
+            fs.write(f"    except FileNotFoundError as e:\n")
+            fs.write("        print(e)\n")
+                     
         fs.close()
 
 
@@ -82,7 +104,7 @@ class RemoveFiles:
         with  open("../web/bitnamiRemove.txt", "w") as fs:
             fs.write("#### This file created my weekend.py. Do not edit!! ###\n")
             fs.write("import os\n")
-            for file in self.weekendFiles:
+            for file in self.removeTheseFiles:
                 #qpfile = os.path.join(facts.AWSIMG, file)
                 fs.write(f"os.remove({file})\n")
         fs.close()
