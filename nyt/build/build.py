@@ -45,7 +45,7 @@ os.system("python lastday.py -n -s Idaho")
 
 ## Washington, Oregon, So Carolina all don't report on weekends
 
-if  not tt.is_weekend():
+if  True: ##not tt.is_weekend():
     print("python states.py -n -s Washington")
     os.system("python states.py -n -s Washington")
 
