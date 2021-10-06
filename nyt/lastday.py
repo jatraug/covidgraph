@@ -17,6 +17,9 @@ from datetime import datetime, timedelta, date
 
 
 sys.path.append('/Users/jimt/work/python/pytools')
+sys.path.append('/Users/jimt/work/python/census')
+import getcountypop as cpop
+
 import avg
 from options import Options
 import getopt
@@ -200,6 +203,9 @@ class lastDayGraph:
     def iterateCounties(self, theState):
         cases = []
         deaths =[]
+        casesPerHundredThou = []
+        Census = cpop.Census()
+        
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
@@ -230,8 +236,14 @@ class lastDayGraph:
             #print(ours.tail())
             cases.append(currentCases)
             deaths.append(currentDeaths)
+            ##########
+            print(f'{self.getState()}, {cn}')
+            if cn != 'Unknown' and cn != 'New York City':
+                casesPerHundredThou.append(currentCases/Census.getPopDivHundredThousand(self.getState(), cn))
+            else:
+                casesPerHundredThou.append(0)
 
-        self.plotCurrentCases(cases)
+        self.plotCurrentCases(casesPerHundredThou)
         self.doShow()
         self.plotCurrentDeaths(deaths)
         self.doShow()        
@@ -240,13 +252,13 @@ class lastDayGraph:
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
 
-        ax.bar(self.counties, cases, label=self.makeLabel('cases'))
-        ax.plot(label=self.makeLabel('cases'))
+        ax.bar(self.counties, cases, label=self.makeLabel('cases per 100000 population'))
+        ax.plot(label=self.makeLabel('cases per 100000 population'))
         plt.xticks(rotation=90)
         plt.subplots_adjust(bottom=0.40)
         plt.tight_layout()
         plt.legend(loc='best')
-        imgname = self.getimagename('Cases')
+        imgname = self.getimagename('CasesPerHundThou')
         fig.savefig('images/' + imgname, pil_kwargs={'quality': 60}) 
 
     def plotCurrentDeaths(self, deaths):
