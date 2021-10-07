@@ -204,7 +204,7 @@ class lastDayGraph:
         cases = []
         deaths =[]
         casesPerHundredThou = []
-        Census = cpop.Census()
+        Census = cpop.Census(self.getState())
         
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
@@ -237,7 +237,7 @@ class lastDayGraph:
             cases.append(currentCases)
             deaths.append(currentDeaths)
             ##########
-            print(f'{self.getState()}, {cn}')
+            #print(f'{self.getState()}, {cn}')
             if cn != 'Unknown' and cn != 'New York City':
                 casesPerHundredThou.append(currentCases/Census.getPopDivHundredThousand(self.getState(), cn))
             else:
