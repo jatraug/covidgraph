@@ -24,3 +24,9 @@ The -n option prevents the formation of an interactive graph at runtime.
 A static graph of the data is always produced.
 
 
+## Setup
+- symlink (or copy) makefile from nyt/accessory/makefile to wherever is
+comfortable and edit to taste. I put this in my home diectory as a
+tribute to my laziness.
+- edit nyt/.env to match your system.
+- ADD Avg and Census
