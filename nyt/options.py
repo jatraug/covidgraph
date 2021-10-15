@@ -28,6 +28,9 @@ class Options:
         vers = Version()
         return vers.get()
 
+    def getDoHunThou(self):
+        return self.doHunThou
+    
     def printHelpAndExit(self):
         print(f'usage: {self.exename} [-n  (noplot)] [-s State] [-c County] -v [-d date (2021-03-30)')
         sys.exit('Exiting')
