@@ -1,4 +1,4 @@
-PY = /Users/jimt/anaconda/envs/py38/bin/python
+PY = python
 CP = /bin/cp
 
 all: index.html indexDB.html

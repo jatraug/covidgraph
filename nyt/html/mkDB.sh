@@ -5,7 +5,7 @@
 ### make a usable presence on Dropbox
 export DB=/Users/jimt/Dropbox/work/covid
 export CP=/bin/cp
-export PY=/Users/jimt/anaconda/envs/py38/bin/python
+export PY=python
 export RM=/bin/rm
 
 $RM $DB/html/images/*jpg
