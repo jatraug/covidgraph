@@ -44,7 +44,7 @@ html:
 
 dolatest:
 #	conda init bash
-#	conda activate py38
+	#conda activate py38
 	mkdir -p images
 	mkdir -p datasets
 	export LOCALCSV=True && ./dolatest.sh
