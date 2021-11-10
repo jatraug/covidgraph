@@ -153,9 +153,13 @@ class countyGraph:
 
     def getCsv(self):
         if 'LOCALCSV' in os.environ:
-            df = pd.read_csv('datasets/us-counties.csv')
+            #df = pd.read_csv('datasets/us-counties.csv')
+            df = pd.read_csv(os.environ.get('LOCAL_COUNTIES_CSV'))
         else:
-            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+#            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+            df = pd.read_csv(os.environ.get('NYTIMES_COUNTIES_CSV'))
+
+
         return df
 
         
