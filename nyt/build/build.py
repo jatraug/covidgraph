@@ -40,6 +40,8 @@ print("python lastday.py -n -s 'South Carolina'")
 os.system("python lastday.py -n -s 'South Carolina'")
 print("python lastday.py -n -s Idaho")
 os.system("python lastday.py -n -s Idaho")
+print("python states.py -n -s Florida")
+os.system("python states.py -n -s Florida")
 
 ##os.system("")
 
