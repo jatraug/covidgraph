@@ -20,6 +20,8 @@ sys.path.append('/Users/jimt/work/python/pytools')
 import avg
 from options import Options
 import getopt
+from dotenv import load_dotenv
+load_dotenv()
 
 class ourOpts(Options):
     def __init__(self, argv, exename):
@@ -80,11 +82,15 @@ class lastDayGraph:
 
     def getCsv(self):
         if 'LOCALCSV' in os.environ:
-            df = pd.read_csv('datasets/us-counties.csv')
+            df = pd.read_csv(os.environ.get('LOCAL_COUNTIES_CSV'))
         else:
-            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+            df = pd.read_csv(os.environ.get('NYTIMES_COUNTIES_CSV'))
+
+
         return df
 
+
+            
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
         try:
