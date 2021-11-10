@@ -10,6 +10,9 @@ import sys
 sys.path.append('/Users/jimt/work/python/pytools')
 import avg
 from options import Options
+from dotenv import load_dotenv
+load_dotenv()
+
 import getopt
 
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
@@ -65,9 +68,12 @@ class covGraph:
 
     def getCsv(self):
         if 'LOCALCSV' in os.environ:
-            df = pd.read_csv('datasets/us-states.csv')
+#            df = pd.read_csv('datasets/us-states.csv')
+            print(os.environ.get('LOCAL_STATES_CSV'))
+            df = pd.read_csv(os.environ.get('LOCAL_STATES_CSV'))
         else:
-            df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
+            #df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
+            df = pd.read_csv(os.environ.get('NYTIMES_STATES_CSV'))
         return df
                 
     ## now do n day average:
