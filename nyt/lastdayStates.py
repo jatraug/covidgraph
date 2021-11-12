@@ -88,20 +88,42 @@ class lastDayGraph:
 
 
         return df
+    def getListOfStates(self, dfDate):
+        states = []
+        for i, s in dfDate.iterrows():
+            states.append(s['state'])
+        
+        return list(set(states))
+    
+    def extractDatesToUse(self, df):
+        """
+        Get the last date ane nex-ti-last dates in th df.
+        """
+
+        lastDate = df.iloc[-1].date
+        nextToLastDate = df.iloc[-2].date
+        return lastDate, nextToLastDate
+
+    def iterateUsForStates(self, df, lastDate, nextToLastDate):
+        
+## Sample:  theState = df.loc[df['state'] == statename]
+        dfLastDate = df.loc[df['date'] == lastDate]
+        dfNextToLastDate = df.loc[df['date'] == nextToLastDate]
+        listOfStates = self.getListOfStates(dfLastDate)
+        print(listOfStates)
 
 
-            
+        
     def SetupAndRun(self):
         matplotlib.style.use('fivethirtyeight')
-        try:
-            assert self.getState() != 'NoState'
-        except AssertionError:
-            print('No state entered!')
-            sys.exit()
+
         df = self.getCsv()
 
+        lastDate, nextToLastDate = self.extractDatesToUse(df)
+
+        
 #        state = self.getState()
-        self.iterateState(df, state)
+        self.iterateUsForStates(df, lastDate, nextToLastDate )
         
     def getAllCounties(self, theState):
         ''' iterate the state to get all counties
@@ -126,15 +148,15 @@ class lastDayGraph:
     def appendCounty(self, county):
         self.counties.append(county)
 
-    def iterateState(self,df, statename):
+    def iterateStates(self,df):
         dates = []
         cases = []
         deaths = []
 
-        theState = df.loc[df['state'] == statename] ## and 'county' == County]
+        #theState = df.loc[df['state'] == statename] ## and 'county' == County]
 
-        self.getAllCounties(theState)
-        self.iterateCounties(theState)
+        #self.getAllCounties(theState)
+        #self.iterateCounties(theState)
 
 
     def getCurrentCases(self, ours):
