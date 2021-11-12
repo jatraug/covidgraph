@@ -125,9 +125,11 @@ class lastDayGraph:
                 
                 casesDeathsData.append(dfLastDate.loc[dfLastDate['state'] == state]['cases'] - dfNextToLastDate.loc[dfNextToLastDate['state'] == state]['cases'])
 
+                casesDeathsData.append(dfLastDate.loc[dfLastDate['state'] == state]['deaths'] - dfNextToLastDate.loc[dfNextToLastDate['state'] == state]['deaths'])
+
                 stateData['state'] = casesDeathsData
-
-
+                #example: dict(sorted(x.items(), key=lambda item: item[1]))
+                sortedStateData = sorted(stateData.items(), key=lambda item: item[1])
 
         
     def SetupAndRun(self):
