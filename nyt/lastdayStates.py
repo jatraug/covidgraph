@@ -101,16 +101,32 @@ class lastDayGraph:
         """
 
         lastDate = df.iloc[-1].date
-        nextToLastDate = df.iloc[-2].date
+        nextToLastDate = self.dateSubtractOneDay(lastDate) ##df.iloc[-3].date
         return lastDate, nextToLastDate
 
     def iterateUsForStates(self, df, lastDate, nextToLastDate):
-        
-## Sample:  theState = df.loc[df['state'] == statename]
+        print(f'dates: {lastDate}   {nextToLastDate}')
+## sample:  theState = df.loc[df['state'] == statename]
         dfLastDate = df.loc[df['date'] == lastDate]
         dfNextToLastDate = df.loc[df['date'] == nextToLastDate]
         listOfStates = self.getListOfStates(dfLastDate)
-        print(listOfStates)
+        listOfNextToStates = self.getListOfStates(dfNextToLastDate)
+       ## print(listOfStates)
+
+
+        stateData = {}
+        for state in listOfStates:
+            casesDeathsData = []
+            if state not in listOfNextToStates:
+                print (f' {state} is missing!')
+            else:
+#                print(dfLastDate.loc[dfLastDate['state'] == state].cases)
+#                print(dfNextToLastDate.loc[dfNextToLastDate['state'] == state].cases)
+                
+                casesDeathsData.append(dfLastDate.loc[dfLastDate['state'] == state]['cases'] - dfNextToLastDate.loc[dfNextToLastDate['state'] == state]['cases'])
+
+                stateData['state'] = casesDeathsData
+
 
 
         
