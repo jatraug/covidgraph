@@ -69,7 +69,7 @@ class covGraph:
     def getCsv(self):
         if 'LOCALCSV' in os.environ:
 #            df = pd.read_csv('datasets/us-states.csv')
-            print(os.environ.get('LOCAL_STATES_CSV'))
+          ##  print(os.environ.get('LOCAL_STATES_CSV'))
             df = pd.read_csv(os.environ.get('LOCAL_STATES_CSV'))
         else:
             #df = pd.read_csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv')
