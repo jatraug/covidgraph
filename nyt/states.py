@@ -168,7 +168,7 @@ class covGraph:
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + statename + ' - fourteen day running average',  linewidth=2.0)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid cases in ' + statename + ' - fourteen day running average',  linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
