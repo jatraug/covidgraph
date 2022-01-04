@@ -93,8 +93,19 @@ class countyGraph:
             average.append(Avg.addelemandGetaverage(arr[i]))
         return average
 
+
+# Tell matplotlib to interpret the x-axis values as dates
+###ax.xaxis_date()
+
+# Make space for and rotate the x-axis tick labels
+###fig.autofmt_xdate()
+
+    
     def getxdates(self, rawdates):
         xdates = matplotlib.dates.num2date(matplotlib.dates.datestr2num(rawdates))
+        # pd.to_datetime(df['TradeDate'], format='%Y%m%d.0')
+
+        #xdates = pd.to_datetime(rawdates, format='%Y%m%d') ##matplotlib.dates.date2num(rawdates)
         return xdates
 
     def getxaxislabels(self, datearr):
@@ -198,6 +209,11 @@ class countyGraph:
             #        print(list(diffs))
         return diffs
 
+# Tell matplotlib to interpret the x-axis values as dates
+
+
+# Make space for and rotate the x-axis tick labels
+
         
     def plotcasediffs(self, statename, dates, cases, textstr):
         nowdiffs = self.casesdiff(cases)
@@ -206,15 +222,17 @@ class countyGraph:
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::28], rotation=45)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
+        ax.xaxis_date()
+        fig.autofmt_xdate()
         plt.legend()
-        plt.tight_layout()
-        plt.xticks(rotation=45)
+#        plt.tight_layout()
+#        plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname, pil_kwargs={}) ###quality=60)
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -243,13 +261,13 @@ class countyGraph:
         xlabels = self.getxaxislabels(dates)
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1, 15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + self.getCountyFixed() + ' county, '+ statename + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
 
         # Placement is either high, low or not at all...
        ## plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
         
         
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::28], rotation=45)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
         plt.tight_layout()
@@ -259,7 +277,7 @@ class countyGraph:
 #                verticalalignment='top', bbox=props)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname, pil_kwargs={} ) ##quality=60)
         self.doShow()
     
 
