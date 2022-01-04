@@ -116,14 +116,14 @@ class covGraph:
         xlabels = self.getxaxislabels(dates)
     
         ax.plot(xlabels['ticks'], cases, 'b', label='Covid cases in ' + statename, linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=30)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=30)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
 ####        plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
 
     def plotdeaths(self, statename, dates, deaths):
@@ -135,7 +135,7 @@ class covGraph:
         xlabels = self.getxaxislabels(dates)
         
         ax.plot(xlabels['ticks'], deaths, 'r', label='Covid deaths in ' + statename, linewidth=2.0)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.xticks(rotation=45)
@@ -144,7 +144,7 @@ class covGraph:
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'death')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
 
         ## make a bar chart of diffs of cases by day;
@@ -169,14 +169,14 @@ class covGraph:
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + statename)
         ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in ' + statename + ' - fourteen day running average',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -200,15 +200,15 @@ class covGraph:
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day ' + statename)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
     
     def SetupAndRun(self):

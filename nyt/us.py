@@ -178,15 +178,15 @@ class usGraph:
         ax = fig.add_subplot(111)
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day.  Total deaths = '+ str(self.getTotalDeaths()) + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid cases in US - fourteen day running average.',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::28], rotation=45)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid cases in US - fourteen day running average.',  linewidth=2.0)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
         imgname = self.getimagename( dates, 'cases')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -215,13 +215,13 @@ class usGraph:
         xlabels = self.getxaxislabels(dates)
         ax.xaxis.set_major_locator(matplotlib.dates.DayLocator(bymonthday=[1, 15]))
         ax.bar(xlabels['ticks'], nowdiffs, label='deaths per day in US. Total deaths = '+ str(self.getTotalDeaths()) + '\n' + textstr)
-        ax.plot(xlabels['ticks'], average, 'g', label='Covid deaths in US - fourteen day running average', linewidth=2.0)
+        ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in US - fourteen day running average', linewidth=2.0)
 
         # Placement is either high, low or not at all...
        ## plt.text(5, 16, 'OompaLoompa') ##getTodaysInfo())
         
         
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::28], rotation=45)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
         plt.tight_layout()
@@ -231,7 +231,7 @@ class usGraph:
 #                verticalalignment='top', bbox=props)
         #before showing, save image
         imgname = self.getimagename(dates, 'deaths')
-        fig.savefig('images/' + imgname, quality=60)
+        fig.savefig('images/' + imgname)
         self.doShow()
     
 
