@@ -147,6 +147,13 @@ class covGraph:
         fig.savefig('images/' + imgname)
         self.doShow()
 
+    def scale_y(self, plt):
+        ybottom, ytop = plt.ylim()
+        print('CD bottom, top: ', ybottom, ytop)
+        ## if ytop > 8000:
+        plt.ylim(ybottom, ytop * 0.75) 
+        return None
+        
         ## make a bar chart of diffs of cases by day;
     def casesdiff(self, arrcases):
         diffs = []
@@ -172,6 +179,7 @@ class covGraph:
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
+        self.scale_y(plt)
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
@@ -204,6 +212,7 @@ class covGraph:
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
         plt.legend()
+        self.scale_y(plt)
         plt.tight_layout()
         plt.xticks(rotation=45)
         #before showing, save image
