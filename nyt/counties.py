@@ -209,7 +209,16 @@ class countyGraph:
             #        print(list(diffs))
         return diffs
 
-# Tell matplotlib to interpret the x-axis values as dates
+
+    def scale_y(self, plt):
+        ybottom, ytop = plt.ylim()
+        print('CD bottom, top: ', ybottom, ytop)
+        ## if ytop > 8000:
+        plt.ylim(ybottom, ytop * 0.75) 
+        return None
+
+
+    # Tell matplotlib to interpret the x-axis values as dates
 
 
 # Make space for and rotate the x-axis tick labels
@@ -228,6 +237,9 @@ class countyGraph:
         ax.xaxis_date()
         fig.autofmt_xdate()
         plt.legend()
+
+        self.scale_y(plt)
+
 #        plt.tight_layout()
 #        plt.xticks(rotation=45)
         #before showing, save image
@@ -270,6 +282,9 @@ class countyGraph:
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
         plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
+
+        self.scale_y(plt)
+
         plt.tight_layout()
         plt.xticks(rotation=45)
 #        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
