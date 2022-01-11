@@ -149,7 +149,7 @@ class covGraph:
 
     def scale_y(self, plt):
         ybottom, ytop = plt.ylim()
-        print('CD bottom, top: ', ybottom, ytop)
+        ##print('CD bottom, top: ', ybottom, ytop)
         ## if ytop > 8000:
         plt.ylim(ybottom, ytop * 0.75) 
         return None
