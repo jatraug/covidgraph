@@ -10,6 +10,7 @@ def printAndBuildCounty(**kwargs):
     cnty = kwargs['county'].title()
     cmd = f"python {pyfile} -n -s \'{state}\' -c \'{cnty}\'"
     print(cmd)
+    ##xx = str(input('Hit any key'))
     #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
     os.system(cmd)
 
@@ -20,7 +21,17 @@ def printAndBuildState(**kwargs):
     state = kwargs['state'].title()
     cmd = f"python {pyfile} -n -s \'{state}\'"
     print(cmd)
+    ##xx = str(input('hit any key'))
     os.system(cmd)
+
+def printAndBuildLastday(**kwargs):
+    pyfile = 'lastday.py'
+    state = kwargs['state'].title()
+    cmd = f"python {pyfile} -n -s \'{state}\'"
+    print(cmd)
+    ##xx = str(input('Hit any key'))
+    #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
+    os.system(cmd)    
 
 # func to make a python buid order
 def mkPyBuildOrder(**kwargs):
@@ -29,6 +40,9 @@ def mkPyBuildOrder(**kwargs):
         printAndBuildState(**kwargs)
     elif cmdarg == 'counties':
         printAndBuildCounty(**kwargs)
+    elif cmdarg == 'lastday':
+        printAndBuildLastday(**kwargs)
+
     else:
         raise SomeError
         
@@ -36,7 +50,7 @@ def mkPyBuildOrder(**kwargs):
 #mkPyBuildOrder(file='counties',state='Washington', county='Snohomish')
 buildData = [
     {'file': 'counties', 'state': 'Washington', 'county': 'Snohomish'},
-    {'file': 'counties', 'state': 'Washingon', 'county': 'Spokane'},
+    {'file': 'counties', 'state': 'Washington', 'county': 'Spokane'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Douglas'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Curry'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Josephine'},
@@ -59,6 +73,14 @@ buildData = [
     {'file': 'states', 'state': 'south carolina'},
     {'file': 'states', 'state': 'arizona'},
     {'file': 'states', 'state': 'alaska'},
+    
+    {'file': 'lastday', 'state': ''},
+    {'file': 'lastday', 'state': 'oregon'},
+    {'file': 'lastday', 'state': 'new jersey'},
+    {'file': 'lastday', 'state': 'california'},
+    {'file': 'lastday', 'state': 'south carolina'},
+    {'file': 'lastday', 'state': 'idaho'},
+    {'file': 'lastday', 'state': 'washington'},
 
  ]
 
