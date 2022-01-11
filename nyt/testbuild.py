@@ -73,8 +73,9 @@ buildData = [
     {'file': 'states', 'state': 'south carolina'},
     {'file': 'states', 'state': 'arizona'},
     {'file': 'states', 'state': 'alaska'},
+    {'file': 'states', 'state': 'illinois'},
     
-    {'file': 'lastday', 'state': ''},
+    {'file': 'lastday', 'state': 'illinois'},
     {'file': 'lastday', 'state': 'oregon'},
     {'file': 'lastday', 'state': 'new jersey'},
     {'file': 'lastday', 'state': 'california'},
@@ -88,14 +89,10 @@ buildData = [
 
 def doBuild():
     for line in buildData:
-
-        ##cmd = f"file = {line['file']}, state = {line['state']}, county = {line['county']}"
-        #cmd = f"file=\'{line['file']}\', state=\'{line['state']}\', county=\'{line['county']}\'"
-        #print(f'cmd: {cmd}')
-
-       ## mkPyBuildOrder(file='counties', state='Washington', county='Snohomish')
         mkPyBuildOrder(**line)
-
+    # One more straggler:
+    print('os.system("python us.py -n")')
+    os.system("python us.py -n")
 
 def main():
     doBuild()
