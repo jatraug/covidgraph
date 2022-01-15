@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source condasetup.sh
+. ./condasetup.sh
 echo ./getlatest.sh
 ./getlatest.sh
 
