@@ -6,6 +6,7 @@ import pandas as pd
 from options import Options
 import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.dates as mdates
 import numpy as np
 import os
 import re
@@ -233,7 +234,9 @@ class countyGraph:
         ax.bar(xlabels['ticks'], nowdiffs, label='cases by day ' + self.getCountyFixed() + ' county, ' + statename + '\n' + textstr)
         ax.plot(xlabels['ticks'], average, 'r', label='Covid cases in ' + self.getCountyFixed() + ' county, ' + statename + ' - fourteen day running average', linewidth=2.0)
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
+        ##plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28
+        ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(), interval=2))
+        ax.xaxis.set_minor_locator(mdates.MonthLocator())
         ax.xaxis_date()
         fig.autofmt_xdate()
         plt.legend()
@@ -280,7 +283,9 @@ class countyGraph:
         
         
         plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
+        ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(), interval=2))
+        ax.xaxis.set_minor_locator(mdates.MonthLocator())
+        #plt.locator_params(axis='x', nbins=len(xlabels['labels'])/28)
         plt.legend()
 
         self.scale_y(plt)
