@@ -74,6 +74,9 @@ buildData = [
     {'file': 'states', 'state': 'arizona'},
     {'file': 'states', 'state': 'alaska'},
     {'file': 'states', 'state': 'illinois'},
+    {'file': 'states', 'state': 'Massachusetts'},
+    {'file': 'states', 'state': 'Texas'},
+
     
     {'file': 'lastday', 'state': 'illinois'},
     {'file': 'lastday', 'state': 'oregon'},
