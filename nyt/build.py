@@ -56,7 +56,7 @@ buildData = [
     {'file': 'counties', 'state': 'South Carolina', 'county': 'Charleston'},
     {'file': 'counties', 'state': 'Texas', 'county': 'Harris'},
     {'file': 'counties', 'state': 'Washington', 'county': 'Snohomish'},
-    {'file': 'counties', 'state': 'Washington', 'county': 'Spokane'}
+    {'file': 'counties', 'state': 'Washington', 'county': 'Spokane'},
     
     {'file': 'states', 'state': 'alaska'},
     {'file': 'states', 'state': 'arizona'},
