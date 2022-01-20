@@ -1,6 +1,6 @@
-#! /bin/bash
+#! /bin/zsh
 
-. ./condasetup.sh
+source ./condasetup.sh
 echo ./getlatest.sh
 ./getlatest.sh
 
