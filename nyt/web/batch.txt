@@ -1,8 +1,0 @@
-cd htdocs
-cd apps/covid
-lcd /Users/jimt/work/covid/nyt/html
-put indexDB.html index.html
-cd images
-rm *jpg
-lcd ../images
-mput *
