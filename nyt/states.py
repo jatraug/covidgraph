@@ -14,6 +14,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import getopt
+sys.path.append('/users/jimt/work/wrfile')
+import writefile as wf
 
 ##from: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
 
@@ -53,7 +55,7 @@ class ourOpts(Options):
 class covGraph:
     def __init__(self, argv):
         self.opts = ourOpts(argv, os.path.basename(__file__))
-        
+        self.writer = wf.fWrite('/Users/jimt/work/covid/nyt/html/testfile.txt')   
     def getimagename(self, state, dates, ttype):
         final = state + '_' + ttype + '_' + dates[-1] +'.jpg'
         #print(final)
@@ -106,46 +108,16 @@ class covGraph:
             labels.append(tickstr)
         return({'ticks': ticks, 'labels': labels})
 
-    def plotcases(self, statename, dates, cases):
-        average = np.array(self.domap(cases, 14))
-        #print (len(average))
-        
-        fig = plt.figure(figsize=(12.0, 9.0))
-        ax = fig.add_subplot(111)
-        
-        xlabels = self.getxaxislabels(dates)
-    
-        ax.plot(xlabels['ticks'], cases, 'b', label='Covid cases in ' + statename, linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=30)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
-        plt.legend()
-####        plt.tight_layout()
-        plt.xticks(rotation=45)
-        #before showing, save image
-        imgname = self.getimagename(statename, dates, 'cases')
-        fig.savefig('images/' + imgname)
-        self.doShow()
 
-    def plotdeaths(self, statename, dates, deaths):
-        average = np.array(self.domap(deaths, 14))
-        ## plot deaths separately:
-        fig = plt.figure(figsize=(12.0, 9.0))
-        ax = fig.add_subplot(111)
-        plt.xticks(rotation=45)
-        xlabels = self.getxaxislabels(dates)
+
+    def writeAverage(self, CorD: str, statename:str, date , average:float):
+        text = f'''
+Average {CorD} for {statename} on {date}: {int(average)}
+'''
+        self.writer.append(text)
+
         
-        ax.plot(xlabels['ticks'], deaths, 'r', label='Covid deaths in ' + statename, linewidth=2.0)
-        ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'][::20], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
-        plt.xticks(rotation=45)
-        plt.legend()
-        plt.tight_layout()
-        plt.xticks(rotation=45)
-        #before showing, save image
-        imgname = self.getimagename(statename, dates, 'death')
-        fig.savefig('images/' + imgname)
-        self.doShow()
+
 
     def scale_y(self, plt):
         ybottom, ytop = plt.ylim()
@@ -185,6 +157,8 @@ class covGraph:
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
         fig.savefig('images/' + imgname)
+        ## write average cases to file:
+        self.writeAverage('Cases', statename, dates[-1], average[-1])
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -218,6 +192,7 @@ class covGraph:
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
         fig.savefig('images/' + imgname)
+        self.writeAverage('Deaths', statename, dates[-1], average[-1])
         self.doShow()
     
     def SetupAndRun(self):
@@ -246,8 +221,7 @@ class covGraph:
                 deaths.append(j['deaths'])
 
         
-        #self.plotcases(statename, dates, cases)
-        #self.plotdeaths(statename, dates, deaths)        
+
         self.plotdeathdiffs(statename, dates, deaths)
         self.plotcasediffs(statename, dates, cases)
             
