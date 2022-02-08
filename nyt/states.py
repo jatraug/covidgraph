@@ -55,7 +55,9 @@ class ourOpts(Options):
 class covGraph:
     def __init__(self, argv):
         self.opts = ourOpts(argv, os.path.basename(__file__))
-        self.writer = wf.fWrite('/Users/jimt/work/covid/nyt/html/testfile.txt')   
+        self.writer = wf.fWrite('/Users/jimt/work/covid/nyt/html/testfile.txt')
+        ## self.writer.write('Covid cases and deaths by state for this date\n\n'.title())
+        
     def getimagename(self, state, dates, ttype):
         final = state + '_' + ttype + '_' + dates[-1] +'.jpg'
         #print(final)
