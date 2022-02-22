@@ -18,7 +18,7 @@ from datetime import datetime, timedelta, date
 
 sys.path.append('/Users/jimt/work/python/pytools')
 sys.path.append('/Users/jimt/work/python/census')
-import getcountypop as cpop
+#import getcountypop as cpop
 
 import avg
 from options import Options
@@ -213,7 +213,7 @@ class lastDayGraph:
         cases = []
         deaths =[]
         casesPerHundredThou = []
-        Census = cpop.Census(self.getState())
+#        Census = cpop.Census(self.getState())
         
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
@@ -248,7 +248,8 @@ class lastDayGraph:
             ##########
             #print(f'{self.getState()}, {cn}')
             if cn != 'Unknown' and cn != 'New York City':
-                casesPerHundredThou.append(currentCases/Census.getPopDivHundredThousand(self.getState(), cn))
+                pass
+                #casesPerHundredThou.append(currentCases/Census.getPopDivHundredThousand(self.getState(), cn))
             else:
                 casesPerHundredThou.append(0)
 
