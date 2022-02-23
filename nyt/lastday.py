@@ -17,6 +17,9 @@ from datetime import datetime, timedelta, date
 
 
 sys.path.append('/Users/jimt/work/python/pytools')
+sys.path.append('/Users/jimt/work/python/census')
+#import getcountypop as cpop
+
 import avg
 from options import Options
 import getopt
@@ -31,15 +34,13 @@ class ourOpts(Options):
         self.doplot = True # Plot the graph
         self.exename = exename
         self.date = False
+        self.doHunThou = False
         try:
-            opts, args = getopt.getopt(argv, "hs:nd:v")
+            opts, args = getopt.getopt(argv, "hs:nd:vt")
         except getopt.GetoptError:
             self.printHelpAndExit()
 
-        count = 0
         for opt, arg in opts:
-            count += 1
-            #print(count, opt, arg)
             if opt == '-h':
                 self.printHelpAndExit()
 
@@ -48,6 +49,8 @@ class ourOpts(Options):
                 sys.exit()
             elif opt in ("-n"):
                 self.doplot = False
+            elif opt in ("-t"):
+                self.doHunThou = True
             elif opt in ("-s"):
                 self.state = arg
             elif opt in ('-d'):
@@ -59,8 +62,8 @@ class ourOpts(Options):
                     sys.exit()
 
     def printHelpAndExit(self):
-        print(f'usage: {self.exename} [-n  (noplot)] [-s State] -v -d date (2021-03-30)')
-        sys.exit('Exiting')
+        print(f'usage: {self.exename} [-n  (noplot)] [-s State] -v -d date (2021-03-30) -t (report per hundredj thousand population)')
+        sys.exit('\nExiting')
                     
         
 class lastDayGraph:
@@ -75,11 +78,14 @@ class lastDayGraph:
 
     def getLastDate(self):
         return self.opts.getDate()
+
+    def getDoHundThou(self):
+        return self.opts.getDoHunThou()
     
     def doShow(self):
         if self.opts.getDoplot():
             plt.show() 
-
+   
     def getCsv(self):
         if 'LOCALCSV' in os.environ:
             df = pd.read_csv(os.environ.get('LOCAL_COUNTIES_CSV'))
@@ -147,7 +153,7 @@ class lastDayGraph:
         return currentCases, currentDeaths
 
     def dateSubtractOneDay(self, aDate):
-        dtm = date.fromisoformat(aDate)
+        dtm = date.fromisoformat(str(aDate))
         dtm += timedelta(-1)
         somedate = dtm.isoformat()
         somedate = re.sub('T.*', '', somedate)
@@ -206,6 +212,9 @@ class lastDayGraph:
     def iterateCounties(self, theState):
         cases = []
         deaths =[]
+        casesPerHundredThou = []
+#        Census = cpop.Census(self.getState())
+        
         for cn in self.counties:
             ours = theState.loc[theState['county'] == cn]
             # current cases at the end
@@ -236,23 +245,37 @@ class lastDayGraph:
             #print(ours.tail())
             cases.append(currentCases)
             deaths.append(currentDeaths)
+            ##########
+            #print(f'{self.getState()}, {cn}')
+            if cn != 'Unknown' and cn != 'New York City':
+                pass
+                #casesPerHundredThou.append(currentCases/Census.getPopDivHundredThousand(self.getState(), cn))
+            else:
+                casesPerHundredThou.append(0)
 
-        self.plotCurrentCases(cases)
+        if self.getDoHundThou():
+            ourCases = casesPerHundredThou
+            labels = ['cases per 100000 population', 'CasesPerHundThou']
+        else:
+            ourCases = cases
+            labels = ['cases', 'cases']
+                
+        self.plotCurrentCases(ourCases, labels)
         self.doShow()
         self.plotCurrentDeaths(deaths)
         self.doShow()        
 
-    def plotCurrentCases(self, cases):
+    def plotCurrentCases(self, cases,labels):
         fig = plt.figure(figsize=(12.0, 9.0))
         ax = fig.add_subplot(111)
 
-        ax.bar(self.counties, cases, label=self.makeLabel('cases'))
-        ax.plot(label=self.makeLabel('cases'))
+        ax.bar(self.counties, cases, label=self.makeLabel(labels[0]))
+        ax.plot(label=self.makeLabel(labels[0]))
         plt.xticks(rotation=90)
         plt.subplots_adjust(bottom=0.40)
         plt.tight_layout()
         plt.legend(loc='best')
-        imgname = self.getimagename('Cases')
+        imgname = self.getimagename(labels[1])
         fig.savefig('images/' + imgname, pil_kwargs={'quality': 60}) 
 
     def plotCurrentDeaths(self, deaths):

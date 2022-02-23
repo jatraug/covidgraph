@@ -1,3 +1,5 @@
+## Ths file symlinked fro: /path/to/covid/nyt/accessory/makefile
+
 default: help
 
 covid:
