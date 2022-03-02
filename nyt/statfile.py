@@ -13,7 +13,9 @@ class Statfile():
     def __init__(self):
         pass
 
-    def makeName(self):
+
+    @staticmethod
+    def makeName():
         filename = f'{os.environ["STATFILE_BASE"]}_{Statfile.getLastDate()}.txt'
         return filename
 
@@ -26,10 +28,9 @@ class Statfile():
         return date
 
 def main():
-    sf = Statfile()
-    print(sf.makeName())
+    print(Statfile.makeName())
     #print (os.environ.get('STATFILE_BASE'))
-    dt = Statfile.getLastDate()
+    #dt = Statfile.getLastDate()
 
 if __name__ == '__main__':
     main()
