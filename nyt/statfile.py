@@ -27,6 +27,13 @@ class Statfile():
         #print(date)
         return date
 
+
+
+
+''' 
+Below for dev. testing:
+'''
+
 def main():
     print(Statfile.makeName())
     #print (os.environ.get('STATFILE_BASE'))
