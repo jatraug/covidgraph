@@ -14,17 +14,21 @@ class Statfile():
         pass
 
     def makeName(self):
-        pass
+        filename = f'{os.environ["STATFILE_BASE"]}_{Statfile.getLastDate()}.txt'
+        return filename
 
     @staticmethod
     def getLastDate():
-        df = pd.read_csv('datasets/us.csv')
+        df = pd.read_csv(os.environ['US_CSV'])
         
-        date = df.loc[:,'date']
-        print(date.iloc[-1])
+        date = df.loc[:,'date'].iloc[-1]
+        #print(date)
+        return date
 
 def main():
-    print (os.environ.get('STATFILE_BASE'))
+    sf = Statfile()
+    print(sf.makeName())
+    #print (os.environ.get('STATFILE_BASE'))
     dt = Statfile.getLastDate()
 
 if __name__ == '__main__':
