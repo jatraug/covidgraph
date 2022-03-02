@@ -55,7 +55,7 @@ class ourOpts(Options):
 class covGraph:
     def __init__(self, argv):
         self.opts = ourOpts(argv, os.path.basename(__file__))
-        self.writer = wf.fWrite('/Users/jimt/work/covid/nyt/html/testfile.txt')
+        self.writer = wf.fWrite()
         ## self.writer.write('Covid cases and deaths by state for this date\n\n'.title())
         
     def getimagename(self, state, dates, ttype):
@@ -113,8 +113,7 @@ class covGraph:
 
 
     def writeAverage(self, CorD: str, statename:str, date , average:float):
-        text = f'''Average {CorD} for {statename} on {date}: {int(average)}
-'''
+        text = f'''Average {CorD} for {statename} on {date}: {int(average)}'''
         self.writer.append(text)
 
         
@@ -215,7 +214,7 @@ class covGraph:
             
         for i, j in df.iterrows(): 
             if(j['state'] == statename):
-##                print(j['date'], j['cases'], j['deaths'])
+##                print(j['date'coun], j['cases'], j['deaths'])
                 cases.append(j['cases'])
 #                print('Date: ', 'date')
                 dates.append(j['date'])
