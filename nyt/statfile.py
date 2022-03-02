@@ -21,7 +21,7 @@ class Statfile():
 
     @staticmethod
     def getLastDate():
-        df = pd.read_csv(os.environ['US_CSV'])
+        df = pd.read_csv(f"{os.environ['COVWORK']}/{os.environ['US_CSV']}")
         
         date = df.loc[:,'date'].iloc[-1]
         #print(date)
