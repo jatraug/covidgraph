@@ -102,6 +102,7 @@ def doBuild():
     os.system("python us.py -n")
 
 def main():
+    os.system("python statinit.py")
     doBuild()
 
     
