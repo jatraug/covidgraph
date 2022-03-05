@@ -10,9 +10,10 @@
 | Add status file                  | statfile   |       |
 
 
-* TODO Add status file [75%]
+* TODO Add status file [60%]
 ** DONE Use branch statfile
 ** DONE Add statfile base to env
 ** DONE Create statfile in build.py
 ** TODO Append to statfile in states.py, counties.py, us.py
+** TODO Make file writer a separate thread   
   
