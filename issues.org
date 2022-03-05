@@ -7,4 +7,12 @@
 | Versioning that works            | NONE       | NONE  |
 | Unit testing of code             | testing    | NONE  |
 | Include paths for modules        | NONE       | NONE  |
+| Add status file                  | statfile   |       |
 
+
+* TODO Add status file [75%]
+** DONE Use branch statfile
+** DONE Add statfile base to env
+** DONE Create statfile in build.py
+** TODO Append to statfile in states.py, counties.py, us.py
+  
