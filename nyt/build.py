@@ -14,11 +14,19 @@ def printAndBuildCounty(**kwargs):
     #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
     os.system(cmd)
 
-    
+def titleMyway(string):
+    retlist = []
+    for word in string.split(' '):
+
+        w = word if word == 'of' else word.capitalize() 
+        retlist.append(w)
+    retval = ' '.join(retlist)
+    return retval    
 
 def printAndBuildState(**kwargs):
     pyfile = 'states.py'
-    state = kwargs['state'].title()
+#    state = kwargs['state'].title()
+    state = titleMyway(kwargs['state'])
     cmd = f"python {pyfile} -n -s \'{state}\'"
     print(cmd)
     ##xx = str(input('hit any key'))
@@ -59,9 +67,12 @@ buildData = [
     {'file': 'counties', 'state': 'Washington', 'county': 'Spokane'},
     
     {'file': 'states', 'state': 'alaska'},
+    {'file': 'states', 'state': 'american samoa'},
     {'file': 'states', 'state': 'arizona'},
     {'file': 'states', 'state': 'california'},
+    {'file': 'states', 'state': 'district of columbia'},
     {'file': 'states', 'state': 'georgia'},
+    {'file': 'states', 'state': 'guam'},
     {'file': 'states', 'state': 'florida'},
     {'file': 'states', 'state': 'idaho'},
     {'file': 'states', 'state': 'indiana'},
@@ -76,6 +87,7 @@ buildData = [
     {'file': 'states', 'state': 'new york'},
     {'file': 'states', 'state': 'ohio'},
     {'file': 'states', 'state': 'oregon'},
+    {'file': 'states', 'state': 'puerto rico'},
     {'file': 'states', 'state': 'south carolina'},
     {'file': 'states', 'state': 'texas'},
     {'file': 'states', 'state': 'washington'},
