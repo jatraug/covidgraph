@@ -1,12 +1,26 @@
 import os
 
+##
+def titleMyway(string):
+    '''
+    capitalize the correct words. Builtin title() wants to cpitalize 'of'
+    along with everything else.
+    '''
+    retlist = []
+    nocaplist = ['of']
+    for word in string.split(' '):
 
+        w = word if word in nocaplist else word.capitalize() 
+        retlist.append(w)
+    retval = ' '.join(retlist)
+    return retval    
 
 # func to make a python buid order
  
 def printAndBuildCounty(**kwargs):
     pyfile = 'counties.py'
-    state = kwargs['state'].title()
+    #state = kwargs['state'].title()
+    state = titleMyway(kwargs['state'])
     cnty = kwargs['county'].title()
     cmd = f"python {pyfile} -n -s \'{state}\' -c \'{cnty}\'"
     print(cmd)
@@ -14,14 +28,7 @@ def printAndBuildCounty(**kwargs):
     #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
     os.system(cmd)
 
-def titleMyway(string):
-    retlist = []
-    for word in string.split(' '):
 
-        w = word if word == 'of' else word.capitalize() 
-        retlist.append(w)
-    retval = ' '.join(retlist)
-    return retval    
 
 def printAndBuildState(**kwargs):
     pyfile = 'states.py'
@@ -34,7 +41,8 @@ def printAndBuildState(**kwargs):
 
 def printAndBuildLastday(**kwargs):
     pyfile = 'lastday.py'
-    state = kwargs['state'].title()
+    #state = kwargs['state'].title()
+    state = titleMyway(kwargs['state'])
     cmd = f"python {pyfile} -n -s \'{state}\'"
     print(cmd)
     ##xx = str(input('Hit any key'))
@@ -87,9 +95,11 @@ buildData = [
     {'file': 'states', 'state': 'new york'},
     {'file': 'states', 'state': 'ohio'},
     {'file': 'states', 'state': 'oregon'},
+    {'file': 'states', 'state': 'pennsylvania'},
     {'file': 'states', 'state': 'puerto rico'},
     {'file': 'states', 'state': 'south carolina'},
     {'file': 'states', 'state': 'texas'},
+    {'file': 'states', 'state': 'virginia'},
     {'file': 'states', 'state': 'washington'},
     {'file': 'states', 'state': 'wisconsin'},
 
