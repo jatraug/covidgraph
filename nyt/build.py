@@ -66,6 +66,7 @@ def mkPyBuildOrder(**kwargs):
 #mkPyBuildOrder(file='counties',state='Washington', county='Snohomish')
 buildData = [
     {'file': 'counties', 'state': 'California', 'county': 'Los Angeles'},
+    {'file': 'counties', 'state': 'New York', 'county': 'New York City'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Douglas'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Curry'},
     {'file': 'counties', 'state': 'Oregon', 'county': 'Josephine'},
