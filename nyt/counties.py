@@ -14,6 +14,7 @@ import getopt
 from dotenv import load_dotenv
 load_dotenv()
 import avg
+import writefile as wf
 ##sys.path.append('/Users/jimt/work/python/pytools')
 sys.path.append(os.environ.get("PYTOOLS"))
                 
@@ -60,7 +61,8 @@ class countyGraph:
         self.opts = ourOpts(argv, os.path.basename(__file__))
         self.firstDate = '2020-01-01'
         self.lastDate = '2020-01-01'
-
+        self.writer = wf.fWrite()
+        
     def getimagename(self, state, dates, mtype):
         final = state + '_' + self.getCountyFixed() + '_' + mtype + '_' + dates[-1] +'.jpg'
         #print(final)
@@ -211,6 +213,10 @@ class countyGraph:
         return diffs
 
 
+    def writeAverage(self, CorD: str, statename:str, countyname:str, date , average:float):
+        text = f'''Average {CorD} for {countyname} county, {statename} on {date}: {int(average)}'''
+        self.writer.append(text)
+
     def scale_y(self, plt):
         ybottom, ytop = plt.ylim()
         #print('CD bottom, top: ', ybottom, ytop)
@@ -248,6 +254,7 @@ class countyGraph:
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
         fig.savefig('images/' + imgname, pil_kwargs={}) ###quality=60)
+        self.writeAverage('Cases', statename, self.getCountyFixed(), dates[-1], average[-1])
         self.doShow()
 
     ## make a bar chart of diffs of deaths by day;
@@ -298,6 +305,7 @@ class countyGraph:
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
         fig.savefig('images/' + imgname, pil_kwargs={} ) ##quality=60)
+        self.writeAverage('Deaths', statename, self.getCountyFixed(), dates[-1], average[-1])
         self.doShow()
     
 
