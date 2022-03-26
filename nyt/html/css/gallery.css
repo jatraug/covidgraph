@@ -15,6 +15,14 @@
 
 }
 
+.greenband{
+    background: #ccf5b8;
+    }
+    
+.whiteband{
+    background: #ffffff;
+   
+
 /* 
  * uncomment this for some css3 drop shadows and rounded corners.
  */
@@ -29,3 +37,6 @@
   box-shadow: 10px 10px 5px #888888;
 }
 */
+
+ }
+    
