@@ -1,10 +1,13 @@
 """
     mkstatus - make an html page of the daily stats
 """
+
 import sys
+sys.path.append('../')
+import statfile as sf
 
 def getFilename():
-    fname = sys.argv[1]
+    fname = f'{sf.Statfile.makeName()}'
     return fname
 
 
