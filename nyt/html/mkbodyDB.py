@@ -49,6 +49,11 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
         #fs.write('<body>\n')
         fs.write('<div class="container">\n')
         fs.write('<div class="row">\n')
+
+        fs.write('<hr>')
+        fs.write('<a href="./summary.html">***Summary of COVID Cases/Deaths***</a>')
+        fs.write('<p>\n<p><hr>')
+        
         for f in filearr:
             fname = os.path.join(pathname, f)
             Dname =  os.path.join(Dpath, f)

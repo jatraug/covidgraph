@@ -10,6 +10,7 @@ def mkbatch():
     print('cd apps/covid')
     print(f'lcd {os.environ.get("COVWORK")}/html')
     print('put indexDB.html index.html')
+    print('put summary.html')
     print('cd images')
     print('rm *jpg')
     print('lcd ../images')

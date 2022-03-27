@@ -2,8 +2,8 @@
 
 RM = /bin/rm
 
-summary.html : sumhead.html sumpart.html end.html
-	cat sumhead.html sumpart.html end.html > summary.html
+../html/summary.html : sumhead.html sumpart.html end.html
+	cat sumhead.html sumpart.html end.html > ../html/summary.html
 
 sumpart.html :  mkstatus.py
 	python mkstatus.py  > sumpart.html

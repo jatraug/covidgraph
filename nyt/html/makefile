@@ -35,3 +35,7 @@ try : fubar
 	echo $<
 
 fubar:
+
+clean:
+	$(RM) index.html indexDB.html bodyDB.html body.html summary.html
+

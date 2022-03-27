@@ -27,6 +27,7 @@ doall: clean
     #$(CP) $(COVWORK)/images/Oregon*jpg $(DB)
     #$(CP) $(COVWORK)/images/Texas*jpg $(DB)
 #	#$(CP) $(COVWORK)/images/US*jpg $(DB)
+	$(MAKE) summary
 	$(MAKE) html
 	$(MAKE) web
 
@@ -39,6 +40,9 @@ clean:
 	-$(RM) -f $(IMG)/*jpg
 	-$(RM) -f $(DB)/*jpg		
 
+summary:
+	cd summary && $(MAKE)
+
 html:
 	cd html && $(MAKE)  ##  $(PY) mkbody.py
 
@@ -49,4 +53,4 @@ dolatest:
 	mkdir -p datasets
 	export LOCALCSV=True && ./dolatest.sh
 
-.PHONY: clean doall html web
+.PHONY: clean doall html web summary
