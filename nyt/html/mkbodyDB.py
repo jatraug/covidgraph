@@ -51,7 +51,7 @@ def mkHtmlWithFiles(pathname, smclass="", lgclass=""):
         fs.write('<div class="row">\n')
 
         fs.write('<hr>')
-        fs.write('<a href="./summary.html">***Summary of COVID Cases/Deaths***</a>')
+        fs.write('<a href="./summary.html"><img class="tiny-img" src="summary.png">***Summary of COVID Cases/Deaths***</a>')
         fs.write('<p>\n<p><hr>')
         
         for f in filearr:

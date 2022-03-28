@@ -1,6 +1,6 @@
 
 
-RM = /bin/rm
+RM = /bin/rm -f
 
 ../html/summary.html : sumhead.html sumpart.html end.html
 	cat sumhead.html sumpart.html end.html > ../html/summary.html
