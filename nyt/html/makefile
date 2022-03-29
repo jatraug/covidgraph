@@ -27,8 +27,7 @@ mkbodyDB.py: DOIT
 DOIT:
 
 
-.PHONY:
-	DOIT	
+.PHONY: 	DOIT	
 
 try : fubar
 	echo $@
