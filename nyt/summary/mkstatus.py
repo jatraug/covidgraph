@@ -35,25 +35,6 @@ def mkline():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def main():
     all = []
     with open(getFilename(), 'r')as ff:
