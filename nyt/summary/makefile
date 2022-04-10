@@ -2,17 +2,17 @@
 
 RM = /bin/rm -f
 
-../html/summary.html : FORCE #sumhead.html sumpart.html end.html
+../html/summary.html : sumhead.html sumpart.html end.html
 	cat sumhead.html sumpart.html end.html > ../html/summary.html
 
-sumpart.html :  mkstatus.py
+sumpart.html :  FORCE
 	python mkstatus.py  > sumpart.html
 
-clean:
+clean: FORCE
 	$(RM) summary.html sumpart.html
 
 
 
 FORCE:
 
-.PHONY: FORCE
+.PHONY: FORCE clean
