@@ -1,8 +1,19 @@
 import re
 
+## Assumptions
+## Lines are always in this order:
+"""
+"Average Deaths for Los_Angeles county, California on 2022-03-28: 21",
+"Average Cases for Los_Angeles county, California on 2022-03-28: 1243",
+i.e. Deaths bedore Cases (and Cases always immediately following Deaths)
+"""
+## we'll make lines like this:
+"""
+Average Cases/Deaths  for Los_Angeles county, California on 2022-03-30: :  1237   20
+"""
 
 
-class Changeline():
+class LineHelper():
     def __init__(self):
         self.lDict = {} 
         self.linemax = 0
@@ -64,7 +75,7 @@ class Changeline():
         for line in self.lines:
             self.changeLine(line)
 
-###=============== End of Ckass =======================
+###=============== End of Class =======================
 
 def strOfSpaces(count, ch = ' '):
     
@@ -75,7 +86,7 @@ def mkTopLine(len):
     print(f'{topline}Cases  Deaaths')
 
 def main():
-    cl = Changeline()
+    cl = LineHelper()
     cl.runner()
 
 
