@@ -23,17 +23,22 @@ class LineHelper():
         self.line1 = ''
         self.cases = ''
         self.deaths = ''
+        ## Constants!!
+        self.MAXLEN = 80 
+        self.TOPTEXT = 'Cases     Deaths'
     
     def maxChars(self, lines):
         newlist = []
         for line in lines:
+            #print(f'==>{len(line)}')
             newlist.append(len(line))
+        #print(newlist)
         self.linemax = max(newlist)
-        ##return max(newlist)
+        return (self.linemax)
     
         
     def changeLine(self, line):
-        print(line)
+        #print(line)
         ##exp = re.compile('(.* on /n{4}-\n{2}-\n{2}\:)\s+(\n+)') ## ([{Cases|Deaths}])
         exp = re.compile('A.*\s(Cases|Deaths)(.* on\s+\d{4}-\d{2}-\d{2}\:\s+)(\d+)') ## ([{Cases|Deaths}])
         matchObj = re.search(exp, line)
@@ -59,10 +64,20 @@ class LineHelper():
         self.line1  = ''
         
     def outputLine(self):
-        line = f'{self.line0} {self.line1}:  {self.cases}   {self.deaths}\n'
+        line = f'{self.line0} {self.line1}'
+        line += strOfSpaces(self.linemax - len(line) + 6+ 5 - len(self.cases))
+        line += f'{self.cases}' ##
+        line += strOfSpaces(7 - len(str(self.deaths)))
+        line += f'{self.deaths}\n'
+##  {self.cases}   {self.deaths}\n'
         print(line)
                     
     
+    def mkTopLine(self, length):
+        topline = strOfSpaces(length)
+        ##line = mkTopLine(self.linemax - len(self.toptext))
+        print(f'{topline}{self.TOPTEXT}')
+
     def runner(self):
         """
         First read the file
@@ -70,7 +85,10 @@ class LineHelper():
         with open('/Users/jimt/work/covid/nyt/html/Covid_Status_2022-03-30.txt', 'r') as fs:
             self.lines = fs.read().split('\n')
 
-        mkTopLine(79)
+        print(self.maxChars(self.lines))
+        mkTopLine(self.linemax + 6) ## len(self.TOPTEXT))
+
+
             
         for line in self.lines:
             self.changeLine(line)
@@ -83,12 +101,26 @@ def strOfSpaces(count, ch = ' '):
 
 def mkTopLine(len):
     topline = strOfSpaces(len)
-    print(f'{topline}Cases  Deaaths')
+    print(f'{topline}Cases  Deaths')
 
+
+
+
+
+
+## Testing ###
 def main():
     cl = LineHelper()
     cl.runner()
-
+    aa = [
+        'one two three, four',
+        'five six seven eight',
+        'nine, ten, eleven, twelve',
+    ]
+    
+        
+    cl = LineHelper()
+    print(cl.maxChars(aa))
 
 if __name__ == '__main__':
     main()
