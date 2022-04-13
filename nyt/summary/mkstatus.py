@@ -5,6 +5,7 @@
 import sys
 sys.path.append('../')
 import statfile as sf
+import linehelp as LH
 
 def getFilename():
     fname = f'{sf.Statfile.makeName()}'
@@ -36,13 +37,19 @@ def mkline():
 
 
 def main():
+    lh = LH.LineHelper()
     all = []
     with open(getFilename(), 'r')as ff:
         all = ff.read()
     doline = mkline()
-    for line in all.split('\n'):
-        print(doline(line))
+    lines = all.split('\n')
+    lh.maxChars(lines)
+    lh.mkTopLine()
+    for line in lines:
+        ##print(doline(line))
         
+        if (ll := lh.changeLine(line)):
+            print (doline(ll))
 
 
 
