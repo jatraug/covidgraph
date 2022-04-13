@@ -10,10 +10,25 @@
 | Add status file                  | statfile   |       |
 
 
-* TODO Add status file [60%]
+* DONE Add status file [80%]
 ** DONE Use branch statfile
 ** DONE Add statfile base to env
 ** DONE Create statfile in build.py
-** TODO Append to statfile in states.py, counties.py, us.py
+** DONE Append to statfile in states.py, counties.py, us.py
 ** TODO Make file writer a separate thread   
   
+* DONE Add Puerto Rico, District of Columbia, Guam, American Samoa to states in build.pyy
+** DONE use branch AddStates
+
+
+   python states.py -n -s 'Arizona '
+Traceback (most recent call last):
+  File "/Users/jimt/work/covid/nyt/states.py", line 236, in <module>
+    main(sys.argv[1:])
+  File "/Users/jimt/work/covid/nyt/states.py", line 232, in main
+    dograph.SetupAndRun()
+  File "/Users/jimt/work/covid/nyt/states.py", line 225, in SetupAndRun
+    self.plotdeathdiffs(statename, dates, deaths)
+  File "/Users/jimt/work/covid/nyt/states.py", line 184, in plotdeathdiffs
+    ax.bar(xlabels['ticks'], nowdiffs, label=f'deaths per day in {statename} from {dates[0]} to {dates[-1]}')
+IndexError: list index out of range
