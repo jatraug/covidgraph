@@ -9,4 +9,5 @@ curl -o datasets/us-counties.csv https://raw.githubusercontent.com/nytimes/covid
 
 curl -o datasets/us.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv
 
+curl -o datasets/us-counties-2020.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-2020.csv
 
