@@ -113,7 +113,7 @@ class covGraph:
 
 
     def writeAverage(self, CorD: str, statename:str, date , average:float):
-        text = f'''Average {CorD} for {statename} on {date}: {int(average)}'''
+        text = f'''Average {CorD} for <b>{statename}</b> on {date}: {int(average)}'''
         self.writer.append(text)
 
         
