@@ -214,7 +214,7 @@ class countyGraph:
 
 
     def writeAverage(self, CorD: str, statename:str, countyname:str, date , average:float):
-        text = f'''Average {CorD} for {countyname} county, {statename} on {date}: {int(average)}'''
+        text = f'''Average {CorD} for <b>{countyname} county</b>, {statename} on {date}: {int(average)}'''
         self.writer.append(text)
 
     def scale_y(self, plt):
