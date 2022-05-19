@@ -7,10 +7,10 @@ import pandas as pd
 import datetime
 import numpy as np
 
-countiesFirst = 'us-counties.csv' ##Dnloaded from github; ends with 2022-05-13
-countiesSecond = 'us-counties-2022.csv' ## From github; starts before 2022-05-13 - this part needs to be dumped.
-countiesFixed = 'us-counties-fixed.csv' ## output. us-coujnties-2002 fixed
-countiesFinal = 'countiesfinal.csv' ## us-counties and us-counties-fixed concatenated. 
+countiesFirst =  'datasets/us-counties.csv' ##Dnloaded from github; ends with 2022-05-13
+countiesSecond = 'datasets/us-counties-2022.csv' ## From github; starts before 2022-05-13 - this part needs to be dumped.
+countiesFixed =  'datasets/us-counties-fixed.csv' ## output. us-coujnties-2002 fixed
+countiesFinal =  'datasets/countiesfinal.csv' ## us-counties and us-counties-fixed concatenated. 
 
 def openDB(dbName):
     df = pd.read_csv(dbName, infer_datetime_format=True, parse_dates=True)
