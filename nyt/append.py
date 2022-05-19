@@ -23,6 +23,7 @@ def openCountiesFile():
 
 
 def filterCounty():
+    ## Remove all lines before this date:
     magicDate ='2022-05-14'
     contents = openCountiesFile()
     saveline = False
@@ -48,52 +49,12 @@ def concatDB():
              for line in all2:
                 final.write(f'{line}\n')
 
-
-    
-    #df1 = openDB(countiesFirst)
-
-
-    #dfFinal = pd.concat(df1,df2, ignore_index=True)
-
-#    dfFinal.to_csv(countiesFinal)
-    
-
-    
 def doit():
     filterCounty()
     concatDB()
     
-    # dfFirst = openDB(countiesFirst)
-
-    # print(dfFirst.head())
-    # print(dfFirst.tail())
-    # print(dfFirst.dtypes)
-
-    # dfSecond = openDB(countiesSecond)
-    # print(dfSecond.head())
-    # print(dfSecond.tail())
 
 
-    # dfTrim = trimDf(dfFirst)
-    # #print(dfTrim.tail())
-    # #print(dfTrim.dtypes)
-
-
-
-def trimDf(df):
-    ''' 
-    Remove the part of the DB that is duplicated
-    '''
-    ######dfTrim = pd.to_datetime(df.loc[:'date'])
-    ##print(dfTrim.dtypes)
-                            
-
-    dfser = df.loc[:'date']
-    #dfTrim = df.loc[pd.to_datetime(df[:'date']) < datetime.date.fromisoformat(str('2022-04-18'))]
-    #return dfTrim
-    print('START')
-    print(dfser.head())
-    print('DONE')
     
 def main():
     doit()
