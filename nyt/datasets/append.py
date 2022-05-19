@@ -7,10 +7,10 @@ import pandas as pd
 import datetime
 import numpy as np
 
-countiesFirst = 'us-counties.csv'
-countiesSecond = 'us-counties-2022.csv'
-countiesFixed = 'us-counties-fixed.csv'
-
+countiesFirst = 'us-counties.csv' ##Dnloaded from github; ends with 2022-05-13
+countiesSecond = 'us-counties-2022.csv' ## From github; starts before 2022-05-13 - this part needs to be dumped.
+countiesFixed = 'us-counties-fixed.csv' ## output. us-coujnties-2002 fixed
+countiesFinal = 'countiesfinal.csv' ## us-counties and us-counties-fixed concatenated. 
 
 def openDB(dbName):
     df = pd.read_csv(dbName, infer_datetime_format=True, parse_dates=True)
@@ -30,6 +30,7 @@ def filterCounty():
         for line in contents:
             if not saveline:
                 if magicDate in line:
+                    fix.write(f'{line}\n') 
                     ##print('YUP')
                     saveline=True
                 continue
@@ -37,13 +38,24 @@ def filterCounty():
                 fix.write(f'{line}\n') ##print(line)
         
 def concatDB():
-    df1 = openDB(countiesFirst)
-    df2 = openDB(countiesFixed)
+    with open(countiesFinal, 'w') as final:
+        with open(countiesFirst,'r') as cf:
+            all = cf.read().split('\n')
+            for line in all:
+                final.write(f'{line}\n')
+        with open (countiesFixed, 'r') as fix:
+             all2 = fix.read().split('\n')
+             for line in all2:
+                final.write(f'{line}\n')
 
-    dfFinal = df1.append(df2)
 
-    print(dfFinal.head())
-    print(dfFinal.tail())
+    
+    #df1 = openDB(countiesFirst)
+
+
+    #dfFinal = pd.concat(df1,df2, ignore_index=True)
+
+#    dfFinal.to_csv(countiesFinal)
     
 
     
