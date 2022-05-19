@@ -27,6 +27,7 @@ class avg:
         avg = np.mean(self.arr)
         
         dbprint('avg: '+ str( avg))
+        dbprint(f'std: {np.std(self.arr)}')
         return avg
 
 
