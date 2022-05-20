@@ -83,7 +83,7 @@ class LineHelper():
 
 
     def mkTopLine(self):
-        length = self.linemax + 6
+        length = self.linemax ## + 6
         topline = strOfSpaces(length)
         ##line = mkTopLine(self.linemax - len(self.toptext))
         print(f'<pre>{topline}{self.TOPTEXT}')
