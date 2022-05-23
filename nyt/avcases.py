@@ -38,11 +38,24 @@ ax = plt.gca()
 #foo, ax = plt.subplots()
 plt.ylabel('Average Covid cases')
 plt.xlabel('Date')
-plt.locator_params(axis='x', nbins=15)
+ax.locator_params(axis='x', nbins=5)
+##ax.locator_params(axis='y', nbins=10)
 plotlbl='Washington Covid cases 14-day average'
 plt.plot(dates, cases, label=plotlbl)
 plt.legend()
 #ax.xaxis_date()
-fig.autofmt_xdate()
-plt.xticks(rotation=45)
+
+xticks = ax.get_xticks()
+ax.set_xticks(xticks[::len(xticks) //10]) # set new tick positions
+ax.tick_params(axis='x', rotation=30) # set tick rotation
+ax.margins(x=0) # set tight margins
+
+imgname='washavgcasesjpg'
+fig.savefig('images/' + imgname)
+
+#fig.autofmt_xdate()
+#plt.xticks(rotation=45)
 plt.show()
+
+
+
