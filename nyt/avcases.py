@@ -31,10 +31,18 @@ for line in lines:
         dates.append(matchObj[1])
         cases.append(matchObj[2])
 
-fig = plt.figure(figsize=(12.0, 9.0))
-plt.plot(dates, cases)
-
-#ax = fig.add_subplot(111)
-#plt.legend()
+fig = plt.figure(figsize=(11.0, 8.5))
+ax = plt.gca()
+#ax.set_xlim([xmin, xmax])
+#ax.set_ybound(lower=500.0)
+#foo, ax = plt.subplots()
+plt.ylabel('Average Covid cases')
+plt.xlabel('Date')
+plt.locator_params(axis='x', nbins=15)
+plotlbl='Washington Covid cases 14-day average'
+plt.plot(dates, cases, label=plotlbl)
+plt.legend()
+#ax.xaxis_date()
+fig.autofmt_xdate()
 plt.xticks(rotation=45)
 plt.show()
