@@ -38,7 +38,10 @@ web:
 
 clean:
 	-$(RM) -f $(IMG)/*jpg
-	-$(RM) -f $(DB)/*jpg		
+	-$(RM) -f $(DB)/*jpg
+	-cd summary && $(MAKE) clean
+	-cd html && $(MAKE)	clean
+	##-cd web && $(MAKE) clean
 
 summary:
 	cd summary && $(MAKE)
