@@ -12,16 +12,27 @@ countiesSecond = 'datasets/us-counties-2022.csv' ## From github; starts before 2
 countiesFixed =  'datasets/us-counties-fixed.csv' ## output. us-coujnties-2002 fixed
 countiesFinal =  'datasets/countiesfinal.csv' ## us-counties and us-counties-fixed concatenated. 
 
-def openDB(dbName):
-    df = pd.read_csv(dbName, infer_datetime_format=True, parse_dates=True)
-    return df
 
-def openCountiesFile():
+
+def openCounties2022File():
     with open(countiesSecond, 'r')as cs:
         filecontents = cs.read()
         return filecontents.split('\n')
 
-
+def remove_2022():
+    """
+    Use all lines prior to 2022-01-01'
+    """
+    with open(countiesFinal, 'w') as final:
+        with open(countiesFirst,'r') as cf:
+            all = cf.read().split('\n')
+            for line in all:
+                if '2022-01-01' in line:
+                    pass
+                else:
+                    final.write(f'{line}\n')
+                    
+    
 def filterCounty():
     ## Remove all lines before this date:
     magicDate ='2022-05-14'
@@ -48,9 +59,12 @@ def concatDB():
              all2 = fix.read().split('\n')
              for line in all2:
                 final.write(f'{line}\n')
+        nowlines = openCounties2022File()
+        for line in nowlines:
+            final.write(f'{line}\n')
 
 def doit():
-    filterCounty()
+    ##filterCounty()
     concatDB()
     
 
