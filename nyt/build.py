@@ -150,10 +150,14 @@ def doBuild():
     
 def main():
     ##os.system("python statinit.py")
-    if os.system("python statinit.py -n") != 0:
-        tb = sys.exc_info()[2]
-        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
-    doBuild()
+    try:
+        if os.system("python statinit.py -n") != 0:
+            tb = sys.exc_info()[2]
+            raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
+        doBuild()
+    except badstuffError as e:
+        print('An error or ^C has occurred')
+        sys.exit(-1)
 
     
 if __name__ == '__main__':
