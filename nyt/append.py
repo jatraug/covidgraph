@@ -8,7 +8,7 @@ import datetime
 import numpy as np
 
 countiesFirst =  'datasets/us-counties.csv' ##Dnloaded from github; ends with 2022-05-13
-countiesSecond = 'datasets/us-counties-2022.csv' ## From github; starts before 2022-05-13 - this part needs to be dumped.
+countiesSecond = 'datasets/us-counties-2022.csv' ## GOOD From github; starts before 2022-05-13 - this part needs to be dumped.
 countiesFixed =  'datasets/us-counties-fixed.csv' ## output. us-coujnties-2002 fixed
 countiesFinal =  'datasets/countiesfinal.csv' ## us-counties and us-counties-fixed concatenated. 
 
@@ -17,7 +17,7 @@ countiesFinal =  'datasets/countiesfinal.csv' ## us-counties and us-counties-fix
 def openCounties2022File():
     with open(countiesSecond, 'r')as cs:
         filecontents = cs.read()
-        return filecontents.split('\n')
+    return filecontents.split('\n')
 
 def remove_2022():
     """
@@ -26,10 +26,11 @@ def remove_2022():
     with open(countiesFinal, 'w') as final:
         with open(countiesFirst,'r') as cf:
             all = cf.read().split('\n')
+            goforit = True 
             for line in all:
                 if '2022-01-01' in line:
-                    pass
-                else:
+                    goforit = False
+                if goforit:
                     final.write(f'{line}\n')
                     
     
@@ -45,7 +46,7 @@ def filterCounty():
                     fix.write(f'{line}\n') 
                     ##print('YUP')
                     saveline=True
-                continue
+                    continue
             else:
                 fix.write(f'{line}\n') ##print(line)
         
@@ -55,13 +56,18 @@ def concatDB():
             all = cf.read().split('\n')
             for line in all:
                 final.write(f'{line}\n')
-        with open (countiesFixed, 'r') as fix:
-             all2 = fix.read().split('\n')
-             for line in all2:
-                final.write(f'{line}\n')
-        nowlines = openCounties2022File()
-        for line in nowlines:
-            final.write(f'{line}\n')
+            all_2022_Lines = openCounties2022File()
+            for line2022 in all_2022_Lines:
+                if not 'date,county' in line2022:
+                    final.write(f'{line2022}\n')
+               
+#        with open (countiesFixed, 'r') as fix:
+#             all2 = fix.read().split('\n')
+#             for line in all2:
+#                final.write(f'{line}\n')
+#        nowlines = openCounties2022File()
+#        for line in nowlines:
+#            final.write(f'{line}\n')
 
 def doit():
     ##filterCounty()
