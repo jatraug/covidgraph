@@ -1,4 +1,9 @@
 import os
+import sys
+
+
+class  badstuffError(Exception):
+    pass
 
 ##
 def titleMyway(string):
@@ -26,7 +31,12 @@ def printAndBuildCounty(**kwargs):
     print(cmd)
     ##xx = str(input('Hit any key'))
     #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
-    os.system(cmd)
+    ##os.system(cmd)
+    if os.system(cmd) != 0:
+        tb = sys.exc_info()[2]
+        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
+
+
 
 
 
@@ -37,7 +47,10 @@ def printAndBuildState(**kwargs):
     cmd = f"python {pyfile} -n -s \'{state}\'"
     print(cmd)
     ##xx = str(input('hit any key'))
-    os.system(cmd)
+    ###os.system(cmd)
+    if os.system(cmd) != 0:
+        tb = sys.exc_info()[2]
+        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
 
 def printAndBuildLastday(**kwargs):
     pyfile = 'lastday.py'
@@ -47,7 +60,12 @@ def printAndBuildLastday(**kwargs):
     print(cmd)
     ##xx = str(input('Hit any key'))
     #print(f"os.system(python {pyfile} -n -s \'{state}\' -c \'{cnty}\')")
-    os.system(cmd)    
+    ###os.system(cmd)
+    if os.system(cmd) != 0:
+        tb = sys.exc_info()[2]
+        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
+
+
 
 # func to make a python buid order
 def mkPyBuildOrder(**kwargs):
@@ -122,10 +140,19 @@ def doBuild():
         mkPyBuildOrder(**line)
     # One more straggler:
     print('os.system("python us.py -n")')
-    os.system("python us.py -n")
+    ###os.system("python us.py -n")
+    if os.system("python us.py -n") != 0:
+        tb = sys.exc_info()[2]
+        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
 
+
+
+    
 def main():
-    os.system("python statinit.py")
+    ##os.system("python statinit.py")
+    if os.system("python statinit.py -n") != 0:
+        tb = sys.exc_info()[2]
+        raise badstuffError('********bad stuff has happened*****').with_traceback(tb) ## From the docs
     doBuild()
 
     
