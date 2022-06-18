@@ -18,6 +18,7 @@ dfSmall = df.iloc[-75:]
 
 def getWeekDay():
     wInd = datetime.today().weekday()
+    print(f'Weekday: {daylist[wInd]}')
     return daylist[wInd]
 
 print(dfSmall)
