@@ -11,5 +11,5 @@ mkdir -p images
 curl -o datasets/us.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv
 
 curl -o datasets/us-counties-2022.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-2022.csv
-curl -o datasets/us-counties-2022.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv
 
+curl -o datasets/us-counties-recent.csv https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv
