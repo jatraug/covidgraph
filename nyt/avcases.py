@@ -10,8 +10,6 @@ import matplotlib.pyplot as plt
 ### grep Washington Co* | sort > avcases.txt
 
 Copied from avcases.ipynb
-
-
 '''
 
 
@@ -35,6 +33,7 @@ def getDatesAndCases(lines):
             #print(f'{matchObj[1]} { matchObj[2]}')
             dates.append(matchObj[1])
             cases.append(matchObj[2])
+            #print(f'{matchObj[1]}  -  {matchObj[2]}')   
 
     return dates,cases
 
