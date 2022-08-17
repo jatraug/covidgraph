@@ -4,6 +4,7 @@ import pandas as pd
 
 import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.dates as mdates
 import numpy as np
 import os
 import sys
@@ -148,12 +149,21 @@ class covGraph:
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label=f'cases by day in {statename} from {dates[0]} to {dates[-1]}')
         ax.plot(xlabels['ticks'], average, 'r', label='Covid cases in ' + statename + ' - fourteen day running average',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=30)
+        #plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
+
+
+        ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(), interval=2))
+        ax.xaxis.set_minor_locator(mdates.MonthLocator())
+        ax.xaxis_date()
+        fig.autofmt_xdate()
+
+
+        
         plt.legend()
         self.scale_y(plt)
         plt.tight_layout()
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=30)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'cases')
         fig.savefig('images/' + imgname)
@@ -183,12 +193,22 @@ class covGraph:
         xlabels = self.getxaxislabels(dates)
         ax.bar(xlabels['ticks'], nowdiffs, label=f'deaths per day in {statename} from {dates[0]} to {dates[-1]}')
         ax.plot(xlabels['ticks'], average, 'r', label='Covid deaths in ' + statename + ' - fourteen day running average',  linewidth=2.0)
-        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=45)
-        plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
+        plt.xticks(xlabels['ticks'], xlabels['labels'], rotation=30)
+
+        #plt.locator_params(axis='x', nbins=len(xlabels['labels'])/20)
+
+        ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(), interval=2))
+        ax.xaxis.set_minor_locator(mdates.MonthLocator())
+        ax.xaxis_date()
+        fig.autofmt_xdate()
+
+
+
+
         plt.legend()
         self.scale_y(plt)
         plt.tight_layout()
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=30)
         #before showing, save image
         imgname = self.getimagename(statename, dates, 'deaths')
         fig.savefig('images/' + imgname)
