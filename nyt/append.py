@@ -54,8 +54,14 @@ def concatDB():
     with open(countiesFinal, 'w') as final:
         with open(countiesFirst,'r') as cf:
             all = cf.read().split('\n')
+            goforit = True
             for line in all:
-                final.write(f'{line}\n')
+
+                if '2022-01-01' in line:
+                    goforit = False
+
+                if goforit:
+                    final.write(f'{line}\n')
             all_2022_Lines = openCounties2022File()
             for line2022 in all_2022_Lines:
                 if not 'date,county' in line2022:
